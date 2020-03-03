@@ -39,10 +39,12 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.use(new LocalStrategy({ inputEmail: 'email' },
-  function(inputEmail, password, done) {
+passport.use(new LocalStrategy({ 
+  usernameField: 'email',
+  passwordField: 'password' },
+  function(email, password, done) {
     
-    User.findOne({ where: {email: inputEmail} })
+    User.findOne({ where: {email} })
       .then(user => {
         if (!user) {
           return done(null, false, { message: 'Incorrect username.' });
