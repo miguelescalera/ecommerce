@@ -2,7 +2,6 @@ import React from 'react'
 import { Route, Redirect, Switch } from "react-router-dom";
 // import NavbarContainer from '../containers/NavbarContainer'
 // import FooterContainer from '../containers/FooterContainer'
-
 import PaginaPrincipalContainer from '../containers/PaginaPrincipalContainer'
 // import ProductsContainer from '../containers/ProductsContainer'
 // import ProductContainer from '../containers/ProductContainer'
