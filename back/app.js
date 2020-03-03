@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy
 const {db} = require("./models/index")
+const {User} = require("./models/index")
 const routes = require('./routes')
 const volleyball = require("volleyball")
 const path = require("path")
@@ -39,10 +40,18 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.use(new LocalStrategy({ inputEmail: 'email' },
-  function(inputEmail, password, done) {
+passport.use(new LocalStrategy({ 
+<<<<<<< HEAD
+  usernameField: 'email',
+  passwordField: 'password' },
+  function(email, password, done) {
     
-    User.findOne({ where: {email: inputEmail} })
+=======
+  usernameField: 'email', 
+  passwordField: 'password' },
+  function(email, password, done) {
+>>>>>>> 99dbeaf
+    User.findOne({ where: {email} })
       .then(user => {
         if (!user) {
           return done(null, false, { message: 'Incorrect username.' });
