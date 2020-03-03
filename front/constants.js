@@ -1,0 +1,3 @@
+ const FOUND_PRODUCTS = "FOUND_PRODUCTS"
+
+module.exports= {FOUND_PRODUCTS}
