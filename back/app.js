@@ -6,12 +6,19 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require("body-parser");
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy
-const sequelize = require("./models/index")
-const Routers= require("./routes/index")
-const productsRouters= Routers.Products
-const UsersRouters = Routers.Users
+const {sequelize} = require("./models/index")
 
+const productsRouters = require("./routes/products.js")
+const UsersRouters  = require("./routes/users.js")
 
+function isLogedIn(req, res, next) {
+    if (req.isAuthenticated()) {       
+      next();
+    } else {
+      res.send(false);
+    }
+  }
+  
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser())
 
@@ -53,13 +60,7 @@ passport.deserializeUser(function(id, done) {
         .then(user => done(null, user))
 });
 
-function isLogedIn(req, res, next) {
-  if (req.isAuthenticated()) {       
-    next();
-  } else {
-    res.redirect('/');
-  }
-}
+
 
 app.use("/products", productsRouters)
 app.use("/users", UsersRouters)
