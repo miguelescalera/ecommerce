@@ -6,4 +6,5 @@ const router = express.Router();
 router.use("/products", productRouter)
 router.use("/users", usersRouter)
 
+
 module.exports = router
