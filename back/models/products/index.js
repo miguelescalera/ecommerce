@@ -11,8 +11,10 @@ Product.init({
       }
     },
     price: {
+
         type: S.DECIMAL,
         allowNull: false
+
     },
     description: {
         type: S.TEXT
@@ -32,3 +34,5 @@ Product.init({
   sequelize: db,
   modelName: 'Product' 
 });
+
+module.exports = Product

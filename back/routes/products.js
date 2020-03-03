@@ -18,24 +18,28 @@ router.post("/",function(req,res, next){
     .catch(next)
 })
 
-router.get("/:id",function(req,res){
-    Product.findByPk(req.params.id)
-    .then(function(products){
-        res.json(products)
-    })
-    .catch(function(err){console.log(err)})
-})
 
 router.get("/search",function(req,res){
+    const name_query = req.query.name.split("20%").join(" ")
     Product.findAll(
                         {where:{
-                                name:req.body.name
+                                name: name_query
+
                             }
                         }
                     )
         .then(function(products){
-                res.json(products)
+                res.send(products)
         })
+
+})
+
+router.get("/:id",function(req,res){
+    Product.findByPk(req.params.id)
+    .then(function(products){
+        res.send(products)
+    })
+    .catch(function(err){console.log(err)})
 })
 
 module.exports= router

@@ -9,6 +9,10 @@ Order.init({
     },
     total: {
         type: S.DECIMAL
+    },
+    adress: {
+        type: S.TEXT
+
     }
 }, {
   sequelize: db,
