@@ -68,7 +68,6 @@ Order.associate = (models) => {
     })
 }
 
-
 module.exports = {
     db,
     Category,
