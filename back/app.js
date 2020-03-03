@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy
 const {db} = require("./models/index")
+const {User} = require("./models/index")
 const routes = require('./routes')
 const volleyball = require("volleyball")
 const path = require("path")
@@ -40,10 +41,16 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 passport.use(new LocalStrategy({ 
+<<<<<<< HEAD
   usernameField: 'email',
   passwordField: 'password' },
   function(email, password, done) {
     
+=======
+  usernameField: 'email', 
+  passwordField: 'password' },
+  function(email, password, done) {
+>>>>>>> 99dbeaf
     User.findOne({ where: {email} })
       .then(user => {
         if (!user) {
