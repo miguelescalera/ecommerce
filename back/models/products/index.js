@@ -1,4 +1,4 @@
-const db = require("../db")
+const db = require("../../db")
 const S  = require('sequelize');
 
 class Product extends S.Model {}
@@ -11,7 +11,7 @@ Product.init({
       }
     },
     price: {
-        type: S.NUMBER,
+        type: S.DECIMAL,
         allowNull: false
     },
     description: {
@@ -25,7 +25,7 @@ Product.init({
         default: 0
     },
     rating: {
-        type: S.NUMBER
+        type: S.DECIMAL
     }
 }, {
   

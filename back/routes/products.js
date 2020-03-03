@@ -2,20 +2,20 @@ const express = require('express');
 const router = express.Router();
 const{ Product }= require("../models")
 
-router.get("/",function(req,res){
+router.get("/",function(req,res,next){
     Product.findAll(req.body)
     .then(function(products){
         res.json(products)
     })
-    .catch(function(err){console.log(err)})
+    .catch(next)
 })
 
-router.post("/",function(req,res){
+router.post("/",function(req,res, next){
     Product.create(req.body)
     .then(function(products){
         res.json(products)
     })
-    .catch(function(err){console.log(err)})
+    .catch(next)
 })
 
 router.get("/:id",function(req,res){
@@ -26,10 +26,10 @@ router.get("/:id",function(req,res){
     .catch(function(err){console.log(err)})
 })
 
-router.get("/searchProducts",function(req,res){
+router.get("/search",function(req,res){
     Product.findAll(
                         {where:{
-                                name:req.query.name
+                                name:req.body.name
                             }
                         }
                     )

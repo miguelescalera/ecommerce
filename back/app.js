@@ -1,15 +1,14 @@
 const express = require("express")
 const app = express()
-
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const bodyParser = require("body-parser");
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy
-const {sequelize} = require("./models/index")
-
-const productsRouters = require("./routes/products.js")
-const UsersRouters  = require("./routes/users.js")
+const {db} = require("./models/index")
+const routes = require('./routes')
+const volleyball = require("volleyball")
+const path = require("path")
 
 function isLogedIn(req, res, next) {
     if (req.isAuthenticated()) {       
@@ -18,10 +17,19 @@ function isLogedIn(req, res, next) {
       res.send(false);
     }
   }
+
+//LOGGING MIDDLEWARE
+app.use(volleyball)
   
+//PARSER MIDDLEWARE
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json())
 app.use(cookieParser())
 
+//STATIC MIDDLEWARE
+app.use('/', express.static(path.join(__dirname, 'public')))
+
+/*******PASSPORT ********/
 app.use(session({ 
     secret: "bootcamp",
     resave: true,
@@ -30,7 +38,6 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
-
 
 passport.use(new LocalStrategy({ inputEmail: 'email' },
   function(inputEmail, password, done) {
@@ -49,7 +56,7 @@ passport.use(new LocalStrategy({ inputEmail: 'email' },
   }
 ));
 
-
+//Serialize 
 passport.serializeUser(function(user, done) {
     done(null, user.id);
 });
@@ -60,16 +67,18 @@ passport.deserializeUser(function(id, done) {
         .then(user => done(null, user))
 });
 
+//Rutas de back
+app.use("/", routes)
 
+//servimos el index
+app.use("/*", function(req, res, next){
+  res.sendFile(__dirname+"/public/index.html")
+})
 
-app.use("/products", productsRouters)
-app.use("/users", UsersRouters)
-
-
-sequelize.sync().then(function(){
+db.sync({force: false}).then(function(){
     console.log("database ready")
         app.listen("3000",function(){
-            console.log("server on port 3000")
+            console.log("Server on port 3000")
         })
     })
     

@@ -1,56 +1,82 @@
 const Category = require('./categories')
-const Order_Product = require('./products')
-const Order = require('./order')
+const Order = require('./orders')
 const Product = require('./products')
-const Review = require('./review')
-const User = require('./user')
+const Review = require('./reviews')
+const User = require('./users')
+const db = require("../db")
+const Order_Product = require('./orderproducts')
 
 //MANY TO MANY RELATION BETWEEN PRODUCT AND CATEGORY
-Category.belongsToMany(Product, {
+Category.associate = (models) => {
+Category.belongsToMany(models.Product, {
     through: "Product_Category"
 })
+}
 
-Product.belongsToMany(Category, {
-    through: "Product_Category"
-})
+Product.associate = (models) => {
+    Product.belongsToMany(models.Category, {
+        through: "Product_Category"
+    })
+}
 
 //ONE TO MANY RELATION BETWEEN USERS AND REVIEW
-Review.belongsTo(User)
-User.hasMany(Review)
+Review.associate = (models) => {
+    Review.belongsTo(models.User)
+}
+
+User.associate = (models) => {
+    User.hasMany(models.Review)
+}
 
 //ONE TO MANY RELATION BETWEEN PRODUCTS AND REVIEW
-Review.belongsTo(Product)
-Product.hasMany(Review)
+
+Review.associate = (models) => {
+    Review.belongsTo(models.Product)
+}
+
+Product.associate = (models) => {
+    Product.hasMany(models.Review)
+}
 
 //ONE TO MANY RELATION BETWEEN USERS AND ORDER
-Order.belongsTo(User)
-User.hasMany(Order)
+
+Order.associate = (models) => {
+    Order.belongsTo(models.User)
+}
+
+User.associate = (models) => {
+    User.hasMany(models.Order)
+}
 
 //MANY TO MANY RELATION BETWEEN PRODUCT AND ORDER
 
-Product.belongsToMany(Order, { 
-    through: {model: Order_Product},
-    as: "orders",
-    foreignKey: "orderId",
-    otherKey: "productId"
-})
+Product.associate = (models) => {
+    Product.belongsToMany(models.sOrder, { 
+        through: {model: models.Order_Product},
+        as: "orders",
+        foreignKey: "orderId",
+        otherKey: "productId"
+    })
+}
 
-Order.belongsToMany(Product, { 
-    through: {model: Order_Product},
-    as: "product",
-    foreignKey: "productId",
-    otherKey: "orderId"
-})
+Order.associate = (models) => {
+    Order.belongsToMany(models.Product, { 
+        through: {model: Order_Product},
+        as: "product",
+        foreignKey: "productId",
+        otherKey: "orderId"
+    })
+}
 
 
 module.exports = {
     db,
     Category,
-    Order_Product,
     Order,
     Product,
     Review,
-    User
+    User,
+    Order_Product,
 }
 
 

@@ -1,4 +1,4 @@
-const db = require("../db")
+const db = require("../../db")
 const S  = require('sequelize');
 
 class Order extends S.Model {}
@@ -8,7 +8,7 @@ Order.init({
     type: S.STRING
     },
     total: {
-        type: S.NUMBER
+        type: S.DECIMAL
     }
 }, {
   sequelize: db,
