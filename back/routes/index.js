@@ -3,7 +3,7 @@ const usersRouter = require("./users")
 const express = require('express');
 const router = express.Router();
 
-router.use("/product", productRouter)
-router.use("/user", usersRouter)
+router.use("/products", productRouter)
+router.use("/users", usersRouter)
 
 module.exports = router
