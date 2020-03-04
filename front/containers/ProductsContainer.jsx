@@ -9,7 +9,7 @@ constructor(){
         render(){
             <div>
                 <h3>resultado de la busqueda</h3>
-                <TarjetaProducto foundProducts={this.props.foundProducts}/>
+                <Products products={this.props.foundProducts}/>
             </div>
         }
 }
