@@ -14,18 +14,18 @@ export default ()=>{
 
     return(
         <div id='main'>
-             <NavbarContainer/> 
+            <NavbarContainer/> 
             <Switch>
             <Route path="/home" exact component={PaginaPrincipalContainer} />
             <Route path="/products" exact component={ProductsContainer} />
-             {/* {/*<Route path="/product/:id" exact component={ProductContainer} /> */}
-             <Route path="users/register" exact component={RegisterContainer} />
+            <Route path="/products/:id" exact component={ProductsContainer} />
+            <Route path="/users/register" component={RegisterContainer} />
              {/* <Route path="/cart" exact component={CarritoContainer} />
              <Route path="/checkout" exact component={CheckoutContainer} />
-             <Route path="/user/:id" exact component={UserContainer} />  */}
+             <Route path="/users/:id" exact component={UserContainer} />  */}
              
 
-            <Redirect from="/" to="/home" />
+            {/* <Redirect from="/" to="/home" /> */}
             </Switch>
             {/* <FooterContainer/> */}
 

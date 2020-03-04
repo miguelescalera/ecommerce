@@ -33,7 +33,7 @@ User.init({
     },
     status: {
         type: S.INTEGER,
-        default: 1
+        defaultValue: 1
     },   
     salt: {
     type: S.STRING, 
