@@ -3,60 +3,29 @@ import { connect } from "react-redux"
 import Card from 'react-bootstrap/Card'
 import {Link} from "react-router-dom"
 import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-
-//ESTE ES INFORMACION DE PRUEBA TODO ESTO DEBERIA VENIR DEL STORE
-const foundProducts = [
-    {name:"este es un vinito",description:"alto vinito, super rico y barato", imgUrl:"https://statics.dinoonline.com.ar/imagenes/full_600x600_ma/3060542_f.jpg"},
-    {name:"este es un vinito",description:"alto vinito, super rico y barato", imgUrl:"https://statics.dinoonline.com.ar/imagenes/full_600x600_ma/3060542_f.jpg"},
-    {name:"este es un vinito",description:"alto vinito, super rico y barato", imgUrl:"https://statics.dinoonline.com.ar/imagenes/full_600x600_ma/3060542_f.jpg"},
-    {name:"este es un vinito",description:"alto vinito, super rico y barato", imgUrl:"https://statics.dinoonline.com.ar/imagenes/full_600x600_ma/3060542_f.jpg"},
-    {name:"este es un vinito",description:"alto vinito, super rico y barato", imgUrl:"https://statics.dinoonline.com.ar/imagenes/full_600x600_ma/3060542_f.jpg"},
-    {name:"este es un vinito",description:"alto vinito, super rico y barato", imgUrl:"https://statics.dinoonline.com.ar/imagenes/full_600x600_ma/3060542_f.jpg"},
-    {name:"este es un vinito",description:"alto vinito, super rico y barato", imgUrl:"https://statics.dinoonline.com.ar/imagenes/full_600x600_ma/3060542_f.jpg"},
-    {name:"este es un vinito",description:"alto vinito, super rico y barato", imgUrl:"https://statics.dinoonline.com.ar/imagenes/full_600x600_ma/3060542_f.jpg"},
-]
-////////////////////////////////////////////////////////////////////////////////
-let products = foundProducts.map(function(prd){
-    return(  
-                <Col sm={4}>
-                    <div key={prd.id} >
-                        <Card>
-                            <Link to ={`/product/${prd.id}`}>
-                                <Card.Img variant="top" src={prd.imgUrl} />
-                                <Card.Body>
-                                    <Card.Title>{prd.name}</Card.Title>
-                                    <Card.Text>
-                                        {prd.description}
-                                    </Card.Text>
-                                </Card.Body>
-                            </Link>
-                        </Card>
-                    </div>
-                </Col>
-
-           )
-       })
-           
-
+import Products from '../components/Products'
+import {fetchSearchProducts, getAllProducts} from "../actions/searchProductsActions"
 
 
 class ProductsContainer extends React.Component{
 constructor(){
     super()
 }
+componentDidMount(){
+    if(this.props.input) this.props.fetchSearchProducts(this.props.input)
+    else this.props.getAllProducts()
+}
+componentDidUpdate(prevProps){
+    if (prevProps.input !== this.props.input) {
+    this.props.fetchSearchProducts(this.props.input);
+    }
+}
         render(){
             
             return(
-
             <div>
-                
-                <Container>
-                <Row>
-                   {products}
-                </Row>
-                </Container>
+                <h3>Resultado de la busqueda</h3>
+                <Products products={this.props.foundProducts}/>
             </div>
                 )
 
@@ -66,8 +35,16 @@ constructor(){
 
 const mapStateToProps = function (state) {
     return {
-        foundProducts: state.foundProducts,
-        
+        foundProducts: state.product.list,
+        input: state.input.value
     };
 }
-export default connect(mapStateToProps)(ProductsContainer);
+
+const mapDispatchToProps = function (dispatch) {
+    return {
+        fetchSearchProducts: input => dispatch(fetchSearchProducts(input)),
+        getAllProducts: () => dispatch(getAllProducts())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductsContainer);

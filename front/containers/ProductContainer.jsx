@@ -19,7 +19,7 @@ class ProductContainer extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    selectedProduct: state.selectedProduct.selectedProduct
+    selectedProduct: state.product.selectedProduct
   };
 };
 

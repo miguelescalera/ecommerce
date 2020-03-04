@@ -52,21 +52,28 @@ const Navbars = function ({ handleSubmit, handleChange }) {
             {/* PRIMERA ROW DE NAVBAR CON LOGO/BUSQUEDA/CARRITO Y USER */}
             <Row className="justify-content-md-center" style={upRowNav}>
                 <Col md="auto">
+                <Link to="/home"> 
                     <Image width={120} height={120} src={"https://i.imgur.com/mB0e6a4.png"} />
+                </Link>
                 </Col>
                 <Col md="auto">
-                    <Form onSubmit={handleSubmit} inline>   {/*aca esta el handle submit*/}
+                    <Form inline>   {/*aca esta el handle submit*/}
                         <FormControl onChange={handleChange} type="text" placeholder="Search" className="mr-sm-2" />{/*el formulario no esta siendo controlado del todo, igual deberia funcionar*/}
-                        <Button variant="dark">Search</Button>
+                        <Button variant="dark" onClick={handleSubmit}>Search</Button>
                     </Form>
                 </Col>
                 <Col md="auto">
                     <Link to="users/register">
-                        <Nav.Link href="#Carrito" style={fontNavBar}>Carrito</Nav.Link>
+                        <Nav.Link style={fontNavBar}>Carrito</Nav.Link>
                     </Link>
                 </Col>
                 <Col md="auto">
-                    <Link to="users/register">
+                    <Link to="/users/login">
+                        <Nav.Link style={fontNavBar}>Login</Nav.Link>
+                    </Link>
+                </Col>
+                <Col md="auto">
+                    <Link to="/users/register">
                         <Nav.Link href="#usuario" style={fontNavBar}>User</Nav.Link>
                     </Link>
                 </Col>

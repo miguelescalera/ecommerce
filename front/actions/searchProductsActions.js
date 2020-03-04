@@ -6,17 +6,21 @@ const SearchProducts = foundProducts => ({
     foundProducts,
   }); 
 
-  const fetchSearchProducts = function(nameProduct){
+export const getAllProducts = () => dispatch => {
+      return axios.get(`/products`)
+          .then((res) => res.data)
+         .then((result) => {
+          dispatch(SearchProducts(result))
+        })
+  }
+
+export const fetchSearchProducts = function(nameProduct){
      let newName = nameProduct.split(" ").join("20%")
     return function(dispatch){
-        return axios.post(`products/search?name=${newName}`)
-            .then((response) => {
-            return response.json()
-          })
+        return axios.get(`/products?name=${newName}`)
+            .then((res) => res.data)
            .then((result) => {
             dispatch(SearchProducts(result))
           })
-
     }
   }
-export default fetchSearchProducts

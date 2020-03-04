@@ -1,7 +1,6 @@
 import React from "react";
 
 export default ({ selectedProduct }) => {
-  console.log(selectedProduct);
   return (
     <div key={selectedProduct.id}>
       <h1>{selectedProduct.name}</h1>

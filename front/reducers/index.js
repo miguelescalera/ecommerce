@@ -1,8 +1,10 @@
 import { combineReducers } from "redux";
-import foundProduct from "./searchProductsReducer";
-import selectedProduct from "./selectProduct";
+import productReducer from "./productReducer";
+import userReducer from './userReducer'
+import searchReducer from "./searchReducer"
 
 export default combineReducers({
-  foundProduct: foundProduct,
-  selectedProduct: selectedProduct
+  product: productReducer,
+  user: userReducer,
+  input: searchReducer
 });

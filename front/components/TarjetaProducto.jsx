@@ -1,49 +1,27 @@
 import React from "react"
-<<<<<<< HEAD
+import {Link} from "react-router-dom"
 import Card from 'react-bootstrap/Card'
-import { privateDecrypt } from "crypto";
-var Rating = require('react-rating');
+import Rating from 'react-rating'
+import Button from 'react-bootstrap/Button'
 
-
-const TarjetaProducto = function ({ foundProducts }) {
-    let products = foundProducts.map(function (prd) {
-        <div key={prd.id} >
-            <Card style={{ width: '18rem' }}>
-                <Card.Img variant="top" src={prd.imgUrl} />
-                <Card.Body>
-                    <Card.Title>{prd.name}</Card.Title>
-                    <Card.Text> {prd.description}</Card.Text>
-                    <Rating value={prd.rating} readOnly />
-                    <Card.Title>{prd.price}</Card.Title>
-                    <Button variant="dark">Agregar</Button>
-
-                </Card.Body>
-            </Card>
-        </div>
-    })
-
-
-
-    return (
-        <div>
-            {products}
-        </div>
-=======
-
-
-const TarjetaProducto=function(/*{foundProducts}*/){
-
-  
-
-
-   
-                        
-
-   
+const TarjetaProducto=function({product}){
     return(
-          
->>>>>>> dbbb9495792bf0ad11d7da91608736d468d9d304
-    )
-}
+            <Link to ={`/products/${product.id}`}>
+                <div key={product.id} >
+                    <Card style={{ width: '18rem' }}>
+                            <Card.Img variant="top" src={product.imgUrl} />
+                            <Card.Body>
+                                <Card.Title>{product.name}</Card.Title>
+                                <Card.Text>
+                                    {product.description}
+                                </Card.Text>
+                                <Rating value={product.rating} readOnly />
+                                <Card.Title>{product.price}</Card.Title>
+                                <Button variant="dark">Agregar</Button>
+                            </Card.Body>
+                    </Card>
+                </div>
+            </Link>
+    )}
 
 export default TarjetaProducto
