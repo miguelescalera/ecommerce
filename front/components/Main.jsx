@@ -19,13 +19,13 @@ export default ()=>{
             <Route path="/home" exact component={PaginaPrincipalContainer} />
             <Route path="/products" exact component={ProductsContainer} />
              {/* {/*<Route path="/product/:id" exact component={ProductContainer} /> */}
-             <Route path="users/register" exact component={RegisterContainer} />
+             <Route path="/users/register" exact component={RegisterContainer} />
              {/* <Route path="/cart" exact component={CarritoContainer} />
              <Route path="/checkout" exact component={CheckoutContainer} />
              <Route path="/user/:id" exact component={UserContainer} />  */}
              
 
-            <Redirect from="/" to="/home" />
+            {/* <Redirect from="/" to="/home" /> */}
             </Switch>
             {/* <FooterContainer/> */}
 

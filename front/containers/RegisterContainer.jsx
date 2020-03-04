@@ -1,34 +1,53 @@
 import React from "react"
 import Register from "../components/Register"
-import store from '../store'
+import {newUser} from "../actions/users"
+import { connect } from 'react-redux'
+
+
 const mapDispatchToProps= (dispatch, state)=>{
-    return{newUser: data => dispatch(newUser(userData))}
+    return{newUser: data => dispatch(newUser(data))}
 }
 const mapStateToProps= function(dispatch){
+    return{}
 }
-export default class Registercontainer extends React.Component {
+
+class RegisterContainer extends React.Component {
     constructor(){
         super()
         this.state={
-            FirstName:"",
-            LastName:"",
-            Email:"",
-            Password:"",        
+            firstName:"",
+            lastName:"",
+            email:"",
+            password:""       
         }
-        this.handlerChange=this.handlerChange.bind(this)
+        this.handleChange= this.handleChange.bind(this)
+        this.handleSubmit= this.handleSubmit.bind(this)
     }
-handlerChange(e){
-    this.setState({[e.target.name]:e.target.value})    
+handleChange(e){
+    let value = e.target.value
+    let key = e.target.name
+    this.setState({[key]: value})
 }
-handlerSubmit(e){
-    e.preventDefault(),
+
+handleSubmit(e){
+    e.preventDefault();
+    console.log(this.state)
     this.props.newUser(this.state)
+    // this.setState({
+    //     firstName:"",
+    //     lastName:"",
+    //     email:"",
+    //     password:""
+    // })
+    // this.props.history.push("/users/login")
 }
     render(){
         return(
             <div>
-                <Register handlerChange={this.handlerChange}/>
+                <Register handleChange={this.handleChange} handleSubmit={this.handleSubmit} input={this.state}/>
             </div>
         )
     }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterContainer)

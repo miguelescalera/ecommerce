@@ -125,6 +125,29 @@ var fetchSearchProducts = function fetchSearchProducts(nameProduct) {
 
 /***/ }),
 
+/***/ "./actions/users.js":
+/*!**************************!*\
+  !*** ./actions/users.js ***!
+  \**************************/
+/*! exports provided: newUser */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "newUser", function() { return newUser; });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+var newUser = function newUser(userData) {
+  return function (dispatch) {
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/users/register', userData).then(function (res) {
+      console.log(res);
+    });
+  };
+};
+
+/***/ }),
+
 /***/ "./components/Main.jsx":
 /*!*****************************!*\
   !*** ./components/Main.jsx ***!
@@ -168,12 +191,9 @@ __webpack_require__.r(__webpack_exports__);
     exact: true,
     component: _containers_ProductsContainer__WEBPACK_IMPORTED_MODULE_4__["default"]
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
-    path: "users/register",
+    path: "/users/register",
     exact: true,
     component: _containers_RegisterContainer__WEBPACK_IMPORTED_MODULE_6__["default"]
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
-    from: "/",
-    to: "/home"
   })));
 });
 
@@ -284,33 +304,32 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = (function (_ref) {
-  var handlerchange = _ref.handlerchange;
+  var handleChange = _ref.handleChange,
+      handleSubmit = _ref.handleSubmit,
+      input = _ref.input;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    onSubmit: handlerSubmit
+    onSubmit: handleSubmit
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_1__["default"].Group, {
     controlId: "formBasicFirstName"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_1__["default"].Label, null, "First Name"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_1__["default"].Control, {
     type: "text",
     placeholder: "First Name",
-    onChange: function onChange(e) {
-      handlerchange(e);
-    }
+    onChange: handleChange,
+    name: "firstName"
   })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_1__["default"].Group, {
     controlId: "formBasicLastName"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_1__["default"].Label, null, "Last Name"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_1__["default"].Control, {
     type: "text",
     placeholder: "Last Name",
-    onChange: function onChange(e) {
-      handlerchange(e);
-    }
+    onChange: handleChange,
+    name: "lastName"
   })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_1__["default"].Group, {
     controlId: "formBasicEmail"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_1__["default"].Label, null, "Email address"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_1__["default"].Control, {
     type: "email",
     placeholder: "Enter email",
-    onChange: function onChange(e) {
-      handlerchange(e);
-    }
+    onChange: handleChange,
+    name: "email"
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_1__["default"].Text, {
     className: "text-muted"
   }, "We'll never share your email with anyone else.")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_1__["default"].Group, {
@@ -318,9 +337,8 @@ __webpack_require__.r(__webpack_exports__);
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_1__["default"].Label, null, "Password"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_1__["default"].Control, {
     type: "password",
     placeholder: "Password",
-    onChange: function onChange(e) {
-      handlerchange(e);
-    }
+    onChange: handleChange,
+    name: "password"
   })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_2__["default"], {
     variant: "primary",
     type: "submit"
@@ -631,11 +649,11 @@ var mapStateToProps = function mapStateToProps(state) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Registercontainer; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_Register__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Register */ "./components/Register.jsx");
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store */ "./store.js");
+/* harmony import */ var _actions_users__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/users */ "./actions/users.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -660,68 +678,74 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var mapDispatchToProps = function mapDispatchToProps(dispatch, state) {
   return {
-    newUser: function (_newUser) {
-      function newUser(_x) {
-        return _newUser.apply(this, arguments);
-      }
-
-      newUser.toString = function () {
-        return _newUser.toString();
-      };
-
-      return newUser;
-    }(function (data) {
-      return dispatch(newUser(userData));
-    })
+    newUser: function newUser(data) {
+      return dispatch(Object(_actions_users__WEBPACK_IMPORTED_MODULE_2__["newUser"])(data));
+    }
   };
 };
 
-var mapStateToProps = function mapStateToProps(dispatch) {};
+var mapStateToProps = function mapStateToProps(dispatch) {
+  return {};
+};
 
-var Registercontainer = /*#__PURE__*/function (_React$Component) {
-  _inherits(Registercontainer, _React$Component);
+var RegisterContainer = /*#__PURE__*/function (_React$Component) {
+  _inherits(RegisterContainer, _React$Component);
 
-  function Registercontainer() {
+  function RegisterContainer() {
     var _this;
 
-    _classCallCheck(this, Registercontainer);
+    _classCallCheck(this, RegisterContainer);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Registercontainer).call(this));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(RegisterContainer).call(this));
     _this.state = {
-      FirstName: "",
-      LastName: "",
-      Email: "",
-      Password: ""
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: ""
     };
-    _this.handlerChange = _this.handlerChange.bind(_assertThisInitialized(_this));
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     return _this;
   }
 
-  _createClass(Registercontainer, [{
-    key: "handlerChange",
-    value: function handlerChange(e) {
-      this.setState(_defineProperty({}, e.target.name, e.target.value));
+  _createClass(RegisterContainer, [{
+    key: "handleChange",
+    value: function handleChange(e) {
+      var value = e.target.value;
+      var key = e.target.name;
+      this.setState(_defineProperty({}, key, value));
     }
   }, {
-    key: "handlerSubmit",
-    value: function handlerSubmit(e) {
-      e.preventDefault(), this.props.newUser(this.state);
+    key: "handleSubmit",
+    value: function handleSubmit(e) {
+      e.preventDefault();
+      console.log(this.state);
+      this.props.newUser(this.state); // this.setState({
+      //     firstName:"",
+      //     lastName:"",
+      //     email:"",
+      //     password:""
+      // })
+      // this.props.history.push("/users/login")
     }
   }, {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Register__WEBPACK_IMPORTED_MODULE_1__["default"], {
-        handlerChange: this.handlerChange
+        handleChange: this.handleChange,
+        handleSubmit: this.handleSubmit,
+        input: this.state
       }));
     }
   }]);
 
-  return Registercontainer;
+  return RegisterContainer;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["connect"])(mapStateToProps, mapDispatchToProps)(RegisterContainer));
 
 /***/ }),
 
