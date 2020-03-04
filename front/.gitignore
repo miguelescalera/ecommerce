@@ -1,2 +1,8 @@
+<<<<<<< HEAD
+node_modules/
+/public/bundle.js
+/public/bundle.js.map
+=======
 node_modules
 bundle.js
+>>>>>>> dbbb9495792bf0ad11d7da91608736d468d9d304

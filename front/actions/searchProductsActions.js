@@ -13,8 +13,8 @@ const SearchProducts = foundProducts => ({
             .then((response) => {
             return response.json()
           })
-           .then((movie) => {
-            dispatch(SearchProducts(movie))
+           .then((result) => {
+            dispatch(SearchProducts(result))
           })
 
     }
