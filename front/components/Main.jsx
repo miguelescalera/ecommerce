@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Redirect, Switch } from "react-router-dom";
+import { Route, Redirect, Switch, Link } from "react-router-dom";
  import NavbarContainer from '../containers/NavbarContainer'
 // import FooterContainer from '../containers/FooterContainer'
 import PaginaPrincipalContainer from '../containers/PaginaPrincipalContainer'
@@ -14,17 +14,16 @@ export default ()=>{
 
     return(
         <div id='main'>
-            <p> Hola React</p>
              <NavbarContainer/> 
             <Switch>
             <Route path="/home" exact component={PaginaPrincipalContainer} />
             <Route path="/products" exact component={ProductsContainer} />
-             {/*<Route path="/product/:id" exact component={ProductContainer} />
-             <Route path="/register" exact component={RegisterContainer} />
-             <Route path="/cart" exact component={CarritoContainer} />
+             {/* {/*<Route path="/product/:id" exact component={ProductContainer} /> */}
+             <Route path="users/register" exact component={RegisterContainer} />
+             {/* <Route path="/cart" exact component={CarritoContainer} />
              <Route path="/checkout" exact component={CheckoutContainer} />
-             <Route path="/user/:id" exact component={UserContainer} /> 
-             */}
+             <Route path="/user/:id" exact component={UserContainer} />  */}
+             
 
             <Redirect from="/" to="/home" />
             </Switch>
