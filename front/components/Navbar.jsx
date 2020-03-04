@@ -2,11 +2,12 @@ import React from "react"
 import Navbar from 'react-bootstrap/Navbar'
 
 
-const Navbar=function({handleSubmit,handleChange}){
+const Navbars=function({handleSubmit,handleChange}){
    
 
     return(
            <div>
+               <h1>aca deberia ir el nabvar</h1>
               <Navbar bg="primary" variant="dark">
                 <Navbar.Brand href="#home">Navbar</Navbar.Brand>
                 <Nav className="mr-auto">

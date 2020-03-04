@@ -1,6 +1,7 @@
 import React from "react"
-import Nabvar from "../components/Navbar"
+import Navbars from "../components/Navbar"
 import fetchSearchProducts from "../actions/searchProductsActions"
+import { connect } from "react-redux"
 
 class NavbarContainer extends React.Component{
     constructor(props){
@@ -10,25 +11,28 @@ class NavbarContainer extends React.Component{
         }
         this.handleSubmit= this.handleSubmit.bind(this)
         this.handleChange= this.handleChange.bind(this)
+        console.log(this.props);
     }
-
     handleChange(event){
-        this.setState={
-            input:event.target.value
-        }
+        this.setState({ input:event.target.value})
+                       
     }
     handleSubmit(event){
         event.preventDefault()
-       this.props.getProducts(this.state.input) 
-       this.props.redirect.history.push('/products')// esta linea de cod. redirecciona al usuario cuando haga submit al formulario
+        this.props.getProducts(this.state.input) 
+        this.props.redirect.history.push('/products')// esta linea de cod. redirecciona al usuario cuando haga submit al formulario
         
     }
+    
+    
+    render(){
+        return(
 
-
-render(){
-    <div>
-        <Nabvar handleSubmit={this.handleSubmit} handleChange={this.handleChange} />
-    </div>
+            <div>
+                <h1>aca debria estar el navbar</h1>
+                <Navbars handleSubmit={this.handleSubmit} handleChange={this.handleChange} />
+            </div>
+        )
 }
 
 }
