@@ -2,16 +2,17 @@ import React from "react"
 import Navbars from "../components/Navbar"
 import fetchSearchProducts from "../actions/searchProductsActions"
 import { connect } from "react-redux"
+import {setInput} from "../actions/search"
+import {withRouter} from "react-router-dom"
 
 class NavbarContainer extends React.Component{
     constructor(props){
         super(props)
         this.state={
-            imput:""
+            input:""
         }
         this.handleSubmit= this.handleSubmit.bind(this)
         this.handleChange= this.handleChange.bind(this)
-        console.log(this.props);
     }
     handleChange(event){
         this.setState({ input:event.target.value})
@@ -19,9 +20,8 @@ class NavbarContainer extends React.Component{
     }
     handleSubmit(event){
         event.preventDefault()
-        this.props.getProducts(this.state.input) 
-        this.props.redirect.history.push('/products')// esta linea de cod. redirecciona al usuario cuando haga submit al formulario
-        
+        this.props.setInput(this.state.input) 
+        this.props.history.push('/products')// esta linea de cod. redirecciona al usuario cuando haga submit al formulario    
     }
     
     
@@ -46,12 +46,11 @@ const mapStateToProps = function (state) {
 const mapDispatchToProps = (dispatch, ownProps) => {
     
     return {
-        getProducts: (product) => dispatch(fetchSearchProducts(product))
+        setInput: (input) => dispatch(setInput(input))
     }
 }
         
-    
 
-export default connect(mapStateToProps,mapDispatchToProps)(NavbarContainer);
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(NavbarContainer));
 
 

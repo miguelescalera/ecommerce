@@ -1,23 +1,50 @@
 import React from "react"
 import { connect } from "react-redux"
-import TarjetaProducto from "../components/TarjetaProducto"
+import Card from 'react-bootstrap/Card'
+import {Link} from "react-router-dom"
+import Container from 'react-bootstrap/Container'
+import Products from '../components/Products'
+import {fetchSearchProducts, getAllProducts} from "../actions/searchProductsActions"
 
-class ProductConatainer extends React.Component{
+
+class ProductsContainer extends React.Component{
 constructor(){
     super()
 }
+componentDidMount(){
+    if(this.props.input) this.props.fetchSearchProducts(this.props.input)
+    else this.props.getAllProducts()
+}
+componentDidUpdate(prevProps){
+    if (prevProps.input !== this.props.input) {
+    this.props.fetchSearchProducts(this.props.input);
+    }
+}
         render(){
+            
+            return(
             <div>
-                <h3>resultado de la busqueda</h3>
+                <h3>Resultado de la busqueda</h3>
                 <Products products={this.props.foundProducts}/>
             </div>
+                )
+
+            }
         }
-}
+
 
 const mapStateToProps = function (state) {
     return {
-        foundProducts: state.foundProducts,
-        
+        foundProducts: state.product.list,
+        input: state.input.value
     };
 }
-export default connect(mapStateToProps)(ProductConatainer);
+
+const mapDispatchToProps = function (dispatch) {
+    return {
+        fetchSearchProducts: input => dispatch(fetchSearchProducts(input)),
+        getAllProducts: () => dispatch(getAllProducts())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductsContainer);

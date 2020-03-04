@@ -1,8 +1,8 @@
-const Sequelize = require("sequelize")
+const Sequelize = require("sequelize");
 
 const db = new Sequelize("postgres://localhost:5432/winenot", {
-    logging:false,
-    dialect: "postgres"
-})
+  logging: false,
+  dialect: "postgres"
+});
 
-module.exports = db
+module.exports = db;

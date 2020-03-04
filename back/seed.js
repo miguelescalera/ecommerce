@@ -38,7 +38,7 @@ const vinos = [
       "Te invitamos a disfrutar de los aires frescos, aromas florales y frutados, colores intensos y sensaciones únicas de la Patagonia. Una experiencia en donde el ocio, se convierta en ese momento de encuentro con tu yo interno",
     imgUrl:
       "https://tonelprivado.vteximg.com.br/arquivos/ids/183026-445-445/237004.jpg?v=637081484892770000"
-  })(
+  }),
     (vino4 = {
       name: "Hey Malbec",
       price: 500,
@@ -47,7 +47,6 @@ const vinos = [
       imgUrl:
         "https://tonelprivado.vteximg.com.br/arquivos/ids/183278-445-445/catena_zapata_nuevo.jpg?v=637158997628700000"
     })
-  )
 ];
 
 vinos.map(e => addWines(e));

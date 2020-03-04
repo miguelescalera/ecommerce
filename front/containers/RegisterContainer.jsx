@@ -31,7 +31,6 @@ handleChange(e){
 
 handleSubmit(e){
     e.preventDefault();
-    console.log(this.state)
     this.props.newUser(this.state)
     // this.setState({
     //     firstName:"",
