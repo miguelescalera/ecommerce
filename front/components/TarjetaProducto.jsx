@@ -22,8 +22,6 @@ const TarjetaProducto=function({product}){
                     </Card>
                 </div>
             </Link>
-    )
-            
-}
+    )}
 
 export default TarjetaProducto
