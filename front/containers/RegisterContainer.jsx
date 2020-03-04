@@ -21,8 +21,8 @@ handlerChange(e){
     this.setState({[e.target.name]:e.target.value})    
 }
 handlerSubmit(e){
-    e.preventDefault(),
-    this.props.newUser(this.state)
+    // e.preventDefault(),
+    // this.props.newUser(this.state)
 }
     render(){
         return(
