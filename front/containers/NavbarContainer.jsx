@@ -29,7 +29,6 @@ class NavbarContainer extends React.Component{
         return(
 
             <div>
-                <h1>aca debria estar el navbar</h1>
                 <Navbars handleSubmit={this.handleSubmit} handleChange={this.handleChange} />
             </div>
         )

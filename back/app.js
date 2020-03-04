@@ -41,16 +41,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 passport.use(new LocalStrategy({ 
-<<<<<<< HEAD
-  usernameField: 'email',
-  passwordField: 'password' },
-  function(email, password, done) {
-    
-=======
   usernameField: 'email', 
   passwordField: 'password' },
   function(email, password, done) {
->>>>>>> 99dbeaf
     User.findOne({ where: {email} })
       .then(user => {
         if (!user) {
