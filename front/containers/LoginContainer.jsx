@@ -30,6 +30,7 @@ handlerChange(e){
 handlerSubmit(e){
     e.preventDefault()
     this.props.loginUser(this.state)
+    this.props.history.push("/products")
 }
 
     

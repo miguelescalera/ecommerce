@@ -37,12 +37,7 @@ handleSubmit(e){
     localStorage.setItem('email', this.state.email)
     localStorage.setItem('password', this.state.password)
     this.props.history.push("/users/login")
-    // this.setState({
-    //     firstName:"",
-    //     lastName:"",
-    //     email:"",
-    //     password:""
-    // })
+   
 }
     render(){
         return(
