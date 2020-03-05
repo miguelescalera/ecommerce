@@ -87,7 +87,7 @@ const Navbars = function({ handleSubmit, handleChange }) {
         <Col md="auto">
           <Nav.Link href="#usuario" style={fontNavBar}>
             {" "}
-            <Link to="/users/register"> User </Link>{" "}
+            <Link to="/users/register"> Register </Link>{" "}
           </Nav.Link>
         </Col>
       </Row>
