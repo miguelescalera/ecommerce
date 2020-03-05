@@ -8,6 +8,6 @@ const receiveProductSelected = product => ({
 
 export const fetchProduct = id => dispatch =>
   axios
-    .get(`/products/${id}`)
+    .get(`/api/products/${id}`)
     .then(res => res.data)
     .then(product => dispatch(receiveProductSelected(product)));
