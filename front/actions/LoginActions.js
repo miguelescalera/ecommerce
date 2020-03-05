@@ -6,9 +6,11 @@ const addLogin = user => ({
   user
 });
 
-export default loginUser = user => dispatch =>
+const loginUser = user => dispatch =>
   axios
     .post("/api/users/login", { email: user.email, password: user.password })
     .then(user => {
       dispatch(addLogin(user.data));
     });
+
+export default loginUser;

@@ -109,7 +109,7 @@ var addLogin = function addLogin(user) {
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (loginUser = function loginUser(user) {
+var loginUser = function loginUser(user) {
   return function (dispatch) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/users/login", {
       email: user.email,
@@ -118,7 +118,9 @@ var addLogin = function addLogin(user) {
       dispatch(addLogin(user.data));
     });
   };
-});
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (loginUser);
 
 /***/ }),
 
