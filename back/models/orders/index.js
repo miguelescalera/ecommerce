@@ -1,22 +1,31 @@
-const db = require("../../db")
-const S  = require('sequelize');
+const db = require("../../db");
+const S = require("sequelize");
 
 class Order extends S.Model {}
 
-Order.init({ 
+Order.init(
+  {
     status: {
-    type: S.STRING
+      type: S.STRING
     },
-    total: {
-        type: S.DECIMAL
+    subTotal: {
+      type: S.DECIMAL
     },
     adress: {
-        type: S.TEXT
-
+      type: S.TEXT
+    },
+    userId: {
+      type: S.INTEGER,
+      references: {
+        model: "Users",
+        key: "id"
+      }
     }
-}, {
-  sequelize: db,
-  modelName: 'Order' 
-});
+  },
+  {
+    sequelize: db,
+    modelName: "Order"
+  }
+);
 
-module.exports = Order
+module.exports = Order;
