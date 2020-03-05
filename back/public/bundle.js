@@ -112,7 +112,7 @@ var addLogin = function addLogin(user) {
 
 var loginUser = function loginUser(user) {
   return function (dispatch) {
-    return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/users/login", {
+    return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/users/login", {
       email: user.email,
       password: user.password
     }).then(function (user) {
@@ -241,7 +241,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var newUser = function newUser(userData) {
   return function (dispatch) {
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/users/register', userData).then(function (res) {
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/users/register", userData).then(function (res) {
       res.data;
     });
   };
@@ -428,34 +428,32 @@ var Navbars = function Navbars(_ref) {
     inline: true
   }, " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_FormControl__WEBPACK_IMPORTED_MODULE_4__["default"], {
     onChange: handleChange,
-    onSubmit: handleSubmit,
     type: "text",
     placeholder: "Search",
     className: "mr-sm-2"
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_5__["default"], {
-    type: "submit",
     variant: "dark",
     onClick: handleSubmit
   }, "Search"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Col__WEBPACK_IMPORTED_MODULE_7__["default"], {
     md: "auto"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-    to: "users/register"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Nav__WEBPACK_IMPORTED_MODULE_2__["default"].Link, {
     style: fontNavBar
-  }, "Carrito"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Col__WEBPACK_IMPORTED_MODULE_7__["default"], {
+  }, " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    to: "/cart"
+  }, " Carrito "), " ")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Col__WEBPACK_IMPORTED_MODULE_7__["default"], {
     md: "auto"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Nav__WEBPACK_IMPORTED_MODULE_2__["default"].Link, {
+    style: fontNavBar
+  }, " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
     to: "/users/login"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Nav__WEBPACK_IMPORTED_MODULE_2__["default"].Link, {
-    style: fontNavBar
-  }, "Login"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Col__WEBPACK_IMPORTED_MODULE_7__["default"], {
+  }, " Login "), " ")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Col__WEBPACK_IMPORTED_MODULE_7__["default"], {
     md: "auto"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-    to: "/users/register"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Nav__WEBPACK_IMPORTED_MODULE_2__["default"].Link, {
     href: "#usuario",
     style: fontNavBar
-  }, "User")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Row__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  }, " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    to: "/users/register"
+  }, " User "), " "))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Row__WEBPACK_IMPORTED_MODULE_6__["default"], {
     className: "justify-content-md-center",
     style: downRowNav
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Col__WEBPACK_IMPORTED_MODULE_7__["default"], {
@@ -1065,6 +1063,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_bootstrap_Container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-bootstrap/Container */ "./node_modules/react-bootstrap/esm/Container.js");
 /* harmony import */ var _components_Products__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/Products */ "./components/Products.jsx");
 /* harmony import */ var _actions_searchProductsActions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../actions/searchProductsActions */ "./actions/searchProductsActions.js");
+/* harmony import */ var _actions_LoginActions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../actions/LoginActions */ "./actions/LoginActions.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1091,6 +1090,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var ProductsContainer = /*#__PURE__*/function (_React$Component) {
   _inherits(ProductsContainer, _React$Component);
 
@@ -1103,7 +1103,18 @@ var ProductsContainer = /*#__PURE__*/function (_React$Component) {
   _createClass(ProductsContainer, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      if (this.props.input) this.props.fetchSearchProducts(this.props.input);else this.props.getAllProducts();
+      if (this.props.input) this.props.fetchSearchProducts(this.props.input);else this.props.getAllProducts(); //localstorage para mantenerse logeado
+
+      var emailUser = localStorage.getItem("email");
+      var passwordUser = localStorage.getItem("password");
+      var data = {
+        email: emailUser,
+        password: passwordUser
+      };
+
+      if (emailUser && passwordUser) {
+        this.props.loginUser(data);
+      }
     }
   }, {
     key: "componentDidUpdate",
@@ -1138,6 +1149,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     getAllProducts: function getAllProducts() {
       return dispatch(Object(_actions_searchProductsActions__WEBPACK_IMPORTED_MODULE_6__["getAllProducts"])());
+    },
+    loginUser: function loginUser(user) {
+      return dispatch(Object(_actions_LoginActions__WEBPACK_IMPORTED_MODULE_7__["loginUser"])(user));
     }
   };
 };
@@ -1228,7 +1242,9 @@ var RegisterContainer = /*#__PURE__*/function (_React$Component) {
     key: "handleSubmit",
     value: function handleSubmit(e) {
       e.preventDefault();
-      this.props.newUser(this.state); // this.setState({
+      this.props.newUser(this.state);
+      localStorage.setItem('email', this.state.email);
+      localStorage.setItem('password', this.state.password); // this.setState({
       //     firstName:"",
       //     lastName:"",
       //     email:"",
