@@ -8,8 +8,45 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Dropdown from "react-bootstrap/Dropdown";
 import Image from "react-bootstrap/Image";
+import axios from "axios";
 
-const Navbars = function({ handleSubmit, handleChange }) {
+const Navbars = function({
+  handleSubmit,
+  handleChange,
+  emailUser,
+  dispatchLogout
+}) {
+  let displayRegister = {
+    nada: "nada"
+  };
+  /////////boton login////////
+  let userLogin = (
+    <Link to="/users/login">
+      <div style={fontNavBar}>Login</div>
+    </Link>
+  );
+  ///////////////////////////////////////////
+  /*boton logout*/
+
+  if (emailUser) {
+    const handleLogout = function() {
+      axios.post("/logout").then(function() {
+        localStorage.clear();
+        dispatchLogout();
+        displayRegister = {
+          display: "none"
+        };
+      });
+    };
+    userLogin = (
+      <Nav.Link style={fontNavBar} onClick={handleLogout}>
+        Logout
+      </Nav.Link>
+    );
+  }
+
+  //////////////////////////////////////////////
+
   const DropdownStyle = React.forwardRef(({ children, onClick }, ref) => (
     <a
       href=""
@@ -73,22 +110,15 @@ const Navbars = function({ handleSubmit, handleChange }) {
           </Form>
         </Col>
         <Col md="auto">
-          <Nav.Link style={fontNavBar}>
-            {" "}
-            <Link to="/cart"> Carrito </Link>{" "}
-          </Nav.Link>
+          <Link to="/cart">
+            <div>carrito</div>
+          </Link>
         </Col>
+        <Col md="auto">{userLogin}</Col>
         <Col md="auto">
-          <Nav.Link style={fontNavBar}>
-            {" "}
-            <Link to="/users/login"> Login </Link>{" "}
-          </Nav.Link>
-        </Col>
-        <Col md="auto">
-          <Nav.Link href="#usuario" style={fontNavBar}>
-            {" "}
-            <Link to="/users/register"> User </Link>{" "}
-          </Nav.Link>
+          <Link to="/users/register">
+            <div style={(fontNavBar, displayRegister)}>register</div>
+          </Link>
         </Col>
       </Row>
 

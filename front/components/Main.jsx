@@ -9,6 +9,7 @@ import RegisterContainer from "../containers/RegisterContainer";
 import LoginContainer from "../containers/LoginContainer";
 // import CheckoutContainer from '../containers/CheckoutContainer'
 // import UserContainer from '../containers/UserContainer'
+import CarritoContainer from "../containers/CarritoContainer";
 
 export default () => {
   return (
@@ -20,11 +21,11 @@ export default () => {
         <Route path="/products/:id" component={ProductContainer} />
         <Route path="/users/register" exact component={RegisterContainer} />
         <Route path="/users/login" exact component={LoginContainer} />
-        {/* <Route path="/cart" exact component={CarritoContainer} />
-             <Route path="/checkout" exact component={CheckoutContainer} />
-             <Route path="/user/:id" exact component={UserContainer} />  */}
+        <Route path="/cart" exact component={CarritoContainer} />
+        {/* <Route path="/checkout" exact component={CheckoutContainer} />
+        <Route path="/user/:id" exact component={UserContainer} />  */}
 
-        <Redirect from="/" to="/products" /> 
+        <Redirect from="/" to="/products" />
       </Switch>
       {/* <FooterContainer/> */}
     </div>

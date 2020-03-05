@@ -1,9 +1,10 @@
 import React from "react";
 import Navbars from "../components/Navbar";
-import fetchSearchProducts from "../actions/searchProductsActions";
+
 import { connect } from "react-redux";
 import { setInput } from "../actions/search";
 import { withRouter } from "react-router-dom";
+import addLogin from "../actions/LoginActions";
 
 class NavbarContainer extends React.Component {
   constructor(props) {
@@ -29,6 +30,8 @@ class NavbarContainer extends React.Component {
         <Navbars
           handleSubmit={this.handleSubmit}
           handleChange={this.handleChange}
+          emailUser={this.props.email}
+          dispatchLogout={this.props.dispatchLogout}
         />
       </div>
     );
@@ -37,13 +40,15 @@ class NavbarContainer extends React.Component {
 
 const mapStateToProps = function(state) {
   return {
-    foundProducts: state.foundProducts
+    foundProducts: state.foundProducts,
+    email: state.user.loginUser.email
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    setInput: input => dispatch(setInput(input))
+    setInput: input => dispatch(setInput(input)),
+    dispatchLogout: () => dispatch(addLogin(""))
   };
 };
 

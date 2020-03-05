@@ -2,7 +2,13 @@ import React from "react";
 import TarjetaProducto from "./TarjetaProducto";
 
 export default ({ products }) => {
-  return products.map(product => {
-    return <TarjetaProducto product={product} />;
-  });
+  return(
+    <div className="container d-flex flex-wrap">
+      {products.map(product => {
+        return <TarjetaProducto product={product} />;
+      })}
+    </div>
+
+  )
+
 };
