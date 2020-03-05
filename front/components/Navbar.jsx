@@ -62,33 +62,33 @@ const Navbars = function({ handleSubmit, handleChange }) {
             {/*aca esta el handle submit*/}
             <FormControl
               onChange={handleChange}
-              onSubmit={handleSubmit}
               type="text"
               placeholder="Search"
               className="mr-sm-2"
             />
             {/*el formulario no esta siendo controlado del todo, igual deberia funcionar*/}
-            <Button type="submit" variant="dark" onClick={handleSubmit}>
+            <Button variant="dark" onClick={handleSubmit}>
               Search
             </Button>
           </Form>
         </Col>
         <Col md="auto">
-          <Link to="users/register">
-            <Nav.Link style={fontNavBar}>Carrito</Nav.Link>
-          </Link>
+          <Nav.Link style={fontNavBar}>
+            {" "}
+            <Link to="/cart"> Carrito </Link>{" "}
+          </Nav.Link>
         </Col>
         <Col md="auto">
-          <Link to="/users/login">
-            <Nav.Link style={fontNavBar}>Login</Nav.Link>
-          </Link>
+          <Nav.Link style={fontNavBar}>
+            {" "}
+            <Link to="/users/login"> Login </Link>{" "}
+          </Nav.Link>
         </Col>
         <Col md="auto">
-          <Link to="/users/register">
-            <Nav.Link href="#usuario" style={fontNavBar}>
-              User
-            </Nav.Link>
-          </Link>
+          <Nav.Link href="#usuario" style={fontNavBar}>
+            {" "}
+            <Link to="/users/register"> User </Link>{" "}
+          </Nav.Link>
         </Col>
       </Row>
 
