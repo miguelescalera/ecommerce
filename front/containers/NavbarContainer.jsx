@@ -12,16 +12,6 @@ class NavbarContainer extends React.Component {
     this.state = {
       input: ""
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-  }
-  handleChange(event) {
-    this.setState({ input: event.target.value });
-  }
-  handleSubmit(event) {
-    event.preventDefault();
-    this.props.setInput(this.state.input);
-    this.props.history.push("/products"); // esta linea de cod. redirecciona al usuario cuando haga submit al formulario
   }
 
   render() {
