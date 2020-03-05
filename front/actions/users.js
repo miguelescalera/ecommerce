@@ -1,7 +1,6 @@
-import axios from 'axios';
+import axios from "axios";
 
 export const newUser = userData => dispatch =>
-  axios.post('/users/register', userData)
-  .then(res =>  {
-      res.data
-  })
+  axios.post("/api/users/register", userData).then(res => {
+    res.data;
+  });

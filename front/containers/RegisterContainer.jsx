@@ -27,18 +27,19 @@ handleChange(e){
     let value = e.target.value
     let key = e.target.name
     this.setState({[key]: value})
+    
 }
 
 handleSubmit(e){
     e.preventDefault();
     this.props.newUser(this.state)
-    // this.setState({
-    //     firstName:"",
-    //     lastName:"",
-    //     email:"",
-    //     password:""
-    // })
-    // this.props.history.push("/users/login")
+  
+    localStorage.setItem('email', this.state.email)
+    localStorage.setItem('password', this.state.password)
+
+    this.props.history.push("/users/login")
+   
+
 }
     render(){
         return(
