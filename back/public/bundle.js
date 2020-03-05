@@ -171,7 +171,7 @@ var SearchProducts = function SearchProducts(foundProducts) {
 
 var getAllProducts = function getAllProducts() {
   return function (dispatch) {
-    return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/products").then(function (res) {
+    return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/products").then(function (res) {
       return res.data;
     }).then(function (result) {
       dispatch(SearchProducts(result));
@@ -181,7 +181,7 @@ var getAllProducts = function getAllProducts() {
 var fetchSearchProducts = function fetchSearchProducts(nameProduct) {
   var newName = nameProduct.split(" ").join("20%");
   return function (dispatch) {
-    return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/products?name=".concat(newName)).then(function (res) {
+    return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/products?name=".concat(newName)).then(function (res) {
       return res.data;
     }).then(function (result) {
       dispatch(SearchProducts(result));
@@ -216,7 +216,7 @@ var receiveProductSelected = function receiveProductSelected(product) {
 
 var fetchProduct = function fetchProduct(id) {
   return function (dispatch) {
-    return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/products/".concat(id)).then(function (res) {
+    return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/products/".concat(id)).then(function (res) {
       return res.data;
     }).then(function (product) {
       return dispatch(receiveProductSelected(product));
@@ -397,19 +397,19 @@ var Navbars = function Navbars(_ref) {
     }, children, "\u25BC");
   });
   var upRowNav = {
-    backgroundColor: '#DCDCDC',
-    height: '120px',
-    display: 'flex',
-    alignItems: 'center'
+    backgroundColor: "#DCDCDC",
+    height: "120px",
+    display: "flex",
+    alignItems: "center"
   };
   var downRowNav = {
-    backgroundColor: '#F8F8FF',
-    height: '40px',
-    display: 'flex',
-    alignItems: 'center'
+    backgroundColor: "#F8F8FF",
+    height: "40px",
+    display: "flex",
+    alignItems: "center"
   };
   var fontNavBar = {
-    color: '#808080'
+    color: "#808080"
   };
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Row__WEBPACK_IMPORTED_MODULE_6__["default"], {
     className: "justify-content-md-center",
@@ -426,12 +426,14 @@ var Navbars = function Navbars(_ref) {
     md: "auto"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_3__["default"], {
     inline: true
-  }, "   ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_FormControl__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  }, " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_FormControl__WEBPACK_IMPORTED_MODULE_4__["default"], {
     onChange: handleChange,
+    onSubmit: handleSubmit,
     type: "text",
     placeholder: "Search",
     className: "mr-sm-2"
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    type: "submit",
     variant: "dark",
     onClick: handleSubmit
   }, "Search"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Col__WEBPACK_IMPORTED_MODULE_7__["default"], {
@@ -673,7 +675,7 @@ var TarjetaProducto = function TarjetaProducto(_ref) {
     key: product.id
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Card__WEBPACK_IMPORTED_MODULE_2__["default"], {
     style: {
-      width: '18rem'
+      width: "18rem"
     }
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Card__WEBPACK_IMPORTED_MODULE_2__["default"].Img, {
     variant: "top",
@@ -875,7 +877,7 @@ var NavbarContainer = /*#__PURE__*/function (_React$Component) {
     value: function handleSubmit(event) {
       event.preventDefault();
       this.props.setInput(this.state.input);
-      this.props.history.push('/products'); // esta linea de cod. redirecciona al usuario cuando haga submit al formulario    
+      this.props.history.push("/products"); // esta linea de cod. redirecciona al usuario cuando haga submit al formulario
     }
   }, {
     key: "render",
