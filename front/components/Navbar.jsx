@@ -8,9 +8,33 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Dropdown from 'react-bootstrap/Dropdown'
 import Image from 'react-bootstrap/Image'
+import axios from "axios"
 
 
-const Navbars = function ({ handleSubmit, handleChange }) {
+const Navbars = function ({ handleSubmit, handleChange,emailUser,dispatchLogout }) {
+    
+    /////////boton login////////
+    let userLogin=  <Link to="/users/login">
+                        <Nav.Link style={fontNavBar}>Login</Nav.Link>
+                    </Link>
+    ///////////////////////////////////////////
+               /*boton logout*/ 
+    if(emailUser){
+        const handleLogout= function(){
+            axios.post("/logout")
+            .then(function(){
+                localStorage.clear()
+                dispatchLogout()
+            })
+        };
+        userLogin=<Nav.Link style={fontNavBar} onClick={handleLogout}>Logout</Nav.Link>
+    }
+   
+
+    //////////////////////////////////////////////
+
+
+
     const DropdownStyle = React.forwardRef(({ children, onClick }, ref) => (
         <a
             href=""
@@ -68,9 +92,7 @@ const Navbars = function ({ handleSubmit, handleChange }) {
                     </Link>
                 </Col>
                 <Col md="auto">
-                    <Link to="/users/login">
-                        <Nav.Link style={fontNavBar}>Login</Nav.Link>
-                    </Link>
+                    {userLogin}
                 </Col>
                 <Col md="auto">
                     <Link to="/users/register">
