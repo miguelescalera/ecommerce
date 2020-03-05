@@ -1,82 +1,81 @@
-const Category = require('./categories')
-const Order = require('./orders')
-const Product = require('./products')
-const Review = require('./reviews')
-const User = require('./users')
-const db = require("../db")
-const Order_Product = require('./orderproducts')
+const Category = require("./categories");
+const Order = require("./orders");
+const Product = require("./products");
+const Review = require("./reviews");
+const User = require("./users");
+const db = require("../db");
+const Order_Product = require("./orderproducts");
+const Promise = require("bluebird");
 
 //MANY TO MANY RELATION BETWEEN PRODUCT AND CATEGORY
-Category.associate = (models) => {
-Category.belongsToMany(models.Product, {
-    through: "Product_Category"
-})
-}
 
-Product.associate = (models) => {
-    Product.belongsToMany(models.Category, {
-        through: "Product_Category"
-    })
-}
+Category.belongsToMany(Product, {
+  through: "Product_Category"
+});
+
+Product.belongsToMany(Category, {
+  through: "Product_Category"
+});
 
 //ONE TO MANY RELATION BETWEEN USERS AND REVIEW
-Review.associate = (models) => {
-    Review.belongsTo(models.User)
-}
 
-User.associate = (models) => {
-    User.hasMany(models.Review)
-}
+Review.belongsTo(User);
+
+User.hasMany(Review);
 
 //ONE TO MANY RELATION BETWEEN PRODUCTS AND REVIEW
 
-Review.associate = (models) => {
-    Review.belongsTo(models.Product)
-}
+Review.belongsTo(Product);
 
-Product.associate = (models) => {
-    Product.hasMany(models.Review)
-}
+Product.hasMany(Review);
 
 //ONE TO MANY RELATION BETWEEN USERS AND ORDER
 
-Order.associate = (models) => {
-    Order.belongsTo(models.User)
-}
+Order.belongsTo(User, { foreignKey: "userId" });
 
-User.associate = (models) => {
-    User.hasMany(models.Order)
-}
+User.hasMany(Order);
 
 //MANY TO MANY RELATION BETWEEN PRODUCT AND ORDER
+/*
+Product.belongsToMany(Order, {
+  through: { model: Order_Product },
+  as: "orders"
+});*/
 
-Product.associate = (models) => {
-    Product.belongsToMany(models.sOrder, { 
-        through: {model: models.Order_Product},
-        as: "orders",
-        foreignKey: "orderId",
-        otherKey: "productId"
-    })
-}
+Order.belongsToMany(Product, {
+  through: { model: Order_Product },
+  as: "products"
+});
 
-Order.associate = (models) => {
-    Order.belongsToMany(models.Product, { 
-        through: {model: Order_Product},
-        as: "product",
-        foreignKey: "productId",
-        otherKey: "orderId"
-    })
-}
+Order_Product.increase = async (orderId, productId, n) => {
+  console.log("entro");
+  const orderProduct = await Order_Product.findOne({
+    where: { OrderId: orderId, ProductId: productId }
+  });
+  const product = await Product.findOne({ where: { id: productId } });
+
+  orderProduct.quantity += await n;
+  orderProduct.totalPrice = (await product.price) * orderProduct.quantity;
+
+  return orderProduct;
+};
+
+Order_Product.prototype.decrease = (productId, n) => {
+  this.quantity -= n;
+  Product.findOne({ where: { id: productId } })
+    .then(product => product.price)
+    .then(price => (this.totalPrice = this.quantity * price));
+};
+
+Order_Product.belongsTo(Order, { as: "order" });
+Order_Product.belongsTo(Product, { as: "product" });
 
 module.exports = {
-    db,
-    Category,
-    Order,
-    Product,
-    Review,
-    User,
-    Order_Product,
-}
-
-
-
+  db,
+  Category,
+  Order,
+  Product,
+  Review,
+  User,
+  Order_Product
+};

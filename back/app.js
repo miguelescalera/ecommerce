@@ -75,7 +75,6 @@ passport.deserializeUser(function(id, done) {
 
 //Rutas de back
 app.use("/api", routes);
-app.use("/users", routes);
 
 //servimos el index
 app.use("/*", function(req, res, next) {
