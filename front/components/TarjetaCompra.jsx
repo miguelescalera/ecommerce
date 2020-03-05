@@ -52,7 +52,7 @@ const TarjetaCompra = function({/*compra*/}) {
 
     let carrito = compra.map(function(e,index){
       return(
-        <div style={{width:"45%", backgroundColor:"white"}}>
+        <div style={{ marginTop:"50px", backgroundColor:"white"}}>
           <Container>
             <Row style={border} >
                   <div key={index}>

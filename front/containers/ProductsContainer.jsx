@@ -2,10 +2,15 @@ import React from "react"
 import { connect } from "react-redux"
 
 import {Link} from "react-router-dom"
-
 import Products from '../components/Products'
 import {fetchSearchProducts, getAllProducts} from "../actions/searchProductsActions"
-import {addLogin} from '../actions/LoginActions'
+import {loginUser} from '../actions/LoginActions'
+
+
+
+
+
+
 
 const mapStateToProps = function (state) {
     return {
@@ -19,7 +24,7 @@ const mapDispatchToProps = function (dispatch) {
     return {
         fetchSearchProducts: input => dispatch(fetchSearchProducts(input)),
         getAllProducts: () => dispatch(getAllProducts()),
-        loginUser: user => dispatch(addLogin(user))
+        loginUser: user => dispatch(loginUser(user))
     }
 }
 

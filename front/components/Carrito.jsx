@@ -28,42 +28,42 @@ let total= 0
 
 export default () => {
   return (      
-<div>
- <Container>
-             <Row>
-             <Col sm={8}>sm=8</Col>
-                 <Col sm={4}>
-             <div className='Table striped bordered hover size="sm"'>
-                 <thead>
-                     <th>Resumen De Compra</th>
-                 </thead>
- {hardcodeada.map(Element=>{
-     total=total+Element.precio
-           return(
-                 <tbody>
-                     <tr>
-                     <td>{Element.name}</td>
-                     <td>${Element.precio}</td>
-                     </tr>
-                     <hr/>
-                 </tbody>
-           )})}
-                    <td>Total</td>
-                    <td>${total}</td>
+        <div style={{marginTop:"120px"}} >
+
+            <div className='Table striped bordered hover size="sm"'>
+                <thead>
+                    <th>Resumen De Compra</th>
+                </thead>
+{hardcodeada.map(Element=>{
+    total=total+Element.precio
+          return(
+                <tbody>
+                    <tr>
+                    <td>{Element.name}</td>
+                    <td>${Element.precio}</td>
+                    </tr>
                     <hr/>
-                        <Button  variant="outline-dark"><Link to='/products'> Products </Link></Button>
-                        <Button style={{marginLeft:"20px"}} variant="dark">  Checkout </Button>{' '} {/*hay que agregar un link a checkout*/}
-             </div>
-             </Col>
-             </Row>
-    </Container> 
+                </tbody>
+          )})}
+                   <td>Total</td>
+                   <td>${total}</td>
+                   <hr/>
+                       <Button  variant="outline-dark"><Link to='/products'> Products </Link></Button>
+                       <Button style={{marginLeft:"20px"}} variant="dark">  Checkout </Button>{' '} {/*hay que agregar un link a checkout*/}
+
+            </div>
+            
+        </div>
+             
+             
+     
 
 
 
 
 
 
-</div>
+
     
   );
 };

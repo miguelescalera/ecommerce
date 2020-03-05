@@ -8,7 +8,8 @@ export const addLogin = user => ({
 
 
   export const loginUser = (user) => dispatch =>
-axios.post("/users/login", {email: user.email, password: user.password})
+axios.post("/api/users/login", {email: user.email, password: user.password})
 .then(user => {
+  console.log("USER",user)
     dispatch(addLogin(user.data))
     })

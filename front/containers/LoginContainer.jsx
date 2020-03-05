@@ -6,7 +6,12 @@ import {connect} from 'react-redux'
 const mapDispatchToProps= (dispatch, state)=>{
     return{loginUser: user => dispatch(loginUser(user))}
 }
+const mapStateToProps= ( state,ownprops)=>{
+    return{
+        userLogin:state.user.loginUser
 
+    }
+}
 
 class LoginContainer extends React.Component {
     constructor(){
@@ -31,8 +36,15 @@ handlerSubmit(e){
     e.preventDefault()
     localStorage.setItem('email', this.state.email)
     localStorage.setItem('password', this.state.password)
+    console.log("PROPS!",this.props)
     this.props.loginUser(this.state)
-    this.props.history.push("/products")
+    if(this.props.userLogin.email){
+        this.props.history.push("/products")
+    }
+    else{
+        alert("usuario o contraseña incorrecta")
+    }
+
 }
 
     
@@ -48,4 +60,4 @@ handlerSubmit(e){
     }
 }
 
-export default connect(null, mapDispatchToProps)(LoginContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer)
