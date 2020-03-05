@@ -29,6 +29,8 @@ handlerChange(e){
 
 handlerSubmit(e){
     e.preventDefault()
+    localStorage.setItem('email', this.state.email)
+    localStorage.setItem('password', this.state.password)
     this.props.loginUser(this.state)
     this.props.history.push("/products")
 }

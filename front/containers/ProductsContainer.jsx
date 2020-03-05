@@ -1,13 +1,27 @@
 import React from "react"
 import { connect } from "react-redux"
-import Card from 'react-bootstrap/Card'
+
 import {Link} from "react-router-dom"
-import Container from 'react-bootstrap/Container'
+
 import Products from '../components/Products'
 import {fetchSearchProducts, getAllProducts} from "../actions/searchProductsActions"
-import {loginUser} from '../actions/LoginActions'
+import {addLogin} from '../actions/LoginActions'
 
+const mapStateToProps = function (state) {
+    return {
+        foundProducts: state.product.list,
+        input: state.input.value,
+       
+    };
+}
 
+const mapDispatchToProps = function (dispatch) {
+    return {
+        fetchSearchProducts: input => dispatch(fetchSearchProducts(input)),
+        getAllProducts: () => dispatch(getAllProducts()),
+        loginUser: user => dispatch(addLogin(user))
+    }
+}
 
 
 class ProductsContainer extends React.Component{
@@ -20,6 +34,7 @@ componentDidMount(){
     //localstorage para mantenerse logeado
     const emailUser= localStorage.getItem("email")
     const passwordUser = localStorage.getItem("password")
+    
     const data={
         email:emailUser,
         password:passwordUser 
@@ -49,21 +64,7 @@ componentDidUpdate(prevProps){
             
 
 
-const mapStateToProps = function (state) {
-    return {
-        foundProducts: state.product.list,
-        input: state.input.value,
-       
-    };
-}
 
-const mapDispatchToProps = function (dispatch) {
-    return {
-        fetchSearchProducts: input => dispatch(fetchSearchProducts(input)),
-        getAllProducts: () => dispatch(getAllProducts()),
-        loginUser: user => dispatch(loginUser(user))
-    }
-}
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductsContainer);
 

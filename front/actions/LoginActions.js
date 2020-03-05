@@ -1,4 +1,4 @@
-import {LOGIN_USER} from "../constants" // verificar si esto esta exportando bien
+import {LOGIN_USER} from "../constants" 
 import axios from "axios"
 
 export const addLogin = user => ({
