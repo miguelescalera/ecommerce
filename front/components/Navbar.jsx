@@ -63,19 +63,13 @@ const Navbars = function ({ handleSubmit, handleChange }) {
                     </Form>
                 </Col>
                 <Col md="auto">
-                    <Link to="users/register">
-                        <Nav.Link style={fontNavBar}>Carrito</Nav.Link>
-                    </Link>
+                        <Nav.Link style={fontNavBar}> <Link to="/cart"> Carrito </Link> </Nav.Link>
                 </Col>
                 <Col md="auto">
-                    <Link to="/users/login">
-                        <Nav.Link style={fontNavBar}>Login</Nav.Link>
-                    </Link>
+                        <Nav.Link style={fontNavBar}> <Link to="/users/login"> Login </Link> </Nav.Link>
                 </Col>
                 <Col md="auto">
-                    <Link to="/users/register">
-                        <Nav.Link href="#usuario" style={fontNavBar}>User</Nav.Link>
-                    </Link>
+                        <Nav.Link href="#usuario" style={fontNavBar}> <Link to="/users/register"> User </Link> </Nav.Link>
                 </Col>
             </Row>
 
