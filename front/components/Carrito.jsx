@@ -26,7 +26,7 @@ let hardcodeada=[
 
 let total= 0
 
-export default () => {
+export default ({product}) => {
   return (      
         <div style={{marginTop:"120px"}} >
 
@@ -34,21 +34,23 @@ export default () => {
                 <thead>
                     <th>Resumen De Compra</th>
                 </thead>
-{hardcodeada.map(Element=>{
-    total=total+Element.precio
-          return(
-                <tbody>
-                    <tr>
-                    <td>{Element.name}</td>
-                    <td>${Element.precio}</td>
-                    </tr>
-                    <hr/>
-                </tbody>
-          )})}
+{product ? (
+    product.map(Element=>{
+        total=total+Element.totalPrice
+              return(
+                    <tbody>
+                        <tr>
+                        <td>{Element.name}</td>
+                        <td>${Element.totalPrice}</td>
+                        </tr>
+                        <hr/>
+                    </tbody>
+              )})
+) : null}
                    <td>Total</td>
-                   <td>${total}</td>
+                   {/* <td>${total}</td> */}
                    <hr/>
-                       <Button  variant="outline-dark"><Link to='/products'> Products </Link></Button>
+                       <Button  variant="outline-dark"><Link to='/productos'> productos </Link></Button>
                        <Button style={{marginLeft:"20px"}} variant="dark">  Checkout </Button>{' '} {/*hay que agregar un link a checkout*/}
 
             </div>

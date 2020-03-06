@@ -4,22 +4,20 @@ import Card from "react-bootstrap/Card";
 import Rating from "react-rating";
 import Button from "react-bootstrap/Button";
 
-const TarjetaProducto = function({ product }) {
+const TarjetaProducto = function({ product , handleClick}) {
   return (
-    <Link to={`/products/${product.id}`}>
       <div key={product.id}>
         <Card style={{ width: "18rem" }}>
-          <Card.Img variant="top" src={product.imgUrl} />
+        <Link to={`/products/${product.id}`}><Card.Img variant="top" src={product.imgUrl} /></Link>
           <Card.Body>
             <Card.Title>{product.name}</Card.Title>
             <Card.Text>{product.description}</Card.Text>
             <Rating value={product.rating} readOnly />
             <Card.Title>{product.price}</Card.Title>
-            <Button variant="dark">Agregar</Button>
+            <Button variant="dark" onClick={() => handleClick(product.id, 1)}>Agregar</Button>
           </Card.Body>
         </Card>
       </div>
-    </Link>
   );
 };
 

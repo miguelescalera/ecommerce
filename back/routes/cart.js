@@ -16,13 +16,37 @@ router.get("/", async function(req, res, next) {
   const order = await Order.findOne({
     where: { userId: req.user.id, status: "cart" }
   });
-  console.log(order);
-  const cart = await Order_Product.findAll({
+  const orderProducts = await Order_Product.findAll({
     where: {
       OrderId: order.id
     }
   });
-  res.send(cart);
+  let products = await Promise.all(orderProducts.map(orderProduct => Product.findByPk(orderProduct.ProductId)))
+
+  products = products.map(product => {
+    return{
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      description: product.description,
+      stock: product.stock,
+      rating: product.rating,
+      imgUrl: product.imgUrl,
+      quantity : orderProducts[products.indexOf(product)].quantity,
+      totalPrice : orderProducts[products.indexOf(product)].totalPrice
+    
+  }})
+  res.send(products)
+
+
+  // const products = await Order_Product.findAll({
+  //   includes:[{
+  //     model: Product
+  //   }],
+  //   where: {id: orderProduct[0].id}
+  // })
+  // const result = {orderProduct, products}
+  
 });
 
 router.post("/products/:id/modifycart", async function(req, res, next) {

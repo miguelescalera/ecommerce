@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { setInput } from "../actions/search";
 import { withRouter } from "react-router-dom";
 import addLogin from "../actions/LoginActions";
+import {fetchSearchProducts} from "../actions/searchProductsActions"
 
 class NavbarContainer extends React.Component {
   constructor(props) {
@@ -12,7 +13,21 @@ class NavbarContainer extends React.Component {
     this.state = {
       input: ""
     };
+    this.handleChange=this.handleChange.bind(this)
+    this.handleSubmit=this.handleSubmit.bind(this)
   }
+  handleChange(event){
+    this.setState({ input:event.target.value})
+    console.log(this.state.input)
+
+  }
+  handleSubmit(event){
+    console.log("Click")
+    event.preventDefault()
+    this.props.getProducts(this.state.input) 
+    this.props.redirect.history.push('/products')// esta linea de cod. redirecciona al usuario cuando haga submit al formulario
+  }
+
 
   render() {
     return (
@@ -38,9 +53,12 @@ const mapStateToProps = function(state) {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     setInput: input => dispatch(setInput(input)),
-    dispatchLogout: () => dispatch(addLogin(""))
+    dispatchLogout: () => dispatch(addLogin("")),
+    getProducts: (input)=> dispatch(fetchSearchProducts(input))
   };
 };
+
+
 
 export default withRouter(
   connect(mapStateToProps, mapDispatchToProps)(NavbarContainer)

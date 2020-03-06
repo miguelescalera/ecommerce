@@ -111,13 +111,13 @@ const Navbars = function({
         </Col>
         <Col md="auto">
           <Link to="/cart">
-            <div>carrito</div>
+            <div>Carrito</div>
           </Link>
         </Col>
         <Col md="auto">{userLogin}</Col>
         <Col md="auto">
           <Link to="/users/register">
-            <div style={(fontNavBar, displayRegister)}>register</div>
+            <div style={(fontNavBar, displayRegister)}>Register</div>
           </Link>
         </Col>
       </Row>
