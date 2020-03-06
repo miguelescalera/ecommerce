@@ -14,7 +14,8 @@ const Navbars = function({
   handleSubmit,
   handleChange,
   emailUser,
-  dispatchLogout
+  dispatchLogout,
+  redirect
 }) {
   let displayRegister = {
     nada: "nada"
@@ -36,7 +37,7 @@ const Navbars = function({
         displayRegister = {
           display: "none"
         };
-      });
+      }).then(res => redirect())
     };
     userLogin = (
       <Nav.Link style={fontNavBar} onClick={handleLogout}>
@@ -111,13 +112,13 @@ const Navbars = function({
         </Col>
         <Col md="auto">
           <Link to="/cart">
-            <div>carrito</div>
+            <div>Carrito</div>
           </Link>
         </Col>
         <Col md="auto">{userLogin}</Col>
         <Col md="auto">
           <Link to="/users/register">
-            <div style={(fontNavBar, displayRegister)}>register</div>
+            <div style={(fontNavBar, displayRegister)}>Register</div>
           </Link>
         </Col>
       </Row>

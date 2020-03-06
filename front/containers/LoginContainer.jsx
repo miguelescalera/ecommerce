@@ -1,6 +1,6 @@
 import React from "react";
 import Login from "../components/Login";
-import loginUser from "../actions/LoginActions";
+import {loginUser} from "../actions/LoginActions";
 import { connect } from "react-redux";
 
 const mapDispatchToProps = (dispatch, state) => {
@@ -37,11 +37,12 @@ class LoginContainer extends React.Component {
     localStorage.setItem("password", this.state.password);
     console.log("PROPS!", this.props);
     this.props.loginUser(this.state);
-    if (this.props.userLogin.email) {
-      this.props.history.push("/products");
-    } else {
-      alert("usuario o contraseña incorrecta");
-    }
+    this.props.history.push("/products");
+    // if (this.props.userLogin.email) {
+    //   this.props.history.push("/products");
+    // } else {
+    //   alert("usuario o contraseña incorrecta");
+    // }
   }
 
   render() {

@@ -7,7 +7,9 @@ import {
   fetchSearchProducts,
   getAllProducts
 } from "../actions/searchProductsActions";
-import loginUser from "../actions/LoginActions";
+import {setCartProducts} from "../actions/cart"
+import {loginUser} from "../actions/LoginActions";
+
 
 const mapStateToProps = function(state) {
   return {
@@ -20,13 +22,15 @@ const mapDispatchToProps = function(dispatch) {
   return {
     fetchSearchProducts: input => dispatch(fetchSearchProducts(input)),
     getAllProducts: () => dispatch(getAllProducts()),
-    loginUser: user => dispatch(loginUser(user))
+    loginUser: user => dispatch(loginUser(user)),
+    setCartProducts: (productId, quantity) => dispatch(setCartProducts(productId, quantity))
   };
 };
 
 class ProductsContainer extends React.Component {
   constructor() {
     super();
+    this.handleClick= this.handleClick.bind(this)
   }
   componentDidMount() {
     if (this.props.input) this.props.fetchSearchProducts(this.props.input);
@@ -49,11 +53,14 @@ class ProductsContainer extends React.Component {
       this.props.fetchSearchProducts(this.props.input);
     }
   }
+  handleClick(productId, n){
+    this.props.setCartProducts(productId, n)
+  }
+
   render() {
     return (
-      <div>
-        <h3>Resultado de la busqueda</h3>
-        <Products products={this.props.foundProducts} />
+      <div style={{margin: "auto"}}>
+        <Products products={this.props.foundProducts} handleClick={this.handleClick} />
       </div>
     );
   }
