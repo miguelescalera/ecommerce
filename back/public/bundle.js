@@ -90,11 +90,13 @@
 /*!*********************************!*\
   !*** ./actions/LoginActions.js ***!
   \*********************************/
-/*! exports provided: default */
+/*! exports provided: loginUser, logoutUser */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loginUser", function() { return loginUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logoutUser", function() { return logoutUser; });
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants */ "./constants.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
@@ -109,6 +111,13 @@ var addLogin = function addLogin(user) {
   };
 };
 
+var addLogout = function addLogout() {
+  return {
+    type: _constants__WEBPACK_IMPORTED_MODULE_0__["LOGOUT_USER"],
+    user: {}
+  };
+};
+
 var loginUser = function loginUser(user) {
   return function (dispatch) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/users/login", {
@@ -119,8 +128,17 @@ var loginUser = function loginUser(user) {
     });
   };
 };
-
-/* harmony default export */ __webpack_exports__["default"] = (loginUser);
+var logoutUser = function logoutUser() {
+  axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/logout").then(function () {
+    localStorage.clear();
+    dispatchLogout();
+    displayRegister = {
+      display: "none"
+    };
+  }).then(function () {
+    return dispatch(addLogout());
+  });
+};
 
 /***/ }),
 
@@ -543,7 +561,8 @@ var Navbars = function Navbars(_ref) {
   var handleSubmit = _ref.handleSubmit,
       handleChange = _ref.handleChange,
       emailUser = _ref.emailUser,
-      dispatchLogout = _ref.dispatchLogout;
+      dispatchLogout = _ref.dispatchLogout,
+      redirect = _ref.redirect;
   var displayRegister = {
     nada: "nada"
   }; /////////boton login////////
@@ -564,6 +583,8 @@ var Navbars = function Navbars(_ref) {
         displayRegister = {
           display: "none"
         };
+      }).then(function (res) {
+        return redirect();
       });
     };
 
@@ -1180,7 +1201,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 var mapDispatchToProps = function mapDispatchToProps(dispatch, state) {
   return {
     loginUser: function loginUser(user) {
-      return dispatch(Object(_actions_LoginActions__WEBPACK_IMPORTED_MODULE_2__["default"])(user));
+      return dispatch(Object(_actions_LoginActions__WEBPACK_IMPORTED_MODULE_2__["loginUser"])(user));
     }
   };
 };
@@ -1224,12 +1245,11 @@ var LoginContainer = /*#__PURE__*/function (_React$Component) {
       localStorage.setItem("password", this.state.password);
       console.log("PROPS!", this.props);
       this.props.loginUser(this.state);
-
-      if (this.props.userLogin.email) {
-        this.props.history.push("/products");
-      } else {
-        alert("usuario o contraseña incorrecta");
-      }
+      this.props.history.push("/products"); // if (this.props.userLogin.email) {
+      //   this.props.history.push("/products");
+      // } else {
+      //   alert("usuario o contraseña incorrecta");
+      // }
     }
   }, {
     key: "render",
@@ -1305,6 +1325,7 @@ var NavbarContainer = /*#__PURE__*/function (_React$Component) {
     };
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.redirect = _this.redirect.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -1325,13 +1346,19 @@ var NavbarContainer = /*#__PURE__*/function (_React$Component) {
       this.props.redirect.history.push('/products'); // esta linea de cod. redirecciona al usuario cuando haga submit al formulario
     }
   }, {
+    key: "redirect",
+    value: function redirect() {
+      this.props.redirect.history.push('/products');
+    }
+  }, {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Navbar__WEBPACK_IMPORTED_MODULE_1__["default"], {
         handleSubmit: this.handleSubmit,
         handleChange: this.handleChange,
         emailUser: this.props.email,
-        dispatchLogout: this.props.dispatchLogout
+        dispatchLogout: this.props.dispatchLogout,
+        redirect: this.redirect
       }));
     }
   }]);
@@ -1561,7 +1588,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
       return dispatch(Object(_actions_searchProductsActions__WEBPACK_IMPORTED_MODULE_4__["getAllProducts"])());
     },
     loginUser: function loginUser(user) {
-      return dispatch(Object(_actions_LoginActions__WEBPACK_IMPORTED_MODULE_6__["default"])(user));
+      return dispatch(Object(_actions_LoginActions__WEBPACK_IMPORTED_MODULE_6__["loginUser"])(user));
     },
     setCartProducts: function setCartProducts(productId, quantity) {
       return dispatch(Object(_actions_cart__WEBPACK_IMPORTED_MODULE_5__["setCartProducts"])(productId, quantity));

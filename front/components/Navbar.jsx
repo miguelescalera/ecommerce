@@ -14,7 +14,8 @@ const Navbars = function({
   handleSubmit,
   handleChange,
   emailUser,
-  dispatchLogout
+  dispatchLogout,
+  redirect
 }) {
   let displayRegister = {
     nada: "nada"
@@ -36,7 +37,7 @@ const Navbars = function({
         displayRegister = {
           display: "none"
         };
-      });
+      }).then(res => redirect())
     };
     userLogin = (
       <Nav.Link style={fontNavBar} onClick={handleLogout}>

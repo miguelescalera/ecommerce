@@ -15,6 +15,7 @@ class NavbarContainer extends React.Component {
     };
     this.handleChange=this.handleChange.bind(this)
     this.handleSubmit=this.handleSubmit.bind(this)
+    this.redirect = this.redirect.bind(this)
   }
   handleChange(event){
     this.setState({ input:event.target.value})
@@ -27,6 +28,9 @@ class NavbarContainer extends React.Component {
     this.props.getProducts(this.state.input) 
     this.props.redirect.history.push('/products')// esta linea de cod. redirecciona al usuario cuando haga submit al formulario
   }
+  redirect(){
+    this.props.redirect.history.push('/products')
+  }
 
 
   render() {
@@ -37,6 +41,7 @@ class NavbarContainer extends React.Component {
           handleChange={this.handleChange}
           emailUser={this.props.email}
           dispatchLogout={this.props.dispatchLogout}
+          redirect = {this.redirect}
         />
       </div>
     );

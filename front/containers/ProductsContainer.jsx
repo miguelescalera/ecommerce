@@ -8,7 +8,7 @@ import {
   getAllProducts
 } from "../actions/searchProductsActions";
 import {setCartProducts} from "../actions/cart"
-import loginUser from "../actions/LoginActions";
+import {loginUser} from "../actions/LoginActions";
 
 
 const mapStateToProps = function(state) {
