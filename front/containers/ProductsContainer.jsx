@@ -59,8 +59,9 @@ class ProductsContainer extends React.Component {
 
   render() {
     return (
-      <div style={{margin: "auto"}}>
-        <Products products={this.props.foundProducts} handleClick={this.handleClick} />
+      <div>
+        <h3 className="d-flex justify-content-center" style={{marginBlockEnd:"1rem", marginBlockStart:"1rem"}}>Resultado de la busqueda</h3>
+        <Products products={this.props.foundProducts} handleClick={this.handleClick}/>
       </div>
     );
   }

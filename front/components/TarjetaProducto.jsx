@@ -3,22 +3,62 @@ import { Link } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import Rating from "react-rating";
 import Button from "react-bootstrap/Button";
+// importando iconos de las librerias
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar as fullStar } from '@fortawesome/free-solid-svg-icons';
+import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
+import { faStar as emptyStar } from '@fortawesome/free-regular-svg-icons';
+// importando componentes de react-bootstrap para la grilla
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
-const TarjetaProducto = function({ product , handleClick}) {
+const TarjetaProducto = function ({ product, handleClick }) {
+  const precio = {
+    fontSize : "20pt",
+    marginBottom: "0rem"
+  }
+  const comprar = {
+    marginBottom: "0.5rem",
+    padding: "-3rem"
+  }
+  
   return (
-      <div key={product.id}>
-        <Card style={{ width: "18rem" }}>
-        <Link to={`/products/${product.id}`}><Card.Img variant="top" src={product.imgUrl} /></Link>
-          <Card.Body>
-            <Card.Title>{product.name}</Card.Title>
-            <Card.Text>{product.description}</Card.Text>
-            <Rating value={product.rating} readOnly />
-            <Card.Title>{product.price}</Card.Title>
-            <Button variant="dark" onClick={() => handleClick(product.id, 1)}>Agregar</Button>
-          </Card.Body>
-        </Card>
-      </div>
+    <div key={product.id}>
+      <Card style={{ width: "14rem", boxShadow: "8px 8px 15px -10px rgba(0,0,0,0.39)" }}>
+        <Link to={`/products/${product.id}`}>
+          <Card.Img variant="top" src={product.imgUrl} />
+        </Link>
+        <Card.Body>
+          <Row>
+            <Col >
+              <Link to={`/products/${product.id}`}>
+                <Card.Title>{product.name}</Card.Title>
+              </Link>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={8}>
+              <Rating
+                style={{marginBottom: ".75rem"}}
+                initialRating={product.rating} emptySymbol={<FontAwesomeIcon icon={emptyStar} />}
+                fullSymbol={<FontAwesomeIcon icon={fullStar} />} readonly />
+            </Col>
+          </Row>
+          <Row>
+            <Col md={7}>
+              <Card.Title style={precio}>${product.price}</Card.Title>
+            </Col>
+            <Col md={3} >
+              <span style={comprar}>
+              <Button variant="dark" onClick={() => handleClick(product.id, 1)} >{<FontAwesomeIcon fontSize="md" icon={faCartPlus} />}</Button>
+              </span>
+            </Col>
+          </Row>
+        </Card.Body>
+      </Card>
+    </div>
   );
 };
-
 export default TarjetaProducto;
+
+

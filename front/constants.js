@@ -6,4 +6,5 @@ export const SET_INPUT = "SET_INPUT";
 
 export const SET_CARTPRODUCT = "SET_CARTPRODUCT";
 export const GET_CART = "GET_CART"
+export const RESET_CART = "RESET_CART"
 
