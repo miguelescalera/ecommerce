@@ -11,6 +11,7 @@ class ProductContainer extends React.Component {
   render() {
     return (
       <div>
+        <h3 className="d-flex justify-content-center" style={{ marginBlockEnd: "1rem", marginBlockStart: "1rem" }}>Detalle</h3>
         <Product selectedProduct={this.props.selectedProduct} />
       </div>
     );

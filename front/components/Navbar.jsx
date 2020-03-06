@@ -10,6 +10,10 @@ import Dropdown from "react-bootstrap/Dropdown";
 import Image from "react-bootstrap/Image";
 import axios from "axios";
 
+//CSS
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import { faShoppingCart, faUser, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+
 const Navbars = function({
   handleSubmit,
   handleChange,
@@ -23,7 +27,7 @@ const Navbars = function({
   /////////boton login////////
   let userLogin = (
     <Link to="/users/login">
-      <div style={fontNavBar}>Login</div>
+      <Nav style={fontNavBar}><FontAwesomeIcon icon={faUser}/> Login</Nav>
     </Link>
   );
   ///////////////////////////////////////////
@@ -40,9 +44,9 @@ const Navbars = function({
       }).then(res => redirect())
     };
     userLogin = (
-      <Nav.Link style={fontNavBar} onClick={handleLogout}>
-        Logout
-      </Nav.Link>
+        <Nav.Link style={fontNavBar} onClick={handleLogout}>
+          <FontAwesomeIcon icon={faUser}/> Logout
+        </Nav.Link>
     );
   }
 
@@ -95,7 +99,7 @@ const Navbars = function({
           </Link>
         </Col>
         <Col md="auto">
-          <Form inline>
+          <Form inline type="submit" onSubmit={handleSubmit}>
             {" "}
             {/*aca esta el handle submit*/}
             <FormControl
@@ -112,13 +116,16 @@ const Navbars = function({
         </Col>
         <Col md="auto">
           <Link to="/cart">
-            <div>Carrito</div>
+            <Nav.Link style={fontNavBar}> <FontAwesomeIcon icon={faShoppingCart}/> Cart </Nav.Link>
           </Link>
         </Col>
         <Col md="auto">{userLogin}</Col>
         <Col md="auto">
           <Link to="/users/register">
-            <div style={(fontNavBar, displayRegister)}>Register</div>
+          <Nav.Link href="#usuario" style={fontNavBar}>
+              <FontAwesomeIcon icon={faUserPlus}/>
+              Register
+            </Nav.Link>
           </Link>
         </Col>
       </Row>

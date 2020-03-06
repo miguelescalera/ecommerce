@@ -4,8 +4,9 @@ import Navbars from "../components/Navbar";
 import { connect } from "react-redux";
 import { setInput } from "../actions/search";
 import { withRouter } from "react-router-dom";
-import {loginUser} from "../actions/LoginActions";
+import {addLogin} from "../actions/LoginActions";
 import {fetchSearchProducts} from "../actions/searchProductsActions"
+import {resetCart} from "../actions/cart"
 
 class NavbarContainer extends React.Component {
   constructor(props) {
@@ -40,7 +41,9 @@ class NavbarContainer extends React.Component {
           handleSubmit={this.handleSubmit}
           handleChange={this.handleChange}
           emailUser={this.props.email}
-          dispatchLogout={this.props.dispatchLogout}
+          dispatchLogout={()=> {
+            this.props.resetCart()
+            this.props.dispatchLogout()}}
           redirect = {this.redirect}
         />
       </div>
@@ -58,8 +61,9 @@ const mapStateToProps = function(state) {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     setInput: input => dispatch(setInput(input)),
-    dispatchLogout: () => dispatch(loginUser("")),
-    getProducts: (input)=> dispatch(fetchSearchProducts(input))
+    dispatchLogout: () => dispatch(addLogin({})),
+    getProducts: (input)=> dispatch(fetchSearchProducts(input)),
+    resetCart: ()=> dispatch(resetCart())
   };
 };
 

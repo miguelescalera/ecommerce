@@ -11,7 +11,8 @@ import {getCart, setCartProducts} from "../actions/cart"
 const mapStateToProps = function(state) {
     return {
       products: state.cart.products,
-      loading: state.cart.loading
+      loading: state.cart.loading,
+      loginUser: state.user.loginUser
     };
   };
   
@@ -38,15 +39,18 @@ componentDidMount(){
 }
 
 componentDidUpdate(prevProps){
-    console.log(prevProps.products)
-    console.log(this.props.products)
-    if (prevProps.products !== this.props.products) {
+    // if (prevProps.loginUser.id !== this.props.loginUser.id) {
+        this.props.getCart()
+        // console.log("user")
+    // }
+    if (prevProps.products.length !== this.props.products.length) {
         this.props.getCart()
     }
 }
 
 handleClick(productId, n){
     this.props.setCartProducts(productId, n)
+    this.props.getCart()
 }
 
 render(){
