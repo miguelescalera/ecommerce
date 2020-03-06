@@ -4,7 +4,11 @@ import Navbars from "../components/Navbar";
 import { connect } from "react-redux";
 import { setInput } from "../actions/search";
 import { withRouter } from "react-router-dom";
+<<<<<<< HEAD
 import {addLogin} from "../actions/LoginActions";
+=======
+import {loginUser} from "../actions/LoginActions";
+>>>>>>> e591642dcb690f35e41c70ab5722fd99711db654
 import {fetchSearchProducts} from "../actions/searchProductsActions"
 import {resetCart} from "../actions/cart"
 
@@ -61,9 +65,14 @@ const mapStateToProps = function(state) {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     setInput: input => dispatch(setInput(input)),
+<<<<<<< HEAD
     dispatchLogout: () => dispatch(addLogin({})),
     getProducts: (input)=> dispatch(fetchSearchProducts(input)),
     resetCart: ()=> dispatch(resetCart())
+=======
+    dispatchLogout: () => dispatch(loginUser("")),
+    getProducts: (input)=> dispatch(fetchSearchProducts(input))
+>>>>>>> e591642dcb690f35e41c70ab5722fd99711db654
   };
 };
 
