@@ -4,7 +4,7 @@ import Navbars from "../components/Navbar";
 import { connect } from "react-redux";
 import { setInput } from "../actions/search";
 import { withRouter } from "react-router-dom";
-import addLogin from "../actions/LoginActions";
+import {loginUser} from "../actions/LoginActions";
 import {fetchSearchProducts} from "../actions/searchProductsActions"
 
 class NavbarContainer extends React.Component {
@@ -58,7 +58,7 @@ const mapStateToProps = function(state) {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     setInput: input => dispatch(setInput(input)),
-    dispatchLogout: () => dispatch(addLogin("")),
+    dispatchLogout: () => dispatch(loginUser("")),
     getProducts: (input)=> dispatch(fetchSearchProducts(input))
   };
 };

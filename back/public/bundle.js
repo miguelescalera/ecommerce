@@ -1017,7 +1017,7 @@ var TarjetaProducto = function TarjetaProducto(_ref) {
 /*!**********************!*\
   !*** ./constants.js ***!
   \**********************/
-/*! exports provided: FOUND_PRODUCTS, RECEIVE_PRODUCT, LOGIN_USER, SET_INPUT, SET_CARTPRODUCT, GET_CART */
+/*! exports provided: FOUND_PRODUCTS, RECEIVE_PRODUCT, LOGIN_USER, LOGOUT_USER, SET_INPUT, SET_CARTPRODUCT, GET_CART */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1025,12 +1025,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FOUND_PRODUCTS", function() { return FOUND_PRODUCTS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_PRODUCT", function() { return RECEIVE_PRODUCT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LOGIN_USER", function() { return LOGIN_USER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LOGOUT_USER", function() { return LOGOUT_USER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_INPUT", function() { return SET_INPUT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_CARTPRODUCT", function() { return SET_CARTPRODUCT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_CART", function() { return GET_CART; });
 var FOUND_PRODUCTS = "FOUND_PRODUCTS";
 var RECEIVE_PRODUCT = "RECEIVE_PRODUCT";
 var LOGIN_USER = "LOGIN_USER";
+var LOGOUT_USER = "LOGOUT_USER";
 var SET_INPUT = "SET_INPUT";
 var SET_CARTPRODUCT = "SET_CARTPRODUCT";
 var GET_CART = "GET_CART";
@@ -1379,7 +1381,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
       return dispatch(Object(_actions_search__WEBPACK_IMPORTED_MODULE_3__["setInput"])(input));
     },
     dispatchLogout: function dispatchLogout() {
-      return dispatch(Object(_actions_LoginActions__WEBPACK_IMPORTED_MODULE_5__["default"])(""));
+      return dispatch(Object(_actions_LoginActions__WEBPACK_IMPORTED_MODULE_5__["loginUser"])(""));
     },
     getProducts: function getProducts(input) {
       return dispatch(Object(_actions_searchProductsActions__WEBPACK_IMPORTED_MODULE_6__["fetchSearchProducts"])(input));
