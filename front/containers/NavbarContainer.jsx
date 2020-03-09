@@ -43,14 +43,7 @@ class NavbarContainer extends React.Component {
           handleSubmit={this.handleSubmit}
           handleChange={this.handleChange}
           emailUser={this.props.email}
-
-          dispatchLogout={()=> {
-            this.props.setProductLocalStorage()
-            this.props.resetCart()
-            this.props.dispatchLogout()}}
-
           handleLogout={this.handleLogout}
-
           redirect = {this.redirect}
         />
       </div>

@@ -3,10 +3,9 @@ import Promise from "bluebird"
 import axios from "axios";
 
 
-const setCart= (cart, loading) => ({
+const setCart= (cart, order) => ({
     type: GET_CART,
-    cart,
-    loading
+    cart
   });
 
 export const resetCart= () => ({
@@ -14,19 +13,30 @@ export const resetCart= () => ({
     cart: []
   });
 
+export const setCartProduct  = (product) => ({
+  type: SET_CARTPRODUCT,
+  product
+})
+
 export const getCart = (user) => dispatch => {
     axios.get("/api/cart").then(res => res.data)
   .then(products => dispatch(setCart(products, false)))
 }
 
-/*setCartProducts NO NECESITA DISPATCH, revisarlo con tiempo(igual funciona)*/ 
-export const setCartProducts = (productId, quantity,userId) => dispatch => {
-    
-return axios
-  .post(`/api/cart/products/${productId}/modifycart`, {n: quantity, idUser:userId})
-  .then(result => console.log(result))
-=======
-
-export const setCartProducts = (productId, quantity) => dispatch => {
+export const modifyCartProduct = (productId, quantity) => dispatch => {
 return axios
   .post(`/api/cart/products/${productId}/modifycart`, {n: quantity})
+  .then(product => {
+    dispatch(setCartProduct(product.data))
+    return product
+  })
+};
+
+export const deleteCartProduct = (productId) => dispatch => {
+  return axios
+  .post(`/api/cart/products/${productId}/deletefromcart`)
+  .then(product => {
+    dispatch(setCartProduct({}))
+    return product
+  })
+}
