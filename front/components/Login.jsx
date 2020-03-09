@@ -2,8 +2,10 @@ import React from 'react'
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Card from 'react-bootstrap/Card'
+import Alert from "react-bootstrap/Alert"
 
-export default ({ handlerChange, handlerSubmit }) => {
+
+export default ({ handlerChange, handlerSubmit,alert }) => {
 
 
   const formStyle = {
@@ -32,6 +34,9 @@ export default ({ handlerChange, handlerSubmit }) => {
             <Form.Label>Password</Form.Label>
             <Form.Control type="password" placeholder="Password" name="password" onChange={handlerChange} />
           </Form.Group>
+          <Alert className={alert? "": "d-none"} variant="warning">
+              Usuario o contraseña incorrectos.
+          </Alert>
           <Button variant="dark" type="submit" style={{marginBlockStart:'1rem'}} onClick={handlerSubmit}>
             Iniciar Sesión
         </Button>
@@ -40,3 +45,5 @@ export default ({ handlerChange, handlerSubmit }) => {
     </div>
   )
 }
+
+

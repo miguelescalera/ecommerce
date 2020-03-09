@@ -1,10 +1,16 @@
 import React from "react";
 import Login from "../components/Login";
-import { loginUser } from "../actions/LoginActions";
+
+import {loginUser} from "../actions/LoginActions";
+import {getCart} from "../actions/cart"
+
 import { connect } from "react-redux";
 
 const mapDispatchToProps = (dispatch, state) => {
-  return { loginUser: user => dispatch(loginUser(user)) };
+  return { 
+    loginUser: user => dispatch(loginUser(user)),
+    getCart: user => dispatch(getCart(user))
+   };
 };
 const mapStateToProps = (state, ownprops) => {
   return {
@@ -17,7 +23,8 @@ class LoginContainer extends React.Component {
     super();
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      alert: false
     };
     this.handlerChange = this.handlerChange.bind(this);
     this.handlerSubmit = this.handlerSubmit.bind(this);
@@ -36,14 +43,24 @@ class LoginContainer extends React.Component {
     localStorage.setItem("email", this.state.email);
     localStorage.setItem("password", this.state.password);
     console.log("PROPS!", this.props);
-    this.props.loginUser(this.state);
-    this.props.history.push("/products");
-    // if (this.props.userLogin.email) {
-    //   this.props.history.push("/products");
-    // } else {
-    //   alert("usuario o contraseña incorrecta");
-    // }
+    this.props.loginUser(this.state)
+    .then(user => {
+      if(user.email){
+        this.props.getCart()
+        this.props.history.push("/products")
+      }else{
+        this.setState({alert: true})
+      }
+    })
   }
+
+  // componentDidUpdate(prevProps){
+  //   if (this.props.userLogin.email) {
+  //     this.props.history.push("/products");
+  //   } else {
+  //     this.setState({alert: true})
+  //   }
+  // }
 
   render() {
     return (
@@ -52,6 +69,7 @@ class LoginContainer extends React.Component {
         <Login
           handlerChange={this.handlerChange}
           handlerSubmit={this.handlerSubmit}
+          alert={this.state.alert}
         />
       </div>
     );
