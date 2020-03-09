@@ -39,6 +39,7 @@ handleChange(e){
 handleSubmit(e){
     
     e.preventDefault(); 
+    
     this.props.newUser(this.state)
   
     localStorage.setItem('email', this.state.email)

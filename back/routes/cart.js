@@ -11,11 +11,8 @@ const {
 } = require("../models");
 
 const Promise = require("bluebird");
-/*hice cambios en esta ruta, cambie el metodo "get" a "post", para poder pasarle el id del user en el body*/
-router.post("/", async function(req, res, next) {
-  console.log("CARRO /REQ.BODY: ",req.body)
 
-router.get("/", async function(req, res, next) {
+    router.get("/", async function(req, res, next) {
   const order = await Order.findOne({
     where: { userId: req.body.idUser, status: "cart" }
   });
@@ -53,7 +50,7 @@ router.get("/", async function(req, res, next) {
 });
 
 router.post("/products/:id/modifycart", async function(req, res, next) {
-  console.log("CARRO MODIFICADO/REQ.BODY: ",req.body)
+  
   const n = req.body.n;
   const product = await Product.findByPk(req.params.id);
   const [order] = await Order.findOrCreate({
