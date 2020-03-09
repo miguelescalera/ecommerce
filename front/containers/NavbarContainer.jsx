@@ -67,8 +67,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   };
 };
 
-
-
 export default withRouter(
   connect(mapStateToProps, mapDispatchToProps)(NavbarContainer)
 );
