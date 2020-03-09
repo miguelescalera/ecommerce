@@ -6,7 +6,8 @@ export default ({ products, handleClick }) => {
   const resultTarj = {
     display: 'flex',
     flexWrap: 'wrap',
-    flexGrowth: 2,
+    flexGrowth: "2",
+    width: "60%",
   };
   const tarj = {
     padding: '0.5rem',
