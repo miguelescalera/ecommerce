@@ -115,6 +115,7 @@ const Navbars = function({
           </Form>
         </Col>
         <Col md="auto">
+          <Link style={fontNavBar} to="/cart">
           <Link to="/cart">
             <Nav.Link style={fontNavBar}> <FontAwesomeIcon icon={faShoppingCart}/> Cart </Nav.Link>
           </Link>

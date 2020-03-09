@@ -18,10 +18,10 @@ export const getCart = (user) => dispatch => {
     axios.get("/api/cart").then(res => res.data)
   .then(products => dispatch(setCart(products, false)))
 }
-
-export const setCartProducts = (productId, quantity) => dispatch => {
-    console.log(productId)
+/*setCartProducts NO NECESITA DISPATCH, revisarlo con tiempo(igual funciona)*/ 
+export const setCartProducts = (productId, quantity,userId) => dispatch => {
+    
 return axios
-  .post(`/api/cart/products/${productId}/modifycart`, {n: quantity})
+  .post(`/api/cart/products/${productId}/modifycart`, {n: quantity, idUser:userId})
   .then(result => console.log(result))
 };

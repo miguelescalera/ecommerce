@@ -1,6 +1,6 @@
 import React from "react";
 import Navbars from "../components/Navbar";
-
+import LocalStorageAction from "../actions/LocalStorageActions"
 import { connect } from "react-redux";
 import { setInput } from "../actions/search";
 import { withRouter } from "react-router-dom";
@@ -42,6 +42,7 @@ class NavbarContainer extends React.Component {
           handleChange={this.handleChange}
           emailUser={this.props.email}
           dispatchLogout={()=> {
+            this.props.setProductLocalStorage()
             this.props.resetCart()
             this.props.dispatchLogout()}}
           redirect = {this.redirect}
@@ -60,6 +61,7 @@ const mapStateToProps = function(state) {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
+    setProductLocalStorage: () => dispatch(LocalStorageAction([])),
     setInput: input => dispatch(setInput(input)),
     dispatchLogout: () => dispatch(addLogin({})),
     getProducts: (input)=> dispatch(fetchSearchProducts(input)),
