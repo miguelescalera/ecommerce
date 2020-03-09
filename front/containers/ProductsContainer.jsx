@@ -7,14 +7,16 @@ import {
   fetchSearchProducts,
   getAllProducts
 } from "../actions/searchProductsActions";
-import {setCartProducts} from "../actions/cart"
+import {modifyCartProduct, getCart} from "../actions/cart"
 import {loginUser} from "../actions/LoginActions";
 
 
 const mapStateToProps = function(state) {
   return {
     foundProducts: state.product.list,
-    input: state.input.value
+    input: state.input.value,
+    loginUser: state.user.loginUser,
+    getCart: state.cart.products
   };
 };
 
@@ -23,7 +25,8 @@ const mapDispatchToProps = function(dispatch) {
     fetchSearchProducts: input => dispatch(fetchSearchProducts(input)),
     getAllProducts: () => dispatch(getAllProducts()),
     loginUser: user => dispatch(loginUser(user)),
-    setCartProducts: (productId, quantity) => dispatch(setCartProducts(productId, quantity))
+    setCartProducts: (productId, quantity) => dispatch(modifyCartProduct(productId, quantity)),
+    getCart: () => dispatch(getCart())
   };
 };
 
@@ -35,6 +38,8 @@ class ProductsContainer extends React.Component {
   componentDidMount() {
     if (this.props.input) this.props.fetchSearchProducts(this.props.input);
     else this.props.getAllProducts();
+    if(this.props.loginUser) this.props.getCart()
+
     //localstorage para mantenerse logeado
     const emailUser = localStorage.getItem("email");
     const passwordUser = localStorage.getItem("password");
@@ -45,7 +50,8 @@ class ProductsContainer extends React.Component {
     };
 
     if (emailUser && passwordUser) {
-      this.props.loginUser(data);
+      this.props.loginUser(data)
+      .then(()=> this.props.getCart())
     }
   }
   componentDidUpdate(prevProps) {
@@ -55,6 +61,7 @@ class ProductsContainer extends React.Component {
   }
   handleClick(productId, n){
     this.props.setCartProducts(productId, n)
+    this.props.getCart()
   }
 
   render() {
