@@ -13,6 +13,7 @@ const {
 const Promise = require("bluebird");
 
 router.get("/", async function(req, res, next) {
+  console.log(req.user)
   const order = await Order.findOne({
     where: { userId: req.user.id, status: "cart" }
   });
@@ -36,20 +37,16 @@ router.get("/", async function(req, res, next) {
       totalPrice : orderProducts[products.indexOf(product)].totalPrice
     
   }})
-  res.send(products)
-
-
-  // const products = await Order_Product.findAll({
-  //   includes:[{
-  //     model: Product
-  //   }],
-  //   where: {id: orderProduct[0].id}
-  // })
-  // const result = {orderProduct, products}
+  products = products.sort((a, b) => (a.name > b.name) ? 1 : -1)
+  res.send({
+    list: products,
+    order: order
+  })
   
 });
 
 router.post("/products/:id/modifycart", async function(req, res, next) {
+  console.log("REQ.USER: ",req.user)
   const n = req.body.n;
   const product = await Product.findByPk(req.params.id);
   const [order] = await Order.findOrCreate({
@@ -65,39 +62,15 @@ router.post("/products/:id/modifycart", async function(req, res, next) {
   orderProduct.totalPrice = product.price * orderProduct.quantity;
 
   await orderProduct.save();
+
+  console.log(order.subTotal)
+  console.log(orderProduct.totalPrice)
+  
+  order.subTotal = Number(order.subTotal) + Number(product.price * n)
+  await order.save()
+
   res.send(orderProduct);
 });
-
-/*
-  Promise.props({ product, order })
-    .then(obj => {
-      Order_Product.findOrCreate({
-        where: {
-          productId: obj.product.id,
-          orderId: obj.order.id
-        }
-      });
-    })
-    .then(result => {
-      console.log(result);
-      res.send(result);
-    });*/
-/*
-    .then(orderId => {
-      Order_Product.create(
-        //  where: {
-        { orderId: 1, productId: 1 },
-        { returning: true }
-        //  }
-      );
-    })
-    .then(orderProduct => {
-      console.log(orderProduct);
-      orderProduct[0].increase(1);
-      return orderProduct;
-    })
-    .then(orderProduct => res.send(orderProduct));
-    */
 
 router.post("/products/:id/removefromcart", function(req, res, next) {
   Order.findOrCreate({
@@ -118,23 +91,24 @@ router.post("/products/:id/removefromcart", function(req, res, next) {
     .then(orderProduct => orderProduct.decrease(1));
 });
 
-router.post("/products/:id/deleteproductfromcart", function(req, res, next) {
-  Order.findOne({
+router.post("/products/:id/deletefromcart", async function(req, res, next) {
+  const order = await Order.findOne({
     where: {
       userId: req.user.id,
       status: "cart"
     }
   })
-    .then(result => result.id)
-    .then(orderId => {
-      Order_Product.findOne({
+  const orderProduct = await Order_Product.findOne({
         where: {
-          orderId,
-          productId: req.params.id
+          OrderId: order.id,
+          ProductId: req.params.id
         }
-      });
-    })
-    .then(orderProduct => orderProduct.destroy());
+      })
+  order.subTotal = Number(order.subTotal) - Number(orderProduct.totalPrice)
+  await order.save()
+  await orderProduct.destroy()
+
+  res.send(orderProduct)
 });
 
 module.exports = router;

@@ -6,6 +6,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import {Link} from 'react-router-dom'
 import { element } from "prop-types";
+import Alert from "react-bootstrap/Alert"
 
 
 let hardcodeada=[
@@ -26,7 +27,7 @@ let hardcodeada=[
 
 let total= 0
 
-export default ({product}) => {
+export default ({products, order}) => {
   return (      
         <div style={{marginTop:"120px"}} >
 
@@ -34,8 +35,8 @@ export default ({product}) => {
                 <thead>
                     <th>Resumen De Compra</th>
                 </thead>
-{product ? (
-    product.map(Element=>{
+{products ? (
+    products.map(Element=>{
         total=total+Element.totalPrice
               return(
                     <tbody>
@@ -46,11 +47,11 @@ export default ({product}) => {
                         <hr/>
                     </tbody>
               )})
-) : null}
+) : null }
                    <td>Total</td>
-                   {/* <td>${total}</td> */}
+                   <td>${order.subTotal}</td>
                    <hr/>
-                       <Button  variant="outline-dark"><Link to='/productos'> productos </Link></Button>
+                       <Button variant="outline-dark"><Link to='/products'> Seguir comprando </Link></Button>
                        <Button style={{marginLeft:"20px"}} variant="dark">  Checkout </Button>{' '} {/*hay que agregar un link a checkout*/}
 
             </div>
