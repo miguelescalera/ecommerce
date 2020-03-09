@@ -12,7 +12,9 @@ const {
 
 const Promise = require("bluebird");
 
+
     router.get("/", async function(req, res, next) {
+
   const order = await Order.findOne({
     where: { userId: req.user.id, status: "cart" }
   });

@@ -18,12 +18,9 @@ const Navbars = function({
   handleSubmit,
   handleChange,
   emailUser,
-  dispatchLogout,
-  redirect
+  handleLogout
 }) {
-  let displayRegister = {
-    nada: "nada"
-  };
+
   /////////boton login////////
   let userLogin = (
     <Link to="/users/login">
@@ -32,23 +29,11 @@ const Navbars = function({
   );
   ///////////////////////////////////////////
   /*boton logout*/
-
-  if (emailUser) {
-    const handleLogout = function() {
-      axios.post("/logout").then(function() {
-        localStorage.clear();
-        dispatchLogout();
-        displayRegister = {
-          display: "none"
-        };
-      }).then(res => redirect())
-    };
-    userLogin = (
+  let userLogout = (
         <Nav.Link style={fontNavBar} onClick={handleLogout}>
           <FontAwesomeIcon icon={faUser}/> Logout
         </Nav.Link>
     );
-  }
 
   //////////////////////////////////////////////
 
@@ -115,11 +100,13 @@ const Navbars = function({
           </Form>
         </Col>
         <Col md="auto">
-          <Link style={fontNavBar} to="/cart">
-            <FontAwesomeIcon icon={faShoppingCart}/> Cart 
+
+          <Link to="/cart">
+            <Nav style={fontNavBar}> <FontAwesomeIcon icon={faShoppingCart}/> Cart </Nav>
+
           </Link>
         </Col>
-        <Col md="auto">{userLogin}</Col>
+        <Col md="auto">{emailUser? userLogout: userLogin}</Col>
         <Col md="auto">
           <Link to="/users/register">
           <Nav.Link href="#usuario" style={fontNavBar}>
@@ -188,6 +175,6 @@ const Navbars = function({
       </Row>
     </div>
   );
-};
+}
 
 export default Navbars;

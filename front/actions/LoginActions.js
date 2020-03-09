@@ -6,24 +6,22 @@ export const addLogin = user => ({
   user
 });
 
-const addLogout = ()=> ({
-  type: LOGOUT_USER,
-  user: {}
-})
+// const addLogout = ()=> ({
+//   type: LOGOUT_USER,
+//   user: {}
+// })
 
 export const loginUser = user => dispatch =>
   axios
     .post("/api/users/login", { email: user.email, password: user.password })
     .then(user => {
-      dispatch(addLogin(user.data));
+      dispatch(addLogin(user.data))
+      return user.data;
     });
 
-export const logoutUser = function() {
-  axios.post("/logout").then(function() {
+export const logoutUser = user => dispatch => {
+  axios.post("api/users/logout").then(function() {
     localStorage.clear();
-    dispatchLogout();
-    displayRegister = {
-      display: "none"
-    };
-  }).then(() => dispatch(addLogout()))
-};
+    dispatch(addLogin({}))
+})
+}
