@@ -4,11 +4,17 @@ import {newUser} from "../actions/users"
 import { connect } from 'react-redux'
 
 
+
 const mapDispatchToProps= (dispatch, state)=>{
-    return{newUser: data => dispatch(newUser(data))}
+    return{
+        newUser: data => dispatch(newUser(data)),
+        
+    }
 }
-const mapStateToProps= function(dispatch){
-    return{}
+const mapStateToProps= function(state){
+    return{
+        idUser:state.user.loginUser.id
+    }
 }
 
 class RegisterContainer extends React.Component {
@@ -31,16 +37,22 @@ handleChange(e){
 }
 
 handleSubmit(e){
-    e.preventDefault();
+    
+    e.preventDefault(); 
+    
     this.props.newUser(this.state)
   
     localStorage.setItem('email', this.state.email)
     localStorage.setItem('password', this.state.password)
-
+    
     this.props.history.push("/users/login")
+}
+        
+
+    
+    
    
 
-}
     render(){
         return(
             <div>

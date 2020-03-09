@@ -19,8 +19,10 @@ router.post("/register",function(req,res,next){
 router.post("/login",passport.authenticate('local'),function(req,res){
     res.send(req.user)
 })
+  
 
 router.post('/logout', function(req, res){
+   
 if (req.isAuthenticated()) {
     // console.log("Logouteo")
       req.logout();
