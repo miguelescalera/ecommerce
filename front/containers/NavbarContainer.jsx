@@ -4,11 +4,7 @@ import Navbars from "../components/Navbar";
 import { connect } from "react-redux";
 import { setInput } from "../actions/search";
 import { withRouter } from "react-router-dom";
-<<<<<<< HEAD
-import {addLogin} from "../actions/LoginActions";
-=======
-import {loginUser} from "../actions/LoginActions";
->>>>>>> e591642dcb690f35e41c70ab5722fd99711db654
+import {logoutUser} from "../actions/LoginActions";
 import {fetchSearchProducts} from "../actions/searchProductsActions"
 import {resetCart} from "../actions/cart"
 
@@ -20,7 +16,7 @@ class NavbarContainer extends React.Component {
     };
     this.handleChange=this.handleChange.bind(this)
     this.handleSubmit=this.handleSubmit.bind(this)
-    this.redirect = this.redirect.bind(this)
+    this.handleLogout = this.handleLogout.bind(this)
   }
   handleChange(event){
     this.setState({ input:event.target.value})
@@ -33,8 +29,10 @@ class NavbarContainer extends React.Component {
     this.props.getProducts(this.state.input) 
     this.props.redirect.history.push('/products')// esta linea de cod. redirecciona al usuario cuando haga submit al formulario
   }
-  redirect(){
-    this.props.redirect.history.push('/products')
+
+  handleLogout(){
+    this.props.logoutUser()
+    this.props.resetCart()
   }
 
 
@@ -45,9 +43,7 @@ class NavbarContainer extends React.Component {
           handleSubmit={this.handleSubmit}
           handleChange={this.handleChange}
           emailUser={this.props.email}
-          dispatchLogout={()=> {
-            this.props.resetCart()
-            this.props.dispatchLogout()}}
+          handleLogout={this.handleLogout}
           redirect = {this.redirect}
         />
       </div>
@@ -65,14 +61,9 @@ const mapStateToProps = function(state) {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     setInput: input => dispatch(setInput(input)),
-<<<<<<< HEAD
-    dispatchLogout: () => dispatch(addLogin({})),
+    logoutUser: () => dispatch(logoutUser()),
     getProducts: (input)=> dispatch(fetchSearchProducts(input)),
     resetCart: ()=> dispatch(resetCart())
-=======
-    dispatchLogout: () => dispatch(loginUser("")),
-    getProducts: (input)=> dispatch(fetchSearchProducts(input))
->>>>>>> e591642dcb690f35e41c70ab5722fd99711db654
   };
 };
 

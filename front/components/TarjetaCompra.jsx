@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import Alert from "react-bootstrap/Alert"
 
 const TarjetaCompra = function({productos, handleClick}) {
   const button2= {
@@ -31,7 +32,7 @@ const TarjetaCompra = function({productos, handleClick}) {
     return (
       
       <div>
-        {productos ? (
+        {productos.length ? (
           productos.map(function(producto){
             return(
               <div style={{ marginTop:"50px", backgroundColor:"white"}}>
@@ -61,7 +62,10 @@ const TarjetaCompra = function({productos, handleClick}) {
               </div>
                     )
                   }) 
-        ) : null}
+        ) : 
+        <Alert variant="info">
+        Aun no hay elementos en tu carrito
+        </Alert>}
       </div>
      
     );

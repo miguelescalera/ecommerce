@@ -28,7 +28,7 @@ class CarritoContainer extends React.Component{
     constructor(props){
         super(props)
         this.state = {
-
+            orderProduct: {}
         }
         this.handleClick = this.handleClick.bind(this)
     }
@@ -38,19 +38,22 @@ componentDidMount(){
     this.props.getCart()
 }
 
-componentDidUpdate(prevProps){
-    // if (prevProps.loginUser.id !== this.props.loginUser.id) {
-        this.props.getCart()
-        // console.log("user")
+componentDidUpdate(prevProps, prevState){
+    // console.log(prevState.orderProduct.id)
+    // console.log(this.state.orderProduct.id)
+    // if(prevState.orderProduct.id !== this.state.orderProduct.id || prevState.orderProduct.quantity !== this.state.orderProduct.id){
+    //     this.props.getCart()
     // }
-    if (prevProps.products.length !== this.props.products.length) {
-        this.props.getCart()
-    }
+    // NO LO PUEDO HACER EN EL ESTADO PORQ SE ME REINICIA; TENGO QUE PONER EN EL STORE EL ULTIMO CLIQUEADO
 }
 
 handleClick(productId, n){
     this.props.setCartProducts(productId, n)
-    this.props.getCart()
+    .then(orderProduct => {
+        console.log(orderProduct)
+        this.setState({orderProduct: orderProduct.data})
+    })
+    // this.props.getCart()
 }
 
 render(){
