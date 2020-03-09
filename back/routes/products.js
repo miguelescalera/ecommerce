@@ -9,7 +9,7 @@ router.get("/", function(req, res, next) {
     const name_query = req.query.name.split("20%").join(" ")
     Product.findAll({
       where: {
-        name: {[Op.like]: `%${name_query}%`}
+        name: {[Op.iLike]: `%${name_query}%`}
       }
     }).then(function(products) {
     res.send(products);

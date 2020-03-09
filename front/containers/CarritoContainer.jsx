@@ -7,9 +7,10 @@ import Col from 'react-bootstrap/Col'
 import {connect} from "react-redux"
 import {getCart, modifyCartProduct, deleteCartProduct} from "../actions/cart"
 
-
+let Finalproducts=new Array;
 const mapStateToProps = function(state) {
     return {
+      allProducts: state.product.list, 
       products: state.cart.products,
       order: state.cart.order,
       loginUser: state.user.loginUser,
@@ -29,7 +30,6 @@ const mapStateToProps = function(state) {
 class CarritoContainer extends React.Component{
     constructor(props){
         super(props)
-
         this.handleClick = this.handleClick.bind(this)
         this.handleDelete=this.handleDelete.bind(this)
     }
@@ -37,6 +37,10 @@ class CarritoContainer extends React.Component{
 componentDidMount(){
     this.props.getCart()
 }
+           
+           
+    
+
 
 componentDidUpdate(prevProps, prevState){
     console.log(prevProps.modifiedProduct)
@@ -77,8 +81,20 @@ render(){
     )
 }
 }
-
+   
 export default connect(mapStateToProps, mapDispatchToProps)(CarritoContainer)
+       
+   
+    
+
+    
+    
+    
+    
+
+
+        
+
   
 
 
