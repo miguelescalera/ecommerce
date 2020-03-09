@@ -1,7 +1,9 @@
 import React from "react";
 import Login from "../components/Login";
+
 import {loginUser} from "../actions/LoginActions";
 import {getCart} from "../actions/cart"
+
 import { connect } from "react-redux";
 
 const mapDispatchToProps = (dispatch, state) => {
@@ -63,6 +65,7 @@ class LoginContainer extends React.Component {
   render() {
     return (
       <div>
+
         <Login
           handlerChange={this.handlerChange}
           handlerSubmit={this.handlerSubmit}

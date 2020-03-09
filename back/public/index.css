@@ -8,5 +8,18 @@
 #main {
   background-image: url(https://i.imgur.com/b0rrPNZ.jpg);
   background-repeat: no-repeat;
-  background-size: 100%;
-  background-attachment: fixed;}
+  background-size: 100% ;
+  background-attachment: fixed;
+
+
+}
+
+
+
+a {
+  color:#c60c35;
+}
+
+a:hover{
+  color:#40C040
+}
