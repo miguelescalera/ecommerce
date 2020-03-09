@@ -6,6 +6,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import {Link} from 'react-router-dom'
 import { element } from "prop-types";
+import Alert from "react-bootstrap/Alert"
 
 
 let hardcodeada=[
@@ -46,7 +47,7 @@ export default ({product}) => {
                         <hr/>
                     </tbody>
               )})
-) : null}
+) : null }
                    <td>Total</td>
                    {/* <td>${total}</td> */}
                    <hr/>

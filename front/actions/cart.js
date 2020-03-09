@@ -20,8 +20,6 @@ export const getCart = (user) => dispatch => {
 }
 
 export const setCartProducts = (productId, quantity) => dispatch => {
-    console.log(productId)
 return axios
   .post(`/api/cart/products/${productId}/modifycart`, {n: quantity})
-  .then(result => console.log(result))
 };
