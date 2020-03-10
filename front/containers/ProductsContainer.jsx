@@ -18,14 +18,9 @@ const mapStateToProps = function(state) {
   return {
     foundProducts: state.product.list,
     input: state.input.value,
-<<<<<<< HEAD
-    loginUser: state.user.loginUser,
-    getCart: state.cart.products
-=======
     emailUser: state.user.loginUser.email,
     idUser:state.user.loginUser.id,
     productWithoutUser:state.productWithoutUser.products
->>>>>>> b1886afdf71a4424a223a29a75b57f39698437c5
   };
 };
 

@@ -4,11 +4,13 @@ import userReducer from './userReducer'
 import searchReducer from "./searchReducer"
 import cartReducer from './cartReducer'
 import LocalStorageReducer from "./LocalStorageReducer"
+import ordersReducer from "./ordersReducer";
 
 export default combineReducers({
   product: productReducer,
   user: userReducer,
   input: searchReducer,
   cart: cartReducer,
-  productWithoutUser:LocalStorageReducer
+  productWithoutUser:LocalStorageReducer,
+  orders: ordersReducer
 });
