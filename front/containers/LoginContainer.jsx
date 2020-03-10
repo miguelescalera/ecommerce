@@ -5,7 +5,6 @@ import {loginUser} from "../actions/LoginActions";
 import {getCart} from "../actions/cart"
 
 import { connect } from "react-redux";
-
 const mapDispatchToProps = (dispatch, state) => {
   return { 
     loginUser: user => dispatch(loginUser(user)),

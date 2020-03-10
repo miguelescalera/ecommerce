@@ -16,10 +16,16 @@ router.post("/addAdmin", async function(req,res){
 router.get("/orders", async function(req, res){
 const allOrders = await Order.findAll({
   include: [{
+      model: User,
+      as: "User",
+      required: false,
+      attributes: ["email", "firstName", "lastName"]
+  },   
+    {
     model: Product,
     as: 'products',
     required: false,
-    attributes: ['id', 'name'],
+    attributes: ['id', 'name', 'price'],
     through: {
       model: Order_Product,
       as: 'order_products',

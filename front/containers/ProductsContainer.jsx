@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-
 import { Link } from "react-router-dom";
 import Products from "../components/Products";
 import {
@@ -10,10 +9,6 @@ import {
 import {modifyCartProduct, getCart} from "../actions/cart"
 import {loginUser} from "../actions/LoginActions";
 import LocalStorageAction from "../actions/LocalStorageActions"
-
-
-
-
 const mapStateToProps = function(state) {
   return {
     foundProducts: state.product.list,
@@ -39,16 +34,14 @@ const mapDispatchToProps = function(dispatch) {
     getCart: () => dispatch(getCart())
   };
 };
-
 let arrayOfPO = []
-
-
 class ProductsContainer extends React.Component {
   constructor() {
     super();
     this.handleClick= this.handleClick.bind(this)
   }
   componentDidMount() {
+    this.props.getCart()
     if(!this.props.productWithoutUser){
       arrayOfPO=[]
     }
@@ -65,7 +58,6 @@ class ProductsContainer extends React.Component {
     //localstorage para mantenerse logeado
     const emailUser = localStorage.getItem("email");
     const passwordUser = localStorage.getItem("password");
-
     const data = {
       email: emailUser,
       password: passwordUser
@@ -91,7 +83,6 @@ class ProductsContainer extends React.Component {
       }
        
         
-
   }
   componentDidUpdate(prevProps) {
     if (prevProps.input !== this.props.input) {
@@ -128,11 +119,7 @@ class ProductsContainer extends React.Component {
         this.props.setCartProducts(productId, n)
         this.props.getCart()
       }    
-    }
-      
-          
-    
-
+    }   
   render() {
     return (
       <div>
@@ -142,12 +129,4 @@ class ProductsContainer extends React.Component {
     );
   }
 }
-
 export default connect(mapStateToProps, mapDispatchToProps)(ProductsContainer);
-
-
-
-
-
-
-
