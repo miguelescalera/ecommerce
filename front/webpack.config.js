@@ -21,8 +21,10 @@ module.exports = {
               "@babel/env"
             ]
           }
-        }
+        },
       ]
     },
+    
+    
     devtool: 'source-map'
   }

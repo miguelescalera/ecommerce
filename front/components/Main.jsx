@@ -16,7 +16,7 @@ export default () => {
     <div id="main">
       <NavbarContainer />
       <Switch>
-        {/* <Route path="/home" exact component={PaginaPrincipalContainer} /> */}
+        <Route path="/home" exact component={PaginaPrincipalContainer} />
         <Route path="/products" exact component={ProductsContainer} />
         <Route path="/products/:id" component={ProductContainer} />
         <Route path="/users/register" exact component={RegisterContainer} />

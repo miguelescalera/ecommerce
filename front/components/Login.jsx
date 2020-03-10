@@ -10,7 +10,10 @@ export default ({ handlerChange, handlerSubmit,alert }) => {
 
   const formStyle = {
     width: "25%",
-    padding:"3rem"
+    padding:"3rem",
+    borderRadius: "0px",
+    boxShadow :'8px 8px 15px -10px rgba(0,0,0,0.39)',
+
   }
   const divFormStyle ={
     display:"flex",
