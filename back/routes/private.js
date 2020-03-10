@@ -23,13 +23,13 @@ router.post("/addAdmin", async function(req, res) {
 
 //ORDERS ADMIN ROUTES
 router.get("/orders", function(req, res) {
- Order.findAll({
+  Order.findAll({
     include: [
       {
-        model:User,
+        model: User,
         as: "User",
-        require:false,
-        attributes:["email","firstName","lastName"]
+        require: false,
+        attributes: ["email", "firstName", "lastName"]
       },
       {
         model: Product,

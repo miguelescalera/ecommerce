@@ -1,4 +1,5 @@
 const { Product } = require("./models/index.js");
+const { User } = require("./models/index.js");
 function addWines({
   name,
   price,
@@ -24,6 +25,21 @@ function addWines({
     })
     .catch(console.log);
 }
+
+function adduser({ email, password, firstName, lastName, status }) {
+  User.create({
+    email,
+    password,
+    firstName,
+    lastName,
+    status
+  })
+    .then(newUser => {
+      console.log("done", newUser);
+    })
+    .catch(console.log);
+}
+
 const vinos = [
   (vino1 = {
     name: "Zuccardi Aluvional",
@@ -308,4 +324,50 @@ const vinos = [
     rating: 5
   })
 ];
+
+const users = [
+  (user1 = {
+    email: "admin@winenot.com",
+    password: "123",
+    firstName: "Winenot",
+    lastName: "Admin",
+    status: 3
+  }),
+  (user2 = {
+    email: "migue@winenot.com",
+    password: "123",
+    firstName: "Miguel",
+    lastName: "Escalera",
+    status: 2
+  }),
+  (user3 = {
+    email: "alan@winenot.com",
+    password: "123",
+    firstName: "Alan",
+    lastName: "Fernandez",
+    status: 2
+  }),
+  (user4 = {
+    email: "chiqui@gmail.com",
+    password: "123",
+    firstName: "Jose",
+    lastName: "Chiquillo",
+    status: 1
+  }),
+  (user5 = {
+    email: "vico@gmail.com",
+    password: "123",
+    firstName: "Vico",
+    lastName: "Disicia",
+    status: 1
+  }),
+  (user6 = {
+    email: "mati@gmail.com",
+    password: "123",
+    firstName: "Matias",
+    lastName: "Pugliese",
+    status: 1
+  })
+];
 vinos.map(e => addWines(e));
+users.map(e => adduser(e));

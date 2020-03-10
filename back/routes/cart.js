@@ -46,7 +46,6 @@ router.get("/", async function(req, res, next) {
 });
 
 router.post("/products/:id/modifycart", async function(req, res, next) {
-  console.log("REQ.USER: ",req.user)
   const n = req.body.n;
   const product = await Product.findByPk(req.params.id);
   const [order] = await Order.findOrCreate({
@@ -63,9 +62,6 @@ router.post("/products/:id/modifycart", async function(req, res, next) {
 
   await orderProduct.save();
 
-  console.log(order.subTotal)
-  console.log(orderProduct.totalPrice)
-  
   order.subTotal = Number(order.subTotal) + Number(product.price * n)
   await order.save()
 
