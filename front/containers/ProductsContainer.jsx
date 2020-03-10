@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-
 import { Link } from "react-router-dom";
 import Products from "../components/Products";
 import {
@@ -10,70 +9,71 @@ import {
 import {modifyCartProduct, getCart} from "../actions/cart"
 import {loginUser} from "../actions/LoginActions";
 import LocalStorageAction from "../actions/LocalStorageActions"
-
-
-
-
 const mapStateToProps = function(state) {
   return {
     foundProducts: state.product.list,
     input: state.input.value,
-<<<<<<< HEAD
     loginUser: state.user.loginUser,
-    getCart: state.cart.products
-=======
+    getCart: state.cart.products,
     emailUser: state.user.loginUser.email,
     idUser:state.user.loginUser.id,
     productWithoutUser:state.productWithoutUser.products
->>>>>>> b1886afdf71a4424a223a29a75b57f39698437c5
   };
 };
-
 const mapDispatchToProps = function(dispatch) {
   return {
     fetchSearchProducts: input => dispatch(fetchSearchProducts(input)),
     getAllProducts: () => dispatch(getAllProducts()),
     loginUser: user => dispatch(loginUser(user)),
     setCartProducts: (productId, quantity) => dispatch(modifyCartProduct(productId, quantity)),
+    setProductLocalStorage: (productId,quantity) => dispatch(LocalStorageAction(productId,quantity)),
     getCart: () => dispatch(getCart())
   };
 };
-
 let arrayOfPO = []
-
-
 class ProductsContainer extends React.Component {
   constructor() {
     super();
     this.handleClick= this.handleClick.bind(this)
   }
   componentDidMount() {
+    this.props.getCart()
     if(!this.props.productWithoutUser){
       arrayOfPO=[]
     }
     else{
       arrayOfPO=this.props.productWithoutUser
     }
-      
-
-    console.log("arrayOfPO:",arrayOfPO)
     if (this.props.input) this.props.fetchSearchProducts(this.props.input);
     else this.props.getAllProducts();
     if(this.props.loginUser) this.props.getCart()
-
-    //localstorage para mantenerse logeado
     const emailUser = localStorage.getItem("email");
     const passwordUser = localStorage.getItem("password");
-
     const data = {
       email: emailUser,
       password: passwordUser
     };
     //////SE LOGUEA E USUARIO AUTOMATICAMENTE////////
     if (emailUser && passwordUser) {
-      this.props.loginUser(data)
-      .then(()=> this.props.getCart())
-    }
+      function fetchProductsUser(){
+        let products = JSON.parse(localStorage.getItem("products")) 
+          if(products){
+            for(let i=0;i<products.length;i++){ 
+              let productId=products[i].idProduct
+              let producQuantity= products[i].quantity
+              this.props.setCartProducts(productId,producQuantity)
+            }
+            localStorage.removeItem("products")
+          }
+             
+        }
+        fetchProductsUser = fetchProductsUser.bind(this)
+        this.props.loginUser(data)
+        .then(()=> fetchProductsUser()())
+        .then(()=> this.props.getCart())
+      }
+       
+        
   }
   componentDidUpdate(prevProps) {
     if (prevProps.input !== this.props.input) {
@@ -81,6 +81,10 @@ class ProductsContainer extends React.Component {
       
     }
   }
+  componentWillUnmount(){
+    this.props.setProductLocalStorage(JSON.parse(localStorage.getItem("products")))
+    arrayOfPO=[]
+}
   handleClick(productId, n){
     this.props.setCartProducts(productId, n)
     this.props.getCart()
@@ -102,14 +106,10 @@ class ProductsContainer extends React.Component {
         
       }
       else{
-        
-        this.props.setCartProducts(productId, n,this.props.idUser)
+        this.props.setCartProducts(productId, n)
+        this.props.getCart()
       }    
-    }
-      
-          
-    
-
+    }   
   render() {
     return (
       <div>
@@ -119,12 +119,4 @@ class ProductsContainer extends React.Component {
     );
   }
 }
-
 export default connect(mapStateToProps, mapDispatchToProps)(ProductsContainer);
-
-
-
-
-
-
-

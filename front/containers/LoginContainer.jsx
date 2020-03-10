@@ -3,7 +3,6 @@ import Login from "../components/Login";
 import {loginUser} from "../actions/LoginActions";
 import {getCart} from "../actions/cart"
 import { connect } from "react-redux";
-
 const mapDispatchToProps = (dispatch, state) => {
   return { 
     loginUser: user => dispatch(loginUser(user)),
@@ -44,7 +43,6 @@ class LoginContainer extends React.Component {
     this.props.loginUser(this.state)
     .then(user => {
       if(user.email){
-        this.props.getCart()
         this.props.history.push("/products")
       }else{
         this.setState({alert: true})
@@ -63,6 +61,7 @@ class LoginContainer extends React.Component {
   render() {
     return (
       <div>
+
         <Login
           handlerChange={this.handlerChange}
           handlerSubmit={this.handlerSubmit}
