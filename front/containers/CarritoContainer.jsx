@@ -43,7 +43,6 @@ class CarritoContainer extends React.Component{
 componentDidMount(){
     if(this.props.emailUser){
         this.props.getCart()
-        console.log('hola')
     }
     else{
         let productsOffline = JSON.parse(localStorage.getItem("products")) 
@@ -69,6 +68,12 @@ componentDidMount(){
  }
             
 
+
+           
+           
+    
+
+
 componentDidUpdate(prevProps, prevState){
     console.log(prevProps.modifiedProduct)
     console.log(this.props.modifiedProduct)
@@ -79,9 +84,11 @@ componentDidUpdate(prevProps, prevState){
         this.props.getCart()
     }
 }
+
 componentWillUnmount(){
     Finalproducts=[]
 }
+
 handleClick(productId, n){
     if(this.props.emailUser){
         this.props.modifyCartProduct(productId, n)
@@ -93,10 +100,13 @@ handleClick(productId, n){
         localStorage.setItem("products",JSON.stringify(productsClick))
         this.props.setProductLocalStorage(JSON.parse(localStorage.getItem("products")))
     }
+
 }
+
 handleDelete(productId){
     this.props.deleteCartProduct(productId)
 }
+
 render(){
     const order = this.props.order
     const products =this.props.emailUser?this.props.products:Finalproducts

@@ -1,4 +1,4 @@
-import { FOUND_PRODUCTS } from "../constants"; // verificar si esto esta exportando bien
+import { FOUND_PRODUCTS } from "../constants";
 import axios from "axios";
 
 const SearchProducts = foundProducts => ({

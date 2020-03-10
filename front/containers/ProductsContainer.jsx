@@ -20,6 +20,10 @@ const mapStateToProps = function(state) {
     productWithoutUser:state.productWithoutUser.products
   };
 };
+
+
+
+
 const mapDispatchToProps = function(dispatch) {
   return {
     fetchSearchProducts: input => dispatch(fetchSearchProducts(input)),
@@ -47,6 +51,11 @@ class ProductsContainer extends React.Component {
     if (this.props.input) this.props.fetchSearchProducts(this.props.input);
     else this.props.getAllProducts();
     if(this.props.loginUser) this.props.getCart()
+      
+
+    
+
+    //localstorage para mantenerse logeado
     const emailUser = localStorage.getItem("email");
     const passwordUser = localStorage.getItem("password");
     const data = {
@@ -106,6 +115,7 @@ class ProductsContainer extends React.Component {
         
       }
       else{
+        
         this.props.setCartProducts(productId, n)
         this.props.getCart()
       }    
