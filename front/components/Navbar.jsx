@@ -11,8 +11,12 @@ import Image from "react-bootstrap/Image";
 import axios from "axios";
 
 //CSS
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import { faShoppingCart, faUser, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faShoppingCart,
+  faUser,
+  faUserPlus
+} from "@fortawesome/free-solid-svg-icons";
 
 const Navbars = function({
   handleSubmit,
@@ -20,22 +24,41 @@ const Navbars = function({
   emailUser,
   handleLogout
 }) {
-
   /////////boton login////////
   let userLogin = (
     <Link to="/users/login">
-      <Nav style={fontNavBar}><FontAwesomeIcon icon={faUser}/> Login</Nav>
+      <Nav style={fontNavBar}>
+        <FontAwesomeIcon icon={faUser} /> Login
+      </Nav>
     </Link>
   );
   ///////////////////////////////////////////
   /*boton logout*/
   let userLogout = (
-        <Nav.Link style={fontNavBar} onClick={handleLogout}>
-          <FontAwesomeIcon icon={faUser}/> Logout
-        </Nav.Link>
-    );
+    <Nav.Link style={fontNavBar} onClick={handleLogout}>
+      <FontAwesomeIcon icon={faUser} /> Logout
+    </Nav.Link>
+  );
 
   //////////////////////////////////////////////
+  let userRegister = (
+    <Link to="/users/register">
+      <Nav.Link href="#usuario" style={fontNavBar}>
+        <FontAwesomeIcon icon={faUserPlus} />
+        Register
+      </Nav.Link>
+    </Link>
+  );
+  ///////////////////////////////////////////////
+  let userMyOrders = (
+    <Link to="/users/myorders">
+      <Nav.Link href="#usuario" style={fontNavBar}>
+        <FontAwesomeIcon icon={faUserPlus} />
+        My Orders
+      </Nav.Link>
+    </Link>
+  );
+  /////////////////////////////////////////////////
 
   const DropdownStyle = React.forwardRef(({ children, onClick }, ref) => (
     <a
@@ -55,7 +78,7 @@ const Navbars = function({
   const upRowNav = {
     backgroundColor: "#DCDCDC",
     height: "120px",
-    width:'100% 100%' ,
+    width: "100% 100%",
     display: "flex",
     alignItems: "center"
   };
@@ -63,7 +86,7 @@ const Navbars = function({
   const downRowNav = {
     backgroundColor: "#F8F8FF",
     height: "40px",
-    width:'100% 100%',
+    width: "100% 100%",
     display: "flex",
     alignItems: "center"
   };
@@ -73,7 +96,7 @@ const Navbars = function({
   };
 
   return (
-    <div >
+    <div>
       {/* PRIMERA ROW DE NAVBAR CON LOGO/BUSQUEDA/CARRITO Y USER */}
       <Row className="justify-content-md-center" style={upRowNav}>
         <Col md="auto">
@@ -102,20 +125,15 @@ const Navbars = function({
           </Form>
         </Col>
         <Col md="auto">
-
           <Link to="/cart">
-            <Nav style={fontNavBar}> <FontAwesomeIcon icon={faShoppingCart}/> Cart </Nav>
+            <Nav style={fontNavBar}>
+              {" "}
+              <FontAwesomeIcon icon={faShoppingCart} /> Cart{" "}
+            </Nav>
           </Link>
         </Col>
-        <Col md="auto">{emailUser? userLogout: userLogin}</Col>
-        <Col md="auto">
-          <Link to="/users/register">
-          <Nav.Link href="#usuario" style={fontNavBar}>
-              <FontAwesomeIcon icon={faUserPlus}/>
-              Register
-            </Nav.Link>
-          </Link>
-        </Col>
+        <Col md="auto">{emailUser ? userLogout : userLogin}</Col>
+        <Col md="auto">{emailUser ? userMyOrders : userRegister}</Col>
       </Row>
 
       {/* SEGUNDA ROW DE NAVBAR CON BUSCAR POR BODEGA/CATEGORIAS/ORDENARPOR */}
@@ -176,6 +194,6 @@ const Navbars = function({
       </Row>
     </div>
   );
-}
+};
 
 export default Navbars;

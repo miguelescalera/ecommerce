@@ -1,16 +1,19 @@
 import React from "react";
 import { Route, Redirect, Switch, Link } from "react-router-dom";
 import NavbarContainer from "../containers/NavbarContainer";
-import FooterContainer from '../containers/FooterContainer'
+import FooterContainer from "../containers/FooterContainer";
 import PaginaPrincipalContainer from "../containers/PaginaPrincipalContainer";
 import ProductsContainer from "../containers/ProductsContainer";
 import ProductContainer from "../containers/ProductContainer";
 import RegisterContainer from "../containers/RegisterContainer";
 import LoginContainer from "../containers/LoginContainer";
 // import CheckoutContainer from '../containers/CheckoutContainer'
-import UserContainer from '../containers/UserContainer'
+import UserContainer from "../containers/UserContainer";
 import CarritoContainer from "../containers/CarritoContainer";
-import superAdminContainer from "../containers/superAdminContainer"
+
+import UserPrivateContainer from "../containers/UserPrivateContainer";
+import superAdminContainer from "../containers/superAdminContainer";
+
 
 export default () => {
   return (
@@ -24,18 +27,23 @@ export default () => {
         <Route path="/users/login" exact component={LoginContainer} />
         <Route path="/cart" exact component={CarritoContainer} />
 
+        <Route path="/users/myorders" exact component={UserContainer} />
+        <Route path="/private/orders" exact component={UserPrivateContainer} />
+
         <Route path="/private" exact component={superAdminContainer} />
         {/* <Route path="/checkout" exact component={CheckoutContainer} />
         <Route path="/user/:id" exact component={UserContainer} />  */}
 
-        <Route path="/users/myorders" exact component={UserContainer} />  
+
+        <Route path="/users/myorders" exact component={UserContainer} />
+
 
         {/* <Route path="/checkout" exact component={CheckoutContainer} /> */}
 
 
         <Redirect from="/" to="/products" />
       </Switch>
-      <FooterContainer/>
+      <FooterContainer />
     </div>
   );
 };
