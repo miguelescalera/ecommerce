@@ -5,6 +5,8 @@ const Review = require("./reviews");
 const User = require("./users");
 const db = require("../db");
 const Order_Product = require("./orderproducts");
+const Image = require("./images")
+const Brand = require("./brands")
 const Promise = require("bluebird");
 
 //MANY TO MANY RELATION BETWEEN PRODUCT AND CATEGORY
@@ -17,22 +19,29 @@ Product.belongsToMany(Category, {
   through: "Product_Category"
 });
 
+//ONE TO MANY RELATION BETWEEN PRODUCT AND IMAGES
+
+Image.belongsTo(Product);
+Product.hasMany(Image);
+
+
+//ONE TO MANY RELATION BETWEEN PRODUCT AND BRAND
+Product.belongsTo(Brand)
+Brand.hasMany(Product)
+
 //ONE TO MANY RELATION BETWEEN USERS AND REVIEW
 
 Review.belongsTo(User);
-
 User.hasMany(Review);
 
 //ONE TO MANY RELATION BETWEEN PRODUCTS AND REVIEW
 
 Review.belongsTo(Product);
-
 Product.hasMany(Review);
 
 //ONE TO MANY RELATION BETWEEN USERS AND ORDER
 
 Order.belongsTo(User, { foreignKey: "userId" });
-
 User.hasMany(Order);
 
 //MANY TO MANY RELATION BETWEEN PRODUCT AND ORDER
@@ -77,5 +86,7 @@ module.exports = {
   Product,
   Review,
   User,
-  Order_Product
+  Order_Product,
+  Brand,
+  Image
 };
