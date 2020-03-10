@@ -10,8 +10,10 @@ import LoginContainer from "../containers/LoginContainer";
 // import CheckoutContainer from '../containers/CheckoutContainer'
 import UserContainer from "../containers/UserContainer";
 import CarritoContainer from "../containers/CarritoContainer";
+
 import UserPrivateContainer from "../containers/UserPrivateContainer";
 import superAdminContainer from "../containers/superAdminContainer";
+
 
 export default () => {
   return (
@@ -24,15 +26,20 @@ export default () => {
         <Route path="/users/register" exact component={RegisterContainer} />
         <Route path="/users/login" exact component={LoginContainer} />
         <Route path="/cart" exact component={CarritoContainer} />
+
         <Route path="/users/myorders" exact component={UserContainer} />
         <Route path="/private/orders" exact component={UserPrivateContainer} />
+
         <Route path="/private" exact component={superAdminContainer} />
         {/* <Route path="/checkout" exact component={CheckoutContainer} />
         <Route path="/user/:id" exact component={UserContainer} />  */}
 
+
         <Route path="/users/myorders" exact component={UserContainer} />
 
+
         {/* <Route path="/checkout" exact component={CheckoutContainer} /> */}
+
 
         <Redirect from="/" to="/products" />
       </Switch>

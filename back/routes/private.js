@@ -22,6 +22,7 @@ router.post("/addAdmin", async function(req, res) {
 });
 
 //ORDERS ADMIN ROUTES
+
 router.get("/orders", function(req, res) {
   Order.findAll({
     include: [
@@ -53,6 +54,7 @@ router.put("/orders/:id/update", async function(req, res) {
   await order.save();
   res.send(order);
 });
+
 
 //PRODUCT ADMIN ROUTES
 
