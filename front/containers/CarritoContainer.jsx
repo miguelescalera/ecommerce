@@ -6,6 +6,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import {connect} from "react-redux"
 import {getCart, modifyCartProduct, deleteCartProduct} from "../actions/cart"
+import LocalStorageAction from "../actions/LocalStorageActions"
 
 let Finalproducts=new Array;
 const mapStateToProps = function(state) {
@@ -14,15 +15,21 @@ const mapStateToProps = function(state) {
       products: state.cart.products,
       order: state.cart.order,
       loginUser: state.user.loginUser,
-      modifiedProduct : state.cart.modifiedProduct
+      modifiedProduct : state.cart.modifiedProduct,
+      emailUser: state.user.loginUser.email,
+      idUser:state.user.loginUser.id,
+      productWithoutUser:state.productWithoutUser
     };
   };
+  
+      
   
   const mapDispatchToProps = function(dispatch) {
     return {
       getCart: () => dispatch(getCart()),
       modifyCartProduct: (productId, quantity) => dispatch(modifyCartProduct(productId, quantity)),
-      deleteCartProduct: (productId) => dispatch(deleteCartProduct(productId))
+      deleteCartProduct: (productId) => dispatch(deleteCartProduct(productId)),
+      setProductLocalStorage: (productId,quantity) => dispatch(LocalStorageAction(productId,quantity))
     };
   };
   
@@ -35,8 +42,33 @@ class CarritoContainer extends React.Component{
     }
 
 componentDidMount(){
-    this.props.getCart()
-}
+    if(this.props.emailUser){
+        this.props.getCart()
+    }
+    else{
+        let productsOffline = JSON.parse(localStorage.getItem("products")) 
+        let AllProducts= this.props.allProducts
+        
+        if(productsOffline){
+            let products = productsOffline.map(function(prd){
+                return AllProducts.filter(function(finalProd){
+                   if(prd.idProduct=== finalProd.id){
+                        finalProd.quantity=prd.quantity
+                        return finalProd
+                    }
+                 })
+             })
+             for(let i=0; i<products.length;i++){
+                 for(let j=0; j<products[i].length;j++){
+                     Finalproducts.push(products[i][j])
+                 }
+             }
+         }
+     }
+ }
+            
+
+
            
            
     
@@ -53,8 +85,22 @@ componentDidUpdate(prevProps, prevState){
     }
 }
 
+componentWillUnmount(){
+    Finalproducts=[]
+}
+
 handleClick(productId, n){
-    this.props.modifyCartProduct(productId, n)
+    if(this.props.emailUser){
+        this.props.modifyCartProduct(productId, n)
+        this.props.getCart()
+    }
+    else{
+        let productsClick= JSON.parse(localStorage.getItem("products"))
+        productsClick.filter(function(obj){ if(obj.idProduct===productId){ obj.quantity+=n}})
+        localStorage.setItem("products",JSON.stringify(productsClick))
+        this.props.setProductLocalStorage(JSON.parse(localStorage.getItem("products")))
+    }
+
 }
 
 handleDelete(productId){
@@ -62,7 +108,8 @@ handleDelete(productId){
 }
 
 render(){
-    const {products, order} = this.props
+    const order = this.props.order
+    const products =this.props.emailUser?this.props.products:Finalproducts
     console.log(order)
     console.log(products)
     return( 

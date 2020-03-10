@@ -42,9 +42,9 @@ class LoginContainer extends React.Component {
     localStorage.setItem("password", this.state.password);
     console.log("PROPS!", this.props);
     this.props.loginUser(this.state)
+    this.props.getCart()
     .then(user => {
       if(user.email){
-        this.props.getCart()
         this.props.history.push("/products")
       }else{
         this.setState({alert: true})
