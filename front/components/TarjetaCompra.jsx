@@ -39,7 +39,6 @@ const TarjetaCompra = function ({ productos, handleClick, handleDelete }) {
     width: "20%",
     display: "inline-block",
     backgroundColor:'rgba(0, 0, 0, 0.3)'
-<<<<<<< HEAD
   }
 
   const eliminarProd = {
@@ -62,30 +61,6 @@ const TarjetaCompra = function ({ productos, handleClick, handleDelete }) {
 
   }
 
-=======
-  }
-
-  const eliminarProd = {
-    backgroundColor: 'rgba(0, 0, 0, 0.0)',
-    border: "solid 0px gray",
-    width: "10%",
-    color: '#ffffff',
-    paddingBlockEnd:'0.3rem'
-  }
-
-  const cardStyle = {
-    width: '180px',
-    height: '180px',
-    border: "0px rgba(0,0,0,0)",
-    margin: '10px',
-    overflowX:'auto',
-    boxShadow :'8px 8px 15px -10px rgba(0,0,0,0.39)',
-    
-
-
-  }
-
->>>>>>> 8d50af8ad330efea6131b774ddff4c09c04ac248
   const cardImageOver = {
     backgroundColor: 'rgba(0, 0, 0, 0.25)',
     padding: '0.35rem',
@@ -95,15 +70,10 @@ const TarjetaCompra = function ({ productos, handleClick, handleDelete }) {
   
 
 
-<<<<<<< HEAD
-  return (
-
-=======
   console.log('productosss', productos)
   return (
->>>>>>> 8d50af8ad330efea6131b774ddff4c09c04ac248
     <Container style={containerFlex}>
-      {productos.length ? (
+      {productos ? (
         productos.map(function (producto) {
           return (
             <Card id='tarjetaProd' key={producto.id} className="bg-dark text-white" style={cardStyle}>

@@ -14,6 +14,9 @@ import superAdminContainer from "../containers/superAdminContainer"
 import AddReview from "../components/AddReview"
 import {getLoginUser} from "../actions/LoginActions"
 import {connect} from "react-redux"
+import OrdenesContainerPrivate from "../containers/OrdenesContainerPrivate";
+import UserPrivateContainer from "../containers/UserPrivateContainer";
+
 
 
 const mapStateToProps= (state)=>{
@@ -42,7 +45,7 @@ componentDidMount(){
       <div id="main">
         <NavbarContainer />
         <Switch>
-          {/* <Route path="/home" exact component={PaginaPrincipalContainer} /> */}
+          <Route path="/home" exact component={PaginaPrincipalContainer} />
           <Route path="/products" exact component={ProductsContainer} />
           <Route path="/products/:id" component={ProductContainer} />
           <Route path="/users/register" exact component={RegisterContainer} />
@@ -50,6 +53,8 @@ componentDidMount(){
           <Route path="/cart" exact component={CarritoContainer} />
   
           <Route path="/private" exact component={superAdminContainer} />
+          <Route path="/private/orders" exact component={UserPrivateContainer} />
+
           {/* <Route path="/checkout" exact component={CheckoutContainer} />
           <Route path="/user/:id" exact component={UserContainer} />  */}
   {/* 
@@ -58,7 +63,7 @@ componentDidMount(){
   
           {/* <Route path="/checkout" exact component={CheckoutContainer} /> */}
   
-          <Redirect from="/" to="/products" />
+          <Redirect from="/" to="/home" />
         </Switch>
         <FooterContainer/>
       </div>

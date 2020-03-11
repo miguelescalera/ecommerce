@@ -1,7 +1,7 @@
 import React from 'react'
 // import User from '../components/User'
 import UserOrders from '../components/UserOrders'
-import {getUserOrders} from "../actions/orders"
+// import {getUserOrders} from "../actions/orders"
 import {connect} from "react-redux"
 
 class UserOrdersContainer extends React.Component {
