@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 import React from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+=======
+import React from 'react';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button'
+>>>>>>> 854152ae19aa8e459463b4a4946e6c1aeff15982
 ​
 export default () => {
   return (

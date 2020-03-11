@@ -1,15 +1,21 @@
 import React from "react";
 import Login from "../components/Login";
 
-import {loginUser} from "../actions/LoginActions";
-import {getCart} from "../actions/cart"
+import { loginUser } from "../actions/LoginActions";
+import { getCart } from "../actions/cart"
+
+<<<<<<< HEAD
+import { connect } from "react-redux";
+=======
 
 import { connect } from "react-redux";
+import { get } from "http";
+>>>>>>> 4d6dd7f9442ed54d6bb0b1f565d82abe0f49a851
 const mapDispatchToProps = (dispatch, state) => {
-  return { 
+  return {
     loginUser: user => dispatch(loginUser(user)),
     getCart: user => dispatch(getCart(user))
-   };
+  };
 };
 const mapStateToProps = (state, ownprops) => {
   return {
@@ -42,6 +48,7 @@ class LoginContainer extends React.Component {
     localStorage.setItem("email", this.state.email);
     localStorage.setItem("password", this.state.password);
     this.props.loginUser(this.state)
+<<<<<<< HEAD
     .then(user => {
       if(user.email){
         this.props.getCart()
@@ -50,6 +57,16 @@ class LoginContainer extends React.Component {
         this.setState({alert: true})
       }
     })
+=======
+      .then(user => {
+        if (user.email) {
+          this.props.getCart()
+          this.props.history.push("/products")
+        } else {
+          this.setState({ alert: true })
+        }
+      })
+>>>>>>> 4d6dd7f9442ed54d6bb0b1f565d82abe0f49a851
   }
 
   // componentDidUpdate(prevProps){
