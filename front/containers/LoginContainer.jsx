@@ -1,15 +1,17 @@
 import React from "react";
 import Login from "../components/Login";
 
-import {loginUser} from "../actions/LoginActions";
-import {getCart} from "../actions/cart"
+import { loginUser } from "../actions/LoginActions";
+import { getCart } from "../actions/cart"
+
 
 import { connect } from "react-redux";
+import { get } from "http";
 const mapDispatchToProps = (dispatch, state) => {
-  return { 
+  return {
     loginUser: user => dispatch(loginUser(user)),
     getCart: user => dispatch(getCart(user))
-   };
+  };
 };
 const mapStateToProps = (state, ownprops) => {
   return {
@@ -39,18 +41,16 @@ class LoginContainer extends React.Component {
 
   handlerSubmit(e) {
     e.preventDefault();
-    localStorage.setItem("email", this.state.email);
-    localStorage.setItem("password", this.state.password);
-    console.log("PROPS!", this.props);
     this.props.loginUser(this.state)
-    this.props.getCart()
-    .then(user => {
-      if(user.email){
-        this.props.history.push("/products")
-      }else{
-        this.setState({alert: true})
-      }
-    })
+      .then(user => {
+        if (user.email) {
+          localStorage.setItem("email", this.state.email),
+          this.props.getCart()
+          this.props.history.push("/products")
+        } else {
+          this.setState({ alert: true })
+        }
+      })
   }
 
   // componentDidUpdate(prevProps){

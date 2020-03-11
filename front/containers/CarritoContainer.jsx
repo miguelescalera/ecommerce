@@ -13,9 +13,8 @@ const mapStateToProps = function(state) {
       allProducts: state.product.list, 
       products: state.cart.products,
       order: state.cart.order,
-      loginUser: state.user.loginUser,
+      logged: state.user.logged,
       modifiedProduct : state.cart.modifiedProduct,
-      emailUser: state.user.loginUser.email,
       idUser:state.user.loginUser.id,
       productWithoutUser:state.productWithoutUser
     };
@@ -30,21 +29,18 @@ const mapStateToProps = function(state) {
       deleteCartProduct: (productId) => dispatch(deleteCartProduct(productId)),
       setProductLocalStorage: (productId,quantity) => dispatch(LocalStorageAction(productId,quantity))
     };
-  };
-  
+};
 
-class CarritoContainer extends React.Component{
-    constructor(props){
+
+class CarritoContainer extends React.Component {
+    constructor(props) {
         super(props)
         this.handleClick = this.handleClick.bind(this)
-        this.handleDelete=this.handleDelete.bind(this)
+        this.handleDelete = this.handleDelete.bind(this)
     }
 
 componentDidMount(){
-    if(this.props.emailUser){
         this.props.getCart()
-    }
-    else{
         let productsOffline = JSON.parse(localStorage.getItem("products")) 
         console.log('holaaaaaaaaa',productsOffline)
         let AllProducts= this.props.allProducts
@@ -64,33 +60,29 @@ componentDidMount(){
                  }
              }
          }
-     }
+     
  }
             
 
-
-           
-           
-    
-
-
-componentDidUpdate(prevProps, prevState){
-    console.log(prevProps.modifiedProduct)
-    console.log(this.props.modifiedProduct)
-    if(prevProps.modifiedProduct.quantity !== this.props.modifiedProduct.quantity || prevProps.modifiedProduct.id !== this.props.modifiedProduct.id){
-        this.props.getCart()
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.modifiedProduct.quantity !== this.props.modifiedProduct.quantity || prevProps.modifiedProduct.id !== this.props.modifiedProduct.id) {
+            this.props.getCart()
+        }
+        if (prevProps.modifiedProduct.id !== this.props.modifiedProduct.id) {
+            this.props.getCart()
+        }
     }
-    if(prevProps.modifiedProduct.id !== this.props.modifiedProduct.id ){
-        this.props.getCart()
-    }
-}
 
+
+    handleDelete(productId) {
+        this.props.deleteCartProduct(productId)
+    }
 componentWillUnmount(){
     Finalproducts=[]
 }
 
 handleClick(productId, n){
-    if(this.props.emailUser){
+    if(this.props.logged){
         this.props.modifyCartProduct(productId, n)
         this.props.getCart()
     }
@@ -103,34 +95,45 @@ handleClick(productId, n){
 
 }
 
-handleDelete(productId){
-    this.props.deleteCartProduct(productId)
+    render() {
+        const order = this.props.order
+        // const products = this.props.logged? this.props.products: Finalproducts
+        const products = this.props.products
+
+        console.log('renderrrr', this.props.products)
+        return (
+            <div>
+                <Container>
+                    <h3 className="d-flex justify-content-center" style={{ marginBlockEnd: "1.5rem", marginBlockStart: "1.5rem" }}>Carrito</h3>
+
+                    <Row style={{ marginBlockEnd: "1.5rem", marginBlockStart: "1.5rem" }}>
+                        <Col sm={8}>
+                            <TarjetaCompra productos={products} handleClick={this.handleClick} handleDelete={this.handleDelete} />
+                        </Col>
+                        <Col sm={4}>
+                            <Carrito products={products} order={order} />
+                        </Col>
+                    </Row>
+                </Container>
+            </div>
+        )
+    }
 }
 
-render(){
-    const order = this.props.order
-    const products =this.props.emailUser?this.props.products:Finalproducts
-    console.log(order)
-    console.log(products)
-    return( 
-        <div>
-            <Container> 
-                <Row>
-                    <Col sm={8}>
-                    <TarjetaCompra productos={products} handleClick={this.handleClick} handleDelete={this.handleDelete} />
-                    </Col>
-                    <Col sm={4}>
-                    <Carrito products={products} order={order} />
-                    </Col>
-                </Row>
-            </Container>
-        </div>
-    )
-}
-}  
 export default connect(mapStateToProps, mapDispatchToProps)(CarritoContainer)
 
-  
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

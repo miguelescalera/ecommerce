@@ -1,19 +1,14 @@
-import React from "react";
-import User from "../components/User";
-import OrdenesContainer from "./OrdenesContainer";
-
+import React from 'react'
+// import User from '../components/User'
+import UserOrdersContainer from './UserOrdersContainer'
 
 export default class UserContainer extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <div>
-        <User />
-        <OrdenesContainer />
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div>
+                {/* <User /> */}
+                <UserOrdersContainer />
+            </div>
+        )
+    }
 }

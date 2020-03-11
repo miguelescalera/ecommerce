@@ -1,77 +1,107 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import Button from "react-bootstrap/Button";
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import Alert from "react-bootstrap/Alert"
 
-const TarjetaCompra = function({productos, handleClick, handleDelete}) {
-  const button2= {
-    backgroundColor:"#D0C7C7",
-    border: "solid 1px #D0C7C7",
-    width: "30%"
+
+
+import React from "react";
+import Container from 'react-bootstrap/Container'
+
+import Alert from "react-bootstrap/Alert"
+import Card from 'react-bootstrap/Card'
+
+
+
+
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import { faTrashAlt, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
+
+const TarjetaCompra = function ({ productos, handleClick, handleDelete }) {
+  const sumayResta = {
+    backgroundColor: 'rgba(0, 0, 0, 0.0)',
+    border: "solid 0px rgba(0, 0, 0, 0.0)",
+    width: "25%",
+    color:'#ffffff',
+    borderWidth:'0px',
+    borderColor:'rgba(0, 0, 0, 0.0)',
   }
-  const number = {
-    textAlign:"center",
-    width:"20%",
-    display:"inline-block"
+
+  const containerFlex = {
+    display: 'flex',
+    flexDirection: 'row-reverse',
+    flexWrap: 'wrap',
+    
+    
+
+
   }
-  const button ={
-    backgroundColor: "white",
-    border: "solid 1px gray",
-    width: "80%"
+
+
+  const cantidad = {
+    textAlign: "center",
+    width: "20%",
+    display: "inline-block",
+    backgroundColor:'rgba(0, 0, 0, 0.3)'
   }
-  const cartStyle={
-    display:"inline-block",
+
+  const eliminarProd = {
+    backgroundColor: 'rgba(0, 0, 0, 0.0)',
+    border: "solid 0px gray",
+    width: "10%",
+    color: '#ffffff',
+    paddingBlockEnd:'0.3rem'
   }
-  const border ={
-    borderBottom: "1px groove #C0C0C0"
+
+  const cardStyle = {
+    width: '180px',
+    height: '180px',
+    border: "0px rgba(0,0,0,0)",
+    margin: '10px',
+    overflowX:'auto',
+    boxShadow :'8px 8px 15px -10px rgba(0,0,0,0.39)',
+    
+
+
   }
-     
-    return (
-      
-      <div>
-        {productos.length ? (
-          productos.map(function(producto){
-            return(
-              <div style={{ marginTop:"50px", backgroundColor:"white"}}>
-                <Container>
-                  <Row style={{borderBottom: "1px groove #C0C0C0"}} >
-                        <div key={producto.id}>
-                    <Col sm={3} style={cartStyle}>
-                        <img style={{width:"100%", marginBottom:"4px"}} src={producto.imgUrl}/>
-                    </Col>
-                    <Col sm={3} style={{display:"inline-block"}}>
-                        <h4>{producto.name} </h4>
-                        <h6>{"$" + producto.price} </h6>
-                        <div style={{width:"80%"}} >
-                            <button onClick={() => handleClick(producto.id, -1)} style={button2}>-</button> <h6 style={number} >{producto.quantity}</h6> <button onClick={() => handleClick(producto.id, 1)}style={button2}>+</button>
-                        </div>
-      
-                    </Col>
-                    <Col sm={{ span: 3, offset: 3 }} style={cartStyle} >
-                        <button 
-                        onClick={()=>handleDelete(producto.id)}
-                        style={{ 
-                          backgroundColor: "white",
-                          border: "solid 1px gray",
-                          width: "80%"}} >Eliminar</button>
-                    </Col>
-                    </div>
-                  </Row>
-              </Container>
-              </div>
-                    )
-                  }) 
-        ) : 
-        <Alert variant="info">
-        Aun no hay elementos en tu carrito
-        </Alert>}
-      </div>
-     
-    );
-  };
+
+  const cardImageOver = {
+    backgroundColor: 'rgba(0, 0, 0, 0.25)',
+    padding: '0.35rem',
+    borderRadius: "0px",
+
+  }
   
-  export default TarjetaCompra;
-  
+
+
+  console.log('productosss', productos)
+  return (
+    <Container style={containerFlex}>
+      {productos.length ? (
+        productos.map(function (producto) {
+          return (
+            <Card id='tarjetaProd' key={producto.id} className="bg-dark text-white" style={cardStyle}>
+              <Card.Img id="ImgTarjetaCompra" src={producto.imgUrl} alt="Card image" />
+              <Card.ImgOverlay id='infoTarjetaProd' style={cardImageOver}>
+                <Card.Title style={{ fontSize: '1.2rem', whiteSpace: "nowrap", overflowX: "hidden", overflowY : 'hidden' }}>{producto.name}</Card.Title>
+                <h6>{"$" + producto.price} </h6>
+
+                <Container style={{paddingLeft:'0px', display:'flex', justifyContent:'space-between', paddingBlockStart:'45%'}}>
+
+                  <div style={{ width: "80%", paddingLeft:'0px' }} >
+                    <button onClick={() => handleClick(producto.id, -1)} style={sumayResta}><FontAwesomeIcon icon={faMinus}/></button>
+                    <h6 style={cantidad} >{producto.quantity}</h6>
+                    <button onClick={() => handleClick(producto.id, 1)} style={sumayResta}><FontAwesomeIcon icon={faPlus}/></button>
+                  </div>
+                  <button style={eliminarProd} onClick={() => handleDelete(producto.id)}><FontAwesomeIcon icon={faTrashAlt}/></button>
+                </Container>
+
+              </Card.ImgOverlay>
+            </Card>
+
+          )
+        })) : <Alert variant="info">Aun no hay elementos en tu carrito</Alert>}
+
+    </Container>
+
+
+  );
+};
+
+export default TarjetaCompra;

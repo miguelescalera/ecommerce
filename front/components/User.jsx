@@ -2,7 +2,11 @@ import React from "react";
 import Card from 'react-bootstrap/Card'
 
 
-const User = function () {
+
+
+const User = function ({ userDisplay }) {
+
+
     return (
         <div>
             <Card style={{ width: '18rem' }}>
@@ -16,3 +20,5 @@ const User = function () {
     )
 };
 export default User;
+
+
