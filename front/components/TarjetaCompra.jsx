@@ -70,8 +70,8 @@ const TarjetaCompra = function ({ productos, handleClick, handleDelete }) {
   
 
 
+  console.log('productosss', productos)
   return (
-
     <Container style={containerFlex}>
       {productos.length ? (
         productos.map(function (producto) {
