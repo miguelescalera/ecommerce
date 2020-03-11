@@ -1,0 +1,66 @@
+.sumayResta {
+    background-color: 'rgba(0, 0, 0, 0.0)';
+    border: "solid 0px rgba(0, 0, 0, 0.0)";
+    width: "25%";
+    color:'#ffffff';
+    border-width:'0px';
+    border-color:'rgba(0, 0, 0, 0.0)';
+  }
+
+  .containerFlex {
+    display: 'flex';
+    flex-direction: 'row-reverse';
+    flex-wrap: 'wrap';
+
+
+  }
+  .number {
+    text-align: "center";
+    width: "20%";
+    display: "inline-block"
+  }
+
+  .cantidad {
+    text-align: "center";
+    width: "20%";
+    display: "inline-block";
+    background-color:'rgba(0, 0, 0, 0.3)'
+  }
+
+  .eliminarProd {
+    background-color: 'rgba(0, 0, 0, 0.0)';
+    border: "solid 0px gray";
+    width: "10%";
+    color: '#ffffff';
+    padding-block-end:'0.3rem'
+  }
+
+  .cardStyle {
+    width: '180px';
+    height: '180px';
+    border: "0.3px solid rgba(0,0,0,.125)";
+    margin: '10px';
+    overflow-x:'auto'
+
+  }
+
+  .cardImageOver {
+    background-color: 'rgba(0, 0, 0, 0.25)';
+    padding: '0.35rem';
+
+  }
+
+  .cardTitleStyle{
+    font-size: '1.2rem';
+    white-space: "nowrap"; 
+    overflow-x: "hidden";
+    overflow-y : 'hidden'
+
+  }
+  
+  .containerStyleBotones {
+    padding-left:'0px';
+    display:'flex';
+    justify-content:'space-between'; 
+    padding-block-start:'45%'
+  }

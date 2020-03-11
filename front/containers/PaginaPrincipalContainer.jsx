@@ -35,14 +35,12 @@ class PaginaPrincipalContainer extends React.Component {
 
     render() {
         return (
-            <div>
                 <PaginaPrincipal
                     history={history}
                     redirect={this.redirect}
                     handleSubmit={this.handleSubmit}
                     handleChange={this.handleChange}
                 />
-            </div>
         )
     }
 }

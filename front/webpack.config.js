@@ -22,6 +22,32 @@ module.exports = {
             ]
           }
         },
+        {
+          test: /\.(mov|mp4)$/,
+          use: [    
+            {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]'
+            }  
+          }]
+        },
+        {
+          test: /\.css$/i,
+          use: [
+          {
+            loader: 'style-loader',
+            options: {
+              modules: true,
+            },
+          }, {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+            },
+          },],
+          modules : true
+        },
       ]
     },
     

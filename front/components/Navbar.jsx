@@ -18,12 +18,9 @@ const Navbars = function({
   handleSubmit,
   handleChange,
   emailUser,
-  dispatchLogout,
-  redirect
+  handleLogout
 }) {
-  let displayRegister = {
-    nada: "nada"
-  };
+
   /////////boton login////////
   let userLogin = (
     <Link to="/users/login">
@@ -32,23 +29,11 @@ const Navbars = function({
   );
   ///////////////////////////////////////////
   /*boton logout*/
-
-  if (emailUser) {
-    const handleLogout = function() {
-      axios.post("/logout").then(function() {
-        localStorage.clear();
-        dispatchLogout();
-        displayRegister = {
-          display: "none"
-        };
-      }).then(res => redirect())
-    };
-    userLogin = (
+  let userLogout = (
         <Nav.Link style={fontNavBar} onClick={handleLogout}>
           <FontAwesomeIcon icon={faUser}/> Logout
         </Nav.Link>
     );
-  }
 
   //////////////////////////////////////////////
 
@@ -70,17 +55,24 @@ const Navbars = function({
   const upRowNav = {
     backgroundColor: "#DCDCDC",
     height: "120px",
-    width:'100% 100%' ,
+    width:'100%' ,
     display: "flex",
-    alignItems: "center"
+    alignItems: "center",
+
+    boxShadow :'8px 8px 15px -10px rgba(0,0,0,0.39)',
+
+
   };
 
   const downRowNav = {
     backgroundColor: "#F8F8FF",
     height: "40px",
-    width:'100% 100%',
+    width:'100%',
     display: "flex",
-    alignItems: "center"
+    alignItems: "center",
+    boxShadow :'8px 8px 15px -10px rgba(0,0,0,0.39)',
+
+
   };
 
   const fontNavBar = {
@@ -117,11 +109,12 @@ const Navbars = function({
           </Form>
         </Col>
         <Col md="auto">
+
           <Link to="/cart">
-            <Nav.Link style={fontNavBar}> <FontAwesomeIcon icon={faShoppingCart}/> Cart </Nav.Link>
+            <Nav style={fontNavBar}> <FontAwesomeIcon icon={faShoppingCart}/> Cart </Nav>
           </Link>
         </Col>
-        <Col md="auto">{userLogin}</Col>
+        <Col md="auto">{emailUser? userLogout: userLogin}</Col>
         <Col md="auto">
           <Link to="/users/register">
           <Nav.Link href="#usuario" style={fontNavBar}>
@@ -190,6 +183,6 @@ const Navbars = function({
       </Row>
     </div>
   );
-};
+}
 
 export default Navbars;

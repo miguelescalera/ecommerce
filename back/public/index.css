@@ -5,15 +5,13 @@
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   }
-#main {
-  background: url(https://i.imgur.com/b0rrPNZ.jpg);
-  background-repeat: no-repeat;
-  background-size: 100% ;
-  background-attachment: fixed;
 
+body {
+  background: url(https://i.imgur.com/drMvLrs.jpg) no-repeat center fixed;     
+  background-size: cover;
+  width: 100%;
 
 }
-
 
 
 a {
@@ -23,3 +21,39 @@ a {
 a:hover{
   color:#40C040
 }
+
+.video-react{
+  padding-top: 0% !important
+}
+
+#main {
+  margin-block-end: 3rem
+}
+
+#infoTarjetaProd {
+  display : none;
+
+}
+
+
+
+#infoTarjetaProd:hover {
+  display : block;
+}
+
+#ImgTarjetaCompra:hover + #infoTarjetaProd {
+  display : block;
+}
+
+
+
+/* #imagenLanding  {
+  background: url(https://i.imgur.com/HtMp3dQ.png);  
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: 100%;
+  
+
+} */
+
