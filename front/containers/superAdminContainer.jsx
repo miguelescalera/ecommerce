@@ -17,22 +17,28 @@ const mapDispatchToProps = function(dispatch){
        getAllUsers: () => dispatch(getAllUsers()),
     }
 } 
+
+
       
 
 class SuperAdminContainer extends React.Component{
     constructor(){
         super();
+
+        this.handleToggle= this.handleToggle.bind(this)
     }
+       
     componentDidMount(){
         this.props.getAllUsers()
-
     }
+    
     handleToggle(statusUser,idUser){
+        console.log("statusUser: ",statusUser,"idUser :",idUser)
         toggleStatus(statusUser,idUser)
-        }
-
+         this.props.getAllUsers()
+    }
+    
     render(){
-        
         return(
             <div>
                  <AllUsersComponent allUsers={this.props.allUsers} handleToggle={this.handleToggle} />
@@ -40,5 +46,15 @@ class SuperAdminContainer extends React.Component{
         )
     }
 }
+        
 
 export default connect(mapStateToProps, mapDispatchToProps)(SuperAdminContainer);
+        
+            
+           
+        
+
+
+        
+        
+        
