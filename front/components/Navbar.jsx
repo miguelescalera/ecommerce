@@ -78,17 +78,24 @@ const Navbars = function({
   const upRowNav = {
     backgroundColor: "#DCDCDC",
     height: "120px",
-    width: "100% 100%",
+    width:'100%' ,
     display: "flex",
-    alignItems: "center"
+    alignItems: "center",
+
+    boxShadow :'8px 8px 15px -10px rgba(0,0,0,0.39)',
+
+
   };
 
   const downRowNav = {
     backgroundColor: "#F8F8FF",
     height: "40px",
-    width: "100% 100%",
+    width:'100%',
     display: "flex",
-    alignItems: "center"
+    alignItems: "center",
+    boxShadow :'8px 8px 15px -10px rgba(0,0,0,0.39)',
+
+
   };
 
   const fontNavBar = {
@@ -96,7 +103,7 @@ const Navbars = function({
   };
 
   return (
-    <div>
+    <div >
       {/* PRIMERA ROW DE NAVBAR CON LOGO/BUSQUEDA/CARRITO Y USER */}
       <Row className="justify-content-md-center" style={upRowNav}>
         <Col md="auto">
