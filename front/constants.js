@@ -4,7 +4,10 @@ export const LOGIN_USER = "LOGIN_USER";
 export const LOGOUT_USER = "LOGOUT_USER";
 export const SET_INPUT = "SET_INPUT";
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8d50af8ad330efea6131b774ddff4c09c04ac248
 // export const SET_CARTPRODUCT = "SET_CARTPRODUCT";
 // export const GET_CART = "GET_CART"
 // export const RESET_CART = "RESET_CART"
@@ -18,4 +21,10 @@ export const SET_ORDERS = "SET_ORDERS";
 export const FOUND_USERS = "FOUND_USERS";
 
 
+<<<<<<< HEAD
 export const LOCALSTORAGE = "LOCALSTORAGE";
+=======
+export const LOCALSTORAGE = "LOCALSTORAGE";
+
+export const GET_USER_ORDERS= "GET_USER_ORDERS";
+>>>>>>> 8d50af8ad330efea6131b774ddff4c09c04ac248

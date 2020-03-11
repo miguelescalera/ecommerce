@@ -57,6 +57,10 @@ router.get("/myorders", async function(req, res){
 res.send(allOrders) 
 })
 
+router.get("/me", function(req, res, next){
+    if(req.user) res.send(req.user)
+    else res.send("No hay nadie logueado")
+})
 
 
 module.exports = router

@@ -13,9 +13,8 @@ const mapStateToProps = function(state) {
       allProducts: state.product.list, 
       products: state.cart.products,
       order: state.cart.order,
-      loginUser: state.user.loginUser,
+      logged: state.user.logged,
       modifiedProduct : state.cart.modifiedProduct,
-      emailUser: state.user.loginUser.email,
       idUser:state.user.loginUser.id,
       productWithoutUser:state.productWithoutUser
     };
@@ -41,10 +40,7 @@ class CarritoContainer extends React.Component {
     }
 
 componentDidMount(){
-    if(this.props.emailUser){
         this.props.getCart()
-    }
-    else{
         let productsOffline = JSON.parse(localStorage.getItem("products")) 
         console.log('holaaaaaaaaa',productsOffline)
         let AllProducts= this.props.allProducts
@@ -64,14 +60,9 @@ componentDidMount(){
                  }
              }
          }
-     }
+     
  }
             
-
-
-           
-           
-    
 
 
 
@@ -100,7 +91,7 @@ componentWillUnmount(){
 }
 
 handleClick(productId, n){
-    if(this.props.emailUser){
+    if(this.props.logged){
         this.props.modifyCartProduct(productId, n)
         this.props.getCart()
     }
@@ -114,9 +105,11 @@ handleClick(productId, n){
 }
 
     render() {
-        const { products, order } = this.props
-        console.log(order)
-        console.log(products)
+        const order = this.props.order
+        // const products = this.props.logged? this.props.products: Finalproducts
+        const products = this.props.products
+
+        console.log('renderrrr', this.props.products)
         return (
             <div>
                 <Container>
