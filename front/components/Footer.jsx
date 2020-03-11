@@ -12,7 +12,9 @@ export default () => {
     };
 
     const downRowFoot = {
-        backgroundColor: "#b52a3a",
+        
+        backgroundColor: "#f1aa96",
+        // backgroundColor: "#b52a3a",
         height: "40px",
         width: '100% 100%',
         display: "flex",
