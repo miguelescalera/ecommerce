@@ -9,3 +9,7 @@ export const GET_CART = "GET_CART"
 export const RESET_CART = "RESET_CART"
 export const FOUND_USERS = "FOUND_USERS";
 
+export const LOCALSTORAGE = "LOCALSTORAGE"
+
+export const GET_USER_ORDERS = "GET_USER_ORDERS"
+

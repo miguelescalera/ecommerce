@@ -11,6 +11,7 @@ import LoginContainer from "../containers/LoginContainer";
 import UserContainer from '../containers/UserContainer'
 import CarritoContainer from "../containers/CarritoContainer";
 import superAdminContainer from "../containers/superAdminContainer"
+import AddReview from "../components/AddReview"
 
 export default () => {
   return (
@@ -29,6 +30,7 @@ export default () => {
         <Route path="/user/:id" exact component={UserContainer} />  */}
 
         <Route path="/users/myorders" exact component={UserContainer} />  
+        <Route path="/users/myorders/addReview/:id" exact component={AddReview} />  
 
         {/* <Route path="/checkout" exact component={CheckoutContainer} /> */}
 

@@ -22,8 +22,6 @@ const mapStateToProps = function(state) {
 };
 
 
-
-
 const mapDispatchToProps = function(dispatch) {
   return {
     fetchSearchProducts: input => dispatch(fetchSearchProducts(input)),
@@ -110,12 +108,9 @@ class ProductsContainer extends React.Component {
           newProduct.idProduct=productId
           arrayOfPO.push(newProduct)// pusheo un nuevo producto
         }
-        localStorage.setItem("products",JSON.stringify(arrayOfPO))
-     
-        
+        localStorage.setItem("products",JSON.stringify(arrayOfPO)) 
       }
-      else{
-        
+    else{
         this.props.setCartProducts(productId, n)
         this.props.getCart()
       }    

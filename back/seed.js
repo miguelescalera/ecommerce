@@ -1,5 +1,55 @@
 const { Product } = require("./models/index.js");
 const { User } = require("./models/index.js");
+
+
+const wine =  {
+  product: {
+    name: name,
+    price: price,
+    stock: stock,
+    rating: rating,
+  },
+  brand: {
+    name: name,
+    origin: origin
+  },
+  categories: [
+    {name: name},
+    {}
+  ],
+  images: [
+    {url: url},
+    {}
+  ]
+}
+
+const addWiner = function (input){
+  const product = await Product.create(req.body.product)
+      const [brand] = await Brand.findOrCreate({where: {
+          name: input.brand.name,
+          origin: input.brand.origin
+      }})
+  
+      product.setBrand(brand)
+  
+      req.body.categories.forEach(async (element) => {
+          const [category] = await Category.findOrCreate(
+              {
+              where: 
+                  {name: element.name}
+              })
+          await product.addCategory(category)
+      })
+  
+      req.body.images.forEach(async (element) => {
+          const image = await Image.create(element)
+          await product.addImage(image)
+      })
+  
+      res.send(product)
+}
+
+  
 function addWines({
   name,
   price,
