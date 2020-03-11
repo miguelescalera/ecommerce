@@ -27,18 +27,6 @@ Product.init(
     },
     rating: {
       type: S.DECIMAL
-    },
-    type: {
-      type: S.STRING,
-      allowNull: false
-    },
-    brand: {
-      type: S.STRING,
-      allowNull: false
-    },
-    origin: {
-      type: S.STRING,
-      allowNull: false
     }
   },
   {

@@ -7,7 +7,6 @@ import Container from 'react-bootstrap/Container'
 import Alert from "react-bootstrap/Alert"
 import Card from 'react-bootstrap/Card'
 
-import './TarjetaCompra.css'
 
 
 

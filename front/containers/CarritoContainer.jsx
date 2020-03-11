@@ -4,25 +4,31 @@ import TarjetaCompra from "../components/TarjetaCompra"
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import { connect } from "react-redux"
-import { getCart, modifyCartProduct, deleteCartProduct } from "../actions/cart"
-
-let Finalproducts = new Array;
-const mapStateToProps = function (state) {
+import {connect} from "react-redux"
+import {getCart, modifyCartProduct, deleteCartProduct} from "../actions/cart"
+import LocalStorageAction from "../actions/LocalStorageActions"
+let Finalproducts=new Array;
+const mapStateToProps = function(state) {
     return {
-        allProducts: state.product.list,
-        products: state.cart.products,
-        order: state.cart.order,
-        loginUser: state.user.loginUser,
-        modifiedProduct: state.cart.modifiedProduct
+      allProducts: state.product.list, 
+      products: state.cart.products,
+      order: state.cart.order,
+      loginUser: state.user.loginUser,
+      modifiedProduct : state.cart.modifiedProduct,
+      emailUser: state.user.loginUser.email,
+      idUser:state.user.loginUser.id,
+      productWithoutUser:state.productWithoutUser
     };
-};
-
-const mapDispatchToProps = function (dispatch) {
+  };
+  
+      
+  
+  const mapDispatchToProps = function(dispatch) {
     return {
-        getCart: () => dispatch(getCart()),
-        modifyCartProduct: (productId, quantity) => dispatch(modifyCartProduct(productId, quantity)),
-        deleteCartProduct: (productId) => dispatch(deleteCartProduct(productId))
+      getCart: () => dispatch(getCart()),
+      modifyCartProduct: (productId, quantity) => dispatch(modifyCartProduct(productId, quantity)),
+      deleteCartProduct: (productId) => dispatch(deleteCartProduct(productId)),
+      setProductLocalStorage: (productId,quantity) => dispatch(LocalStorageAction(productId,quantity))
     };
 };
 
@@ -34,9 +40,38 @@ class CarritoContainer extends React.Component {
         this.handleDelete = this.handleDelete.bind(this)
     }
 
-    componentDidMount() {
+componentDidMount(){
+    if(this.props.emailUser){
         this.props.getCart()
     }
+    else{
+        let productsOffline = JSON.parse(localStorage.getItem("products")) 
+        console.log('holaaaaaaaaa',productsOffline)
+        let AllProducts= this.props.allProducts
+        
+        if(productsOffline){
+            let products = productsOffline.map(function(prd){
+                return AllProducts.filter(function(finalProd){
+                   if(prd.idProduct=== finalProd.id){
+                        finalProd.quantity=prd.quantity
+                        return finalProd
+                    }
+                 })
+             })
+             for(let i=0; i<products.length;i++){
+                 for(let j=0; j<products[i].length;j++){
+                     Finalproducts.push(products[i][j])
+                 }
+             }
+         }
+     }
+ }
+            
+
+
+           
+           
+    
 
 
 
@@ -60,6 +95,23 @@ class CarritoContainer extends React.Component {
     handleDelete(productId) {
         this.props.deleteCartProduct(productId)
     }
+componentWillUnmount(){
+    Finalproducts=[]
+}
+
+handleClick(productId, n){
+    if(this.props.emailUser){
+        this.props.modifyCartProduct(productId, n)
+        this.props.getCart()
+    }
+    else{
+        let productsClick= JSON.parse(localStorage.getItem("products"))
+        productsClick.filter(function(obj){ if(obj.idProduct===productId){ obj.quantity+=n}})
+        localStorage.setItem("products",JSON.stringify(productsClick))
+        this.props.setProductLocalStorage(JSON.parse(localStorage.getItem("products")))
+    }
+
+}
 
     render() {
         const { products, order } = this.props

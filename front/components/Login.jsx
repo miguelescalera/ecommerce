@@ -7,7 +7,6 @@ import Img from 'react-bootstrap/Image'
 import Container from 'react-bootstrap/Container'
 
 
-
 export default ({ handlerChange, handlerSubmit,alert }) => {
 
 
@@ -19,8 +18,11 @@ export default ({ handlerChange, handlerSubmit,alert }) => {
     boxShadow :'8px 8px 15px -10px rgba(0,0,0,0.39)',
 
   }
+  // const divFormStyle ={
+  //   height:'30rem',
+  //   padding:"3rem"
+  // }
   const divFormStyle ={
-    height:'30rem',
     display:"flex",
     justifyContent: 'center',
     marginBlockEnd: "5rem", 

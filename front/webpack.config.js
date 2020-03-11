@@ -32,22 +32,19 @@ module.exports = {
             }  
           }]
         },
-        {
-          test: /\.css$/i,
-          use: [
-          {
-            loader: 'style-loader',
-            options: {
-              modules: true,
-            },
-          }, {
-            loader: 'css-loader',
-            options: {
-              modules: true,
-            },
-          },],
-          modules : true
-        },
+        // {
+        //   test: /\.css$/i,
+        //   use: [
+        //   {
+        //     loader: 'style-loader',
+            
+        //   }, 
+        //   {
+        //     loader: 'css-loader',
+            
+        //   },],
+        //   modules : true
+        // },
       ]
     },
     
