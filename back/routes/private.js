@@ -55,11 +55,11 @@ router.put("/orders/:id/update", async function(req, res) {
   res.send(order);
 });
 
-
 //PRODUCT ADMIN ROUTES
 
 router.post("/products/add", async function(req, res, next) {
-  const product = await Product.create(req.body.product);
+  console.log(req.body);
+  const product = await Product.create(req.body);
   const [brand] = await Brand.findOrCreate({
     where: {
       name: req.body.brand.name,
