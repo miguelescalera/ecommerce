@@ -19,7 +19,10 @@ export default ({ selectedProduct }) => {
   const styleImg = {
     float: "right",
     height: '80%',
-    paddingTop: '3rem'
+    paddingTop: '3rem',
+    width: '100%' , 
+    paddingBlockEnd: '3.5rem'
+    
   }
   const comprar = {
     marginBottom: "0.5rem",
@@ -30,12 +33,12 @@ export default ({ selectedProduct }) => {
   }
   return (
     <Container className="d-flex justify-content-center" style={{ alignContent: 'center' }}>
-      <Card style={{ boxShadow: "8px 8px 15px -10px rgba(0,0,0,0.39)" }}>
-        <Row >
+      <Card style={{ boxShadow: "8px 8px 15px -10px rgba(0,0,0,0.39)", paddingBlockend: '3.5rem' }}>
+        <Row style={{width:'850px',alignItems:'center'}} >
           <Col md={6}>
             <img src={selectedProduct.imgUrl} alt="Foto del producto" style={styleImg} />
           </Col>
-          <Col md={4} style={colDesc}>
+          <Col md={5} style={colDesc}>
             <Container style={{ paddingTop: "10%" }}>
               <h1>{selectedProduct.name}</h1>
               <p>{selectedProduct.description}</p>

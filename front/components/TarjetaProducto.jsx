@@ -19,20 +19,34 @@ const TarjetaProducto = function ({ product, handleClick }) {
   }
   const comprar = {
     marginBottom: "0.5rem",
-    padding: "-3rem"
+    padding: "1.5rem",
+    // float : 'left'
+  }
+
+  const card = {
+    width:"15rem",
+    boxShadow :'8px 8px 15px -10px rgba(0,0,0,0.39)',
+    borderRadius: "0px",
+  }
+
+  const name = {
+    whiteSpace: "nowrap",
+    overflowX: "hidden",
+    overflowY : 'hidden',
+
   }
   
   return (
     <div key={product.id}>
-      <Card style={{ width: "14rem", boxShadow: "8px 8px 15px -10px rgba(0,0,0,0.39)" }}>
+      <Card style={ card }>
         <Link to={`/products/${product.id}`}>
           <Card.Img variant="top" src={product.imgUrl} />
         </Link>
         <Card.Body>
           <Row>
             <Col >
-              <Link to={`/products/${product.id}`}>
-                <Card.Title>{product.name}</Card.Title>
+              <Link to={`/products/${product.id}`} >
+                <Card.Title style={name}>{product.name}</Card.Title>
               </Link>
             </Col>
           </Row>
@@ -45,10 +59,10 @@ const TarjetaProducto = function ({ product, handleClick }) {
             </Col>
           </Row>
           <Row>
-            <Col md={7}>
+            <Col md={7} style={{height:"3rem"}}>
               <Card.Title style={precio}>${product.price}</Card.Title>
             </Col>
-            <Col md={3} >
+            <Col md={3} style={{height:"3rem"}}>
               <span style={comprar}>
               <Button variant="dark" onClick={() => handleClick(product.id, 1)} >{<FontAwesomeIcon fontSize="md" icon={faCartPlus} />}</Button>
               </span>

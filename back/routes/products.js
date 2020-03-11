@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { Product } = require("../models");
 const Sequelize = require('sequelize');
+const reviews = require("./reviews")
 const Op = Sequelize.Op;
 
 router.get("/", function(req, res, next) {
@@ -50,5 +51,7 @@ router.get("/:id", function(req, res) {
       console.log(err);
     });
 });
+
+router.use("/reviews", reviews)
 
 module.exports = router;

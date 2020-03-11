@@ -21,8 +21,33 @@ module.exports = {
               "@babel/env"
             ]
           }
-        }
+        },
+        {
+          test: /\.(mov|mp4)$/,
+          use: [    
+            {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]'
+            }  
+          }]
+        },
+        // {
+        //   test: /\.css$/i,
+        //   use: [
+        //   {
+        //     loader: 'style-loader',
+            
+        //   }, 
+        //   {
+        //     loader: 'css-loader',
+            
+        //   },],
+        //   modules : true
+        // },
       ]
     },
+    
+    
     devtool: 'source-map'
   }

@@ -5,78 +5,151 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import {connect} from "react-redux"
-import {getCart, setCartProducts} from "../actions/cart"
-
-
+import {getCart, modifyCartProduct, deleteCartProduct} from "../actions/cart"
+import LocalStorageAction from "../actions/LocalStorageActions"
+let Finalproducts=new Array;
 const mapStateToProps = function(state) {
     return {
+      allProducts: state.product.list, 
       products: state.cart.products,
-      loading: state.cart.loading,
-      loginUser: state.user.loginUser
+      order: state.cart.order,
+      loginUser: state.user.loginUser,
+      modifiedProduct : state.cart.modifiedProduct,
+      emailUser: state.user.loginUser.email,
+      idUser:state.user.loginUser.id,
+      productWithoutUser:state.productWithoutUser
     };
   };
+  
+      
   
   const mapDispatchToProps = function(dispatch) {
     return {
       getCart: () => dispatch(getCart()),
-      setCartProducts: (productId, quantity) => dispatch(setCartProducts(productId, quantity))
+      modifyCartProduct: (productId, quantity) => dispatch(modifyCartProduct(productId, quantity)),
+      deleteCartProduct: (productId) => dispatch(deleteCartProduct(productId)),
+      setProductLocalStorage: (productId,quantity) => dispatch(LocalStorageAction(productId,quantity))
     };
-  };
-  
+};
 
-class CarritoContainer extends React.Component{
-    constructor(props){
+
+class CarritoContainer extends React.Component {
+    constructor(props) {
         super(props)
-        this.state = {
-            orderProduct: {}
-        }
         this.handleClick = this.handleClick.bind(this)
+        this.handleDelete = this.handleDelete.bind(this)
     }
 
 componentDidMount(){
-    console.log(this.props.products)
-    this.props.getCart()
-}
+    if(this.props.emailUser){
+        this.props.getCart()
+    }
+    else{
+        let productsOffline = JSON.parse(localStorage.getItem("products")) 
+        console.log('holaaaaaaaaa',productsOffline)
+        let AllProducts= this.props.allProducts
+        
+        if(productsOffline){
+            let products = productsOffline.map(function(prd){
+                return AllProducts.filter(function(finalProd){
+                   if(prd.idProduct=== finalProd.id){
+                        finalProd.quantity=prd.quantity
+                        return finalProd
+                    }
+                 })
+             })
+             for(let i=0; i<products.length;i++){
+                 for(let j=0; j<products[i].length;j++){
+                     Finalproducts.push(products[i][j])
+                 }
+             }
+         }
+     }
+ }
+            
 
-componentDidUpdate(prevProps, prevState){
-    // console.log(prevState.orderProduct.id)
-    // console.log(this.state.orderProduct.id)
-    // if(prevState.orderProduct.id !== this.state.orderProduct.id || prevState.orderProduct.quantity !== this.state.orderProduct.id){
-    //     this.props.getCart()
-    // }
-    // NO LO PUEDO HACER EN EL ESTADO PORQ SE ME REINICIA; TENGO QUE PONER EN EL STORE EL ULTIMO CLIQUEADO
+
+           
+           
+    
+
+
+
+
+
+    componentDidUpdate(prevProps, prevState) {
+        console.log(prevProps.modifiedProduct)
+        console.log(this.props.modifiedProduct)
+        if (prevProps.modifiedProduct.quantity !== this.props.modifiedProduct.quantity || prevProps.modifiedProduct.id !== this.props.modifiedProduct.id) {
+            this.props.getCart()
+        }
+        if (prevProps.modifiedProduct.id !== this.props.modifiedProduct.id) {
+            this.props.getCart()
+        }
+    }
+
+    handleClick(productId, n) {
+        this.props.modifyCartProduct(productId, n)
+    }
+
+    handleDelete(productId) {
+        this.props.deleteCartProduct(productId)
+    }
+componentWillUnmount(){
+    Finalproducts=[]
 }
 
 handleClick(productId, n){
-    this.props.setCartProducts(productId, n)
-    .then(orderProduct => {
-        console.log(orderProduct)
-        this.setState({orderProduct: orderProduct.data})
-    })
-    // this.props.getCart()
+    if(this.props.emailUser){
+        this.props.modifyCartProduct(productId, n)
+        this.props.getCart()
+    }
+    else{
+        let productsClick= JSON.parse(localStorage.getItem("products"))
+        productsClick.filter(function(obj){ if(obj.idProduct===productId){ obj.quantity+=n}})
+        localStorage.setItem("products",JSON.stringify(productsClick))
+        this.props.setProductLocalStorage(JSON.parse(localStorage.getItem("products")))
+    }
+
 }
 
-render(){
-    const {products} = this.props
-    return(
-        <div>
-            <Container> 
-                <Row>
-                    <Col sm={8}>
-                    <TarjetaCompra productos={products} handleClick={this.handleClick}/>
-                    </Col>
-                    <Col sm={4}>
-                    <Carrito products={products}  />
-                    </Col>
-                </Row>
-            </Container>
-        </div>
-    )
-}
+    render() {
+        const { products, order } = this.props
+        console.log(order)
+        console.log(products)
+        return (
+            <div>
+                <Container>
+                    <h3 className="d-flex justify-content-center" style={{ marginBlockEnd: "1.5rem", marginBlockStart: "1.5rem" }}>Carrito</h3>
+
+                    <Row style={{ marginBlockEnd: "1.5rem", marginBlockStart: "1.5rem" }}>
+                        <Col sm={8}>
+                            <TarjetaCompra productos={products} handleClick={this.handleClick} handleDelete={this.handleDelete} />
+                        </Col>
+                        <Col sm={4}>
+                            <Carrito products={products} order={order} />
+                        </Col>
+                    </Row>
+                </Container>
+            </div>
+        )
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CarritoContainer)
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

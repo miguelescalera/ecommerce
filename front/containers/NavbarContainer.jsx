@@ -1,6 +1,6 @@
 import React from "react";
 import Navbars from "../components/Navbar";
-
+import LocalStorageAction from "../actions/LocalStorageActions"
 import { connect } from "react-redux";
 import { setInput } from "../actions/search";
 import { withRouter } from "react-router-dom";
@@ -60,6 +60,7 @@ const mapStateToProps = function(state) {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
+    setProductLocalStorage: () => dispatch(LocalStorageAction([])),
     setInput: input => dispatch(setInput(input)),
     logoutUser: () => dispatch(logoutUser()),
     getProducts: (input)=> dispatch(fetchSearchProducts(input)),
