@@ -116,6 +116,14 @@ const Navbars = function({
             </Nav.Link>
           </Link>
         </Col>
+        <Col md="auto">
+          <Link to="/private">
+          <Nav.Link href="#usuario" style={fontNavBar}>
+              <FontAwesomeIcon icon={faUserPlus}/>
+                superadmin
+            </Nav.Link>
+          </Link>
+        </Col>
       </Row>
 
       {/* SEGUNDA ROW DE NAVBAR CON BUSCAR POR BODEGA/CATEGORIAS/ORDENARPOR */}

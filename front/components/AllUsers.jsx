@@ -5,16 +5,18 @@ import Table from 'react-bootstrap/Table'
 export default ({allUsers,handleToggle}) =>{
 
     
-    
+    console.log("all users:",allUsers)
     const Users= allUsers.map((alluser) =>{
         /*TOGGLE BUTTONS*/
-    const buttonAdmin = (
-    <button onClick={() =>handleToggle(2,alluser.id)} >add administrator</button>
-    )
-    
-    const buttonSimpleUser = (
-    <button onClick={() =>handleToggle(1,alluser.id)} >make a simple user</button>
-    )
+        /*
+        const buttonAdmin = (
+        <button onClick={() =>handleToggle(2,alluser.id)} >add administrator</button>
+        )
+        
+        const buttonSimpleUser = (
+        <button onClick={() =>handleToggle(1,alluser.id)} >make a simple user</button>
+        )
+        */
     //----------------------------------------------------------------------//
     
     let statusUser = alluser.status

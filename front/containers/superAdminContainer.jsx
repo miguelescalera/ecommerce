@@ -24,6 +24,7 @@ class SuperAdminContainer extends React.Component{
         super();
     }
     componentDidMount(){
+        console.log("props: ",this.props)
         this.props.getAllUsers()
 
     }
