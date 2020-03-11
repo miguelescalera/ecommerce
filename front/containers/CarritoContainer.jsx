@@ -7,15 +7,15 @@ import Col from 'react-bootstrap/Col'
 import {connect} from "react-redux"
 import {getCart, modifyCartProduct, deleteCartProduct} from "../actions/cart"
 import LocalStorageAction from "../actions/LocalStorageActions"
+
 let Finalproducts=new Array;
 const mapStateToProps = function(state) {
     return {
       allProducts: state.product.list, 
       products: state.cart.products,
       order: state.cart.order,
-      loginUser: state.user.loginUser,
+      logged: state.user.logged,
       modifiedProduct : state.cart.modifiedProduct,
-      emailUser: state.user.loginUser.email,
       idUser:state.user.loginUser.id,
       productWithoutUser:state.productWithoutUser
     };
@@ -41,12 +41,8 @@ class CarritoContainer extends React.Component {
     }
 
 componentDidMount(){
-    if(this.props.emailUser){
         this.props.getCart()
-    }
-    else{
         let productsOffline = JSON.parse(localStorage.getItem("products")) 
-        console.log('holaaaaaaaaa',productsOffline)
         let AllProducts= this.props.allProducts
         
         if(productsOffline){
@@ -64,22 +60,11 @@ componentDidMount(){
                  }
              }
          }
-     }
+     
  }
             
 
-
-           
-           
-    
-
-
-
-
-
     componentDidUpdate(prevProps, prevState) {
-        console.log(prevProps.modifiedProduct)
-        console.log(this.props.modifiedProduct)
         if (prevProps.modifiedProduct.quantity !== this.props.modifiedProduct.quantity || prevProps.modifiedProduct.id !== this.props.modifiedProduct.id) {
             this.props.getCart()
         }
@@ -88,9 +73,6 @@ componentDidMount(){
         }
     }
 
-    handleClick(productId, n) {
-        this.props.modifyCartProduct(productId, n)
-    }
 
     handleDelete(productId) {
         this.props.deleteCartProduct(productId)
@@ -100,7 +82,7 @@ componentWillUnmount(){
 }
 
 handleClick(productId, n){
-    if(this.props.emailUser){
+    if(this.props.logged){
         this.props.modifyCartProduct(productId, n)
         this.props.getCart()
     }
@@ -114,9 +96,11 @@ handleClick(productId, n){
 }
 
     render() {
-        const { products, order } = this.props
-        console.log(order)
-        console.log(products)
+        const order = this.props.order
+        // const products = this.props.logged? this.props.products: Finalproducts
+        const products = this.props.products
+
+        console.log('renderrrr', this.props.products)
         return (
             <div>
                 <Container>
@@ -136,35 +120,10 @@ handleClick(productId, n){
     }
 }
 
-<<<<<<< HEAD
-render(){
-    const order = this.props.order
-    const products =this.props.emailUser?this.props.products:Finalproducts
-    console.log(order)
-    console.log(products)
-    return( 
-        <div>
-            <Container> 
-                <Row>
-                    <Col sm={8}>
-                    <TarjetaCompra productos={products} handleClick={this.handleClick} handleDelete={this.handleDelete} />
-                    </Col>
-                    <Col sm={4}>
-                    <Carrito products={products} order={order} />
-                    </Col>
-                </Row>
-            </Container>
-        </div>
-    )
-}
-}  
-export default connect(mapStateToProps, mapDispatchToProps)(CarritoContainer)
-=======
 export default connect(mapStateToProps, mapDispatchToProps)(CarritoContainer)
 
 
 
->>>>>>> 4d6dd7f9442ed54d6bb0b1f565d82abe0f49a851
 
 
 

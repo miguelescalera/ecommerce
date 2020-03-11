@@ -13,7 +13,7 @@ const {
 const Promise = require("bluebird");
 
 router.get("/", async function(req, res, next) {
- 
+  if(!req.user) return res.send([])
   const order = await Order.findOne({
     where: { userId: req.user.id, status: "cart" }
   });
@@ -46,7 +46,6 @@ router.get("/", async function(req, res, next) {
 });
 
 router.post("/products/:id/modifycart", async function(req, res, next) {
-  if(!req.user) return res.send({})
   const n = req.body.n;
   const product = await Product.findByPk(req.params.id);
   const [order] = await Order.findOrCreate({
