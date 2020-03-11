@@ -72,7 +72,7 @@ export default ({ products, order }) => {
                                 <span>Total</span>
                             </Col>
                             <Col style={{ alignSelf: 'flex-end', display: 'block', textAlign: 'right' }}>
-                                <span>${order.subTotal}</span>
+                                <span>${ order? order.subTotal :0}</span>
                             </Col>
                         </Row>
                     </ListGroup.Item>

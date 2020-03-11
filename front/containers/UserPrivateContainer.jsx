@@ -29,11 +29,15 @@ componentDidMount(){
 
 
   render() {
-      console.log("aaaaaa",this.props)
+    const user = this.props.user.loginUser
+    const orders = this.props.orders.orders
+
+    console.log(this.props);
+    
     return (
       <div>
-        <UserPrivate />
-        <OrdenesContainerPrivate />
+        <UserPrivate user={user} />
+        <OrdenesContainerPrivate orders={orders} />
       </div>
     );
   }

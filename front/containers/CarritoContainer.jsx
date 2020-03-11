@@ -64,7 +64,13 @@ componentDidMount(){
  }
             
 
+
+
+
+
     componentDidUpdate(prevProps, prevState) {
+        console.log(prevProps.modifiedProduct)
+        console.log(this.props.modifiedProduct)
         if (prevProps.modifiedProduct.quantity !== this.props.modifiedProduct.quantity || prevProps.modifiedProduct.id !== this.props.modifiedProduct.id) {
             this.props.getCart()
         }
@@ -73,6 +79,9 @@ componentDidMount(){
         }
     }
 
+    handleClick(productId, n) {
+        this.props.modifyCartProduct(productId, n)
+    }
 
     handleDelete(productId) {
         this.props.deleteCartProduct(productId)
