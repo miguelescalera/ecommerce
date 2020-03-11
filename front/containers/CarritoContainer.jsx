@@ -7,7 +7,6 @@ import Col from 'react-bootstrap/Col'
 import {connect} from "react-redux"
 import {getCart, modifyCartProduct, deleteCartProduct} from "../actions/cart"
 import LocalStorageAction from "../actions/LocalStorageActions"
-
 let Finalproducts=new Array;
 const mapStateToProps = function(state) {
     return {
@@ -43,6 +42,7 @@ class CarritoContainer extends React.Component {
 componentDidMount(){
         this.props.getCart()
         let productsOffline = JSON.parse(localStorage.getItem("products")) 
+        console.log('holaaaaaaaaa',productsOffline)
         let AllProducts= this.props.allProducts
         
         if(productsOffline){

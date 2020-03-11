@@ -1,14 +1,14 @@
 import React from "react";
 import { Route, Redirect, Switch, Link } from "react-router-dom";
 import NavbarContainer from "../containers/NavbarContainer";
-import FooterContainer from '../containers/FooterContainer'
+import FooterContainer from "../containers/FooterContainer";
 import PaginaPrincipalContainer from "../containers/PaginaPrincipalContainer";
 import ProductsContainer from "../containers/ProductsContainer";
 import ProductContainer from "../containers/ProductContainer";
 import RegisterContainer from "../containers/RegisterContainer";
 import LoginContainer from "../containers/LoginContainer";
 // import CheckoutContainer from '../containers/CheckoutContainer'
-import UserContainer from '../containers/UserContainer'
+import UserContainer from "../containers/UserContainer";
 import CarritoContainer from "../containers/CarritoContainer";
 import superAdminContainer from "../containers/superAdminContainer"
 import AddReview from "../components/AddReview"
