@@ -24,7 +24,7 @@ export const getLoginUser = () => dispatch => {
   axios
     .get("/api/users/me")
     .then(user => {
-      dispatch(addLogin(user.data, true))
+      dispatch(addLogin(user.data, user.data.id?true: false))
       return user.data
     })
 }

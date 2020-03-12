@@ -7,13 +7,22 @@ import ProductsContainer from "../containers/ProductsContainer";
 import ProductContainer from "../containers/ProductContainer";
 import RegisterContainer from "../containers/RegisterContainer";
 import LoginContainer from "../containers/LoginContainer";
+
 // import CheckoutContainer from '../containers/CheckoutContainer'
 import addAdminContainer from "../containers/addAdminContainer"
-import CarritoContainer from "../containers/CarritoContainer";
+
 import PrivateContainer from "../containers/privateContainer"
 import AddReview from "../components/AddReview"
+
+import CheckoutContainer from '../containers/CheckoutContainer'
+import UserContainer from "../containers/UserContainer";
+import CarritoContainer from "../containers/CarritoContainer";
+
+import AddReviewContainer from "../containers/AddReviewContainer"
+
 import {getLoginUser} from "../actions/LoginActions"
 import {connect} from "react-redux"
+import SuperadminOrdersContainer from "../containers/SuperadminOrdersContainer";
 
 
 const mapStateToProps= (state)=>{
@@ -37,17 +46,18 @@ componentDidMount(){
   this.props.getLoginUser()
 }
   render(){
-    console.log("USER", this.props.loginUser)
     return (
       <div id="main">
         <NavbarContainer />
         <Switch>
           {/* <Route path="/home" exact component={PaginaPrincipalContainer} /> */}
           <Route path="/products" exact component={ProductsContainer} />
-          <Route path="/products/:id" component={ProductContainer} />
+          <Route path="/products/:id" exact component={ProductContainer} />
           <Route path="/users/register" exact component={RegisterContainer} />
           <Route path="/users/login" exact component={LoginContainer} />
           <Route path="/cart" exact component={CarritoContainer} />
+
+          <Route path="/private/orders" exact component={SuperadminOrdersContainer} />
           <Route path="/private/addAdmin" exact component={addAdminContainer} />
           <Route path="/private" exact component={PrivateContainer} />
           {/* <Route path="/checkout" exact component={CheckoutContainer} />
@@ -58,6 +68,12 @@ componentDidMount(){
   
           {/* <Route path="/checkout" exact component={CheckoutContainer} /> */}
   
+
+          <Route path="/cart/checkout" exact component={CheckoutContainer} /> 
+         
+          <Route path="/users/myorders" exact component={UserContainer} />  
+          <Route path="/users/myorders/addReview/:id" component={AddReviewContainer} />  
+
           <Redirect from="/" to="/products" />
         </Switch>
         <FooterContainer/>

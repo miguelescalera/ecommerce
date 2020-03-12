@@ -1,3 +1,5 @@
+const passport = require("passport");
+const Op = require("sequelize").Op
 const express = require("express");
 const router = express.Router();
 const {
@@ -10,6 +12,7 @@ const {
   Image,
   Review
 } = require("../models");
+
 
 
 
@@ -53,9 +56,12 @@ router.get("/addAdmin", async function(req, res) {
   res.send(user);
 });
 
+
+
+
 //ORDERS ADMIN ROUTES
 
-router.get("/orders", function(req, res) {
+router.get("/orders", function (req, res) {
   Order.findAll({
     include: [
       {
@@ -75,11 +81,12 @@ router.get("/orders", function(req, res) {
           attributes: ["quantity", "totalPrice"]
         }
       }
-    ]
+    ],
+    where: { status: { [Op.not]: "cart" } }
   }).then(orders => res.send(orders));
 });
 
-router.put("/orders/:id/update", async function(req, res) {
+router.put("/orders/:id/update", async function (req, res) {
   const { status } = req.body;
   const order = await Order.findByPk(req.params.id);
   order.status = status;
@@ -87,11 +94,11 @@ router.put("/orders/:id/update", async function(req, res) {
   res.send(order);
 });
 
-
 //PRODUCT ADMIN ROUTES
 
 router.post("/products/add", async function(req, res, next) {
-  const product = await Product.create(req.body.product);
+  console.log(req.body);
+  const product = await Product.create(req.body);
   const [brand] = await Brand.findOrCreate({
     where: {
       name: req.body.brand.name,
@@ -116,7 +123,7 @@ router.post("/products/add", async function(req, res, next) {
   res.send(product);
 });
 
-router.delete("/products/:id/delete", async function(req, res, next) {
+router.delete("/products/:id/delete", async function (req, res, next) {
   const id = req.params.id;
   const product = await Product.findByPk(id);
   const images = await Image.findAll({ where: { ProductId: id } });
@@ -127,7 +134,7 @@ router.delete("/products/:id/delete", async function(req, res, next) {
   res.sendStatus(200);
 });
 
-router.put("/products/:id/modify", async function(req, res, next) {
+router.put("/products/:id/modify", async function (req, res, next) {
   const id = req.params.id;
   let row = {};
   let product = {};
@@ -136,7 +143,6 @@ router.put("/products/:id/modify", async function(req, res, next) {
       returning: true,
       where: { id }
     });
-    console.log(product);
   } else {
     product = await Product.findByPk(id);
   }

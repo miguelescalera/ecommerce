@@ -7,7 +7,12 @@
   }
 
 body {
-  background: url(https://i.imgur.com/drMvLrs.jpg) no-repeat center fixed;     
+  
+  /* background: url(https://i.imgur.com/tZs1eN2.png) no-repeat center fixed;  */
+
+  background: url(https://i.imgur.com/YpiQUEz.png) no-repeat center fixed; 
+  /* aqui esta el fondo anteerrior  */
+  /* background: url(https://i.imgur.com/drMvLrs.jpg) no-repeat center fixed;      */
   background-size: cover;
   width: 100%;
 
@@ -45,14 +50,3 @@ a:hover{
   display : block;
 }
 
-
-
-/* #imagenLanding  {
-  background: url(https://i.imgur.com/HtMp3dQ.png);  
-  background-repeat: no-repeat;
-<<<<<<< HEAD
-  background-position: center;
-  background-attachment: fixed;
-  background-size: 100%;
-  
-} */

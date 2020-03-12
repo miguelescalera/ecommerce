@@ -22,7 +22,11 @@ const Navbars = function({
   handleSubmit,
   handleChange,
   emailUser,
-  handleLogout
+  handleLogout,
+  categories,
+  brands,
+  handleFilter,
+  handleProducts
 }) {
   /////////boton login////////
   let userLogin = (
@@ -81,7 +85,6 @@ const Navbars = function({
     width:'100%' ,
     display: "flex",
     alignItems: "center",
-
     boxShadow :'8px 8px 15px -10px rgba(0,0,0,0.39)',
 
 
@@ -141,6 +144,7 @@ const Navbars = function({
         </Col>
         <Col md="auto">{emailUser ? userLogout : userLogin}</Col>
         <Col md="auto">{emailUser ? userMyOrders : userRegister}</Col>
+
         <Col md="auto">
           <Link to="/private">
             <Nav style={fontNavBar}>
@@ -150,46 +154,60 @@ const Navbars = function({
           </Link>
         </Col>
 
+
+        
+
       </Row>
 
       {/* SEGUNDA ROW DE NAVBAR CON BUSCAR POR BODEGA/CATEGORIAS/ORDENARPOR */}
 
       <Row className="justify-content-md-center" style={downRowNav}>
+        
+
+        <Col md="auto">
+          <Nav style={fontNavBar}>
+            <div onClick={handleProducts}>Todos los productos</div> 
+          </Nav>
+        </Col>
+
         <Col md="auto">
           <Dropdown>
             <Dropdown.Toggle
               as={DropdownStyle}
               id="dropdown-basic"
               style={fontNavBar}
-            >
+              >
               Buscar por bodega
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-              <Dropdown.Item href="#/action-1">Finca Victoria</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">Cosecha Pugliese</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">Escalera Mendoza</Dropdown.Item>
+            {brands.map(brand=>{
+                return <Dropdown.Item onClick={()=>handleFilter(brand.name)}>{brand.name}</Dropdown.Item>
+            })}
             </Dropdown.Menu>
           </Dropdown>
-        </Col>
+              </Col>
+       
+              <Col md="auto">
+        <Dropdown>
+            <Dropdown.Toggle
+              as={DropdownStyle}
+              id="dropdown-basic"
+              style={fontNavBar}
+              >
+              Buscar por categoria
+            </Dropdown.Toggle>
 
-        <Col md="auto">
-          <Nav.Link href="#tintos" style={fontNavBar}>
-            Tintos
-          </Nav.Link>
-        </Col>
+            <Dropdown.Menu>
+              {categories.map(category=>{
+                return <Dropdown.Item onClick={()=>handleFilter(category.name)}>{category.name}</Dropdown.Item>
+              })
+              }
+            </Dropdown.Menu>
+          </Dropdown>
+              </Col>
+        
 
-        <Col md="auto">
-          <Nav.Link href="#Blancos" style={fontNavBar}>
-            Blancos
-          </Nav.Link>
-        </Col>
-
-        <Col md="auto">
-          <Nav.Link href="#Rosados" style={fontNavBar}>
-            Rosados
-          </Nav.Link>
-        </Col>
 
         <Col md="auto">
           <Dropdown style={fontNavBar}>

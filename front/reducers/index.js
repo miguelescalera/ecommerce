@@ -7,6 +7,7 @@ import cartReducer from "./cartReducer";
 import LocalStorageReducer from "./LocalStorageReducer";
 import ordersReducer from "./ordersReducer";
 import allUsersReducer from "./allUsersReducer";
+import navbarFilters from "./navbarFilters";
 
 
 export default combineReducers({
@@ -16,6 +17,6 @@ export default combineReducers({
   cart: cartReducer,
   productWithoutUser: LocalStorageReducer,
   orders: ordersReducer,
-  allUsers: allUsersReducer
-
+  allUsers: allUsersReducer,
+  nav: navbarFilters
 });

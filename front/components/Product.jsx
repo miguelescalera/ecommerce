@@ -11,7 +11,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar as fullStar } from '@fortawesome/free-solid-svg-icons';
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 import { faStar as emptyStar } from '@fortawesome/free-regular-svg-icons';
+import Reviews from "../components/Reviews"
+
 export default ({ selectedProduct }) => {
+  console.log(selectedProduct)
   const colDesc = {
     float: "left",
     verticalAlign: 'middle'
@@ -41,6 +44,8 @@ export default ({ selectedProduct }) => {
           <Col md={5} style={colDesc}>
             <Container style={{ paddingTop: "10%" }}>
               <h1>{selectedProduct.name}</h1>
+              <h5>Categorías: {selectedProduct.Categories? selectedProduct.Categories.map(category => category.name).join("• "): "-"}</h5>
+              <h5>Bodega: {selectedProduct.Brand? selectedProduct.Brand.name: "-"}</h5>
               <p>{selectedProduct.description}</p>
               <Rating
                 style={{ marginBottom: ".75rem" }}
@@ -60,6 +65,13 @@ export default ({ selectedProduct }) => {
           </Col>
         </Row>
       </Card>
+      <Card style={{ boxShadow: "8px 8px 15px -10px rgba(0,0,0,0.39)", paddingBlockend: '3.5rem' }}>
+        <h3>Reviews</h3>
+          {
+            selectedProduct.Reviews? <Reviews reviews={selectedProduct.Reviews}/>: <p> Aun no hay reviews de este producto</p>
+          }
+      </Card>
+
     </Container>
   );
 };

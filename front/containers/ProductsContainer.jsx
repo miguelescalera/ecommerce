@@ -39,7 +39,6 @@ class ProductsContainer extends React.Component {
     this.handleClick= this.handleClick.bind(this)
   }
   componentDidMount() {
-    console.log("MOUNT:", this.props.emailUser)
     // this.props.getCart()
     if(!this.props.productWithoutUser){
       arrayOfPO=[]
