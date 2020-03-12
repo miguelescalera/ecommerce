@@ -5,38 +5,49 @@ import Accordion from "react-bootstrap/Accordion";
 import Button from "react-bootstrap/Button";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from 'react-bootstrap/Dropdown'
+import Form from "react-bootstrap/Form"
 
-const OrdenesPrivate = function({ ordenes }) {
+const orderPrivate = function({ order, handleChange, handleClick }) {
   return (
     <Card>
       <Card.Header>
-        <Accordion.Toggle as={Button} variant="link" eventKey="0">
+        {/* <Accordion.Toggle as={Button} variant="link" eventKey="0"> */}
           <Table hover>
             <tbody>
               <tr>
-                <td>{ordenes.id}</td>
-                <td> {ordenes.User.firstName + " " + ordenes.User.lastName}</td>
-                <td>{"$" + ordenes.subTotal}</td>
-                <td>{ordenes.createdAt}</td>
-                <td>{ordenes.updatedAt}</td>
+                <td>{order.id}</td>
+                <td> {order.User.firstName + " " + order.User.lastName}</td>
+                <td>{"$" + order.subTotal}</td>
+                <td>{order.createdAt}</td>
+                <td>{order.updatedAt}</td>
+                <td>{order.status}</td>
                 <td>
-                <DropdownButton
-                  id="dropdown-item-button"
-                  title={ordenes.status}
-                >
-                  <Dropdown.Item as="button">Process</Dropdown.Item>
-                  <Dropdown.Item as="button">Complete</Dropdown.Item>
-                </DropdownButton>
+                <Form >
+                    <Form.Group controlId="formBasicEmail">
+                      <Form.Control as="select" name="status" onChange={handleChange}>
+                            <option>comprado</option>
+                            <option>procesada</option>
+                            <option>enviada</option>
+                            <option>recibida</option>
+                      </Form.Control>
+                      <Button variant="dark" onClick={
+                        (e)=>{
+                        e.preventDefault()
+                        return handleClick(order)
+                        }}>
+                          Cambiar status
+                      </Button>
+                    </Form.Group>
+                </Form>
                 </td>
               </tr>
             </tbody>
           </Table>
-        </Accordion.Toggle>
+        {/* </Accordion.Toggle> */}
       </Card.Header>
-      <Accordion.Collapse eventKey="0">
+      {/* // <Accordion.Collapse eventKey="0"> */}
         <Card.Body>
-          {ordenes.products.map(producto => {
-            console.log("este es mi producto personal", producto);
+          {order.products.map(producto => {
             return (
               <tbody>
                 <tr>
@@ -48,8 +59,8 @@ const OrdenesPrivate = function({ ordenes }) {
             );
           })}
         </Card.Body>
-      </Accordion.Collapse>
+      {/* </Accordion.Collapse> */}
     </Card>
   );
 };
-export default OrdenesPrivate;
+export default orderPrivate;

@@ -22,7 +22,11 @@ const Navbars = function({
   handleSubmit,
   handleChange,
   emailUser,
-  handleLogout
+  handleLogout,
+  categories,
+  brands,
+  handleFilter,
+  handleProducts
 }) {
   /////////boton login////////
   let userLogin = (
@@ -81,7 +85,6 @@ const Navbars = function({
     width:'100%' ,
     display: "flex",
     alignItems: "center",
-
     boxShadow :'8px 8px 15px -10px rgba(0,0,0,0.39)',
 
 
@@ -150,9 +153,9 @@ const Navbars = function({
         
 
         <Col md="auto">
-          <Link to='/products' style={fontNavBar}>
-            Todos los productos
-          </Link>
+          <Nav style={fontNavBar}>
+            <div onClick={handleProducts}>Todos los productos</div> 
+          </Nav>
         </Col>
 
         <Col md="auto">
@@ -166,9 +169,9 @@ const Navbars = function({
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-              <Dropdown.Item href="#/action-1">Finca Victoria</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">Cosecha Pugliese</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">Escalera Mendoza</Dropdown.Item>
+            {brands.map(brand=>{
+                return <Dropdown.Item onClick={()=>handleFilter(brand.name)}>{brand.name}</Dropdown.Item>
+            })}
             </Dropdown.Menu>
           </Dropdown>
               </Col>
@@ -184,9 +187,10 @@ const Navbars = function({
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-              <Dropdown.Item href="#/action-1">Tintos</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">Blancos</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">Rosados</Dropdown.Item>
+              {categories.map(category=>{
+                return <Dropdown.Item onClick={()=>handleFilter(category.name)}>{category.name}</Dropdown.Item>
+              })
+              }
             </Dropdown.Menu>
           </Dropdown>
               </Col>

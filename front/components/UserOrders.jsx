@@ -45,7 +45,6 @@ const Order = function({ order }) {
       </Card.Header>
         <Card.Body>
           {order.products.map(product => {
-            console.log("este es mi product personal", product);
             return (
               <tbody>
                 <tr>

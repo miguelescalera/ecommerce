@@ -11,12 +11,10 @@ import CheckoutContainer from '../containers/CheckoutContainer'
 import UserContainer from "../containers/UserContainer";
 import CarritoContainer from "../containers/CarritoContainer";
 import superAdminContainer from "../containers/superAdminContainer"
-import AddReview from "../components/AddReview"
+import AddReviewContainer from "../containers/AddReviewContainer"
 import {getLoginUser} from "../actions/LoginActions"
 import {connect} from "react-redux"
-import OrdenesContainerPrivate from "../containers/OrdenesContainerPrivate";
-import UserPrivateContainer from "../containers/UserPrivateContainer";
-
+import SuperadminOrdersContainer from "../containers/SuperadminOrdersContainer";
 
 
 const mapStateToProps= (state)=>{
@@ -52,7 +50,7 @@ componentDidMount(){
           <Route path="/cart" exact component={CarritoContainer} />
           <Route path="/cart/checkout" exact component={CheckoutContainer} /> 
           <Route path="/private" exact component={superAdminContainer} />
-          <Route path="/private/orders" exact component={UserPrivateContainer} />
+          <Route path="/private/orders" exact component={SuperadminOrdersContainer} />
           <Route path="/users/myorders" exact component={UserContainer} />  
           <Route path="/users/myorders/addReview/:id" component={AddReviewContainer} />  
           <Redirect from="/" to="/products" />

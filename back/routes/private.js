@@ -11,6 +11,7 @@ const {
   Review
 } = require("../models");
 const passport = require("passport");
+const Op = require("sequelize").Op
 
 //USER ADMIN ROUTES
 router.post("/addAdmin", async function (req, res) {
@@ -44,7 +45,7 @@ router.get("/orders", function (req, res) {
         }
       }
     ],
-    // where: { status: { [Op.not]: "cart" } } LO SAQUE PARA AGREGAR ESTILOS
+    where: { status: { [Op.not]: "cart" } }
   }).then(orders => res.send(orders));
 });
 

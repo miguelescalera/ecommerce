@@ -7,6 +7,9 @@ import { withRouter } from "react-router-dom";
 import {logoutUser} from "../actions/LoginActions";
 import {fetchSearchProducts} from "../actions/searchProductsActions"
 import {resetCart} from "../actions/cart"
+import {getCategories} from "../actions/categories"
+import {getBrands} from "../actions/brands"
+import {getAllProducts} from "../actions/searchProductsActions"
 
 class NavbarContainer extends React.Component {
   constructor(props) {
@@ -17,6 +20,12 @@ class NavbarContainer extends React.Component {
     this.handleChange=this.handleChange.bind(this)
     this.handleSubmit=this.handleSubmit.bind(this)
     this.handleLogout = this.handleLogout.bind(this)
+    this.handleFilter = this.handleFilter.bind(this)
+    this.handleProducts = this.handleProducts.bind(this)
+  }
+  componentDidMount(){
+    this.props.getCategories()
+    this.props.getBrands()
   }
   handleChange(event){
     this.setState({ input:event.target.value})
@@ -32,6 +41,14 @@ class NavbarContainer extends React.Component {
     this.props.logoutUser()
     this.props.resetCart()
   }
+  handleFilter(value){
+    this.props.getProducts(value)
+    this.props.history.push('/products')
+  }
+  handleProducts(){
+    this.props.getAllProducts()
+    this.props.history.push('/products')
+  }
 
 
   render() {
@@ -43,6 +60,10 @@ class NavbarContainer extends React.Component {
           emailUser={this.props.email}
           handleLogout={this.handleLogout}
           redirect = {this.redirect}
+          categories = {this.props.categories}
+          brands = {this.props.brands}
+          handleFilter={this.handleFilter}
+          handleProducts={this.handleProducts}
         />
       </div>
     );
@@ -52,7 +73,9 @@ class NavbarContainer extends React.Component {
 const mapStateToProps = function(state) {
   return {
     foundProducts: state.foundProducts,
-    email: state.user.loginUser.email
+    email: state.user.loginUser.email,
+    categories: state.nav.categories,
+    brands: state.nav.brands
   };
 };
 
@@ -62,7 +85,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     setInput: input => dispatch(setInput(input)),
     logoutUser: () => dispatch(logoutUser()),
     getProducts: (input)=> dispatch(fetchSearchProducts(input)),
-    resetCart: ()=> dispatch(resetCart())
+    resetCart: ()=> dispatch(resetCart()),
+    getBrands: ()=> dispatch(getBrands()),
+    getCategories: ()=> dispatch(getCategories()),
+    getAllProducts: ()=>dispatch(getAllProducts())
   };
 };
 
