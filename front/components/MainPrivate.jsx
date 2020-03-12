@@ -22,7 +22,7 @@ export default ()=>{
                 <tr>
                     <td>
                     <Link to="/private/addAdmin">
-                        add a adminitrator or delete user
+                        manage users
                     </Link>
                     </td>
                     </tr>
@@ -35,8 +35,8 @@ export default ()=>{
                     </tr>
                     <tr>
                     <td>
-                    <Link to="/private/addProducts">
-                        add a new product
+                    <Link to="/private/getAllProducts">
+                        manage Products
                     </Link>
                     </td>
                     </tr>

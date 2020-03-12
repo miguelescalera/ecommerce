@@ -8,6 +8,7 @@ const SearchUsers = foundUsers => ({
   export const toggleStatus = function(userStatus,idUser){
     axios.post(`/api/private/addAdmin`,{status:userStatus,id:idUser})
   }
+   
 
   export const getAllUsers = () => dispatch => {
     return axios

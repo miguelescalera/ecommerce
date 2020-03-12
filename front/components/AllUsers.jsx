@@ -1,20 +1,20 @@
 import React from "react";
-
+import Button from "react-bootstrap/Button"
 import Table from 'react-bootstrap/Table'
 
 export default ({allUsers,handleToggle,handleDelete}) =>{
 
-    
+    allUsers= allUsers.sort()
     
     const Users= allUsers.map((alluser) =>{
         /*TOGGLE BUTTONS*/
      
     const buttonAdmin = (
-    <button onClick={() =>handleToggle(2,alluser.id)} >add administrator</button>
+    <Button variant="dark"  onClick={() =>handleToggle(2,alluser.id)} >add administrator</Button>
     )
     
     const buttonSimpleUser = (
-    <button onClick={() =>handleToggle(1,alluser.id)} >make a simple user</button>
+    <Button variant="dark"  onClick={() =>handleToggle(1,alluser.id)} >make a simple user</Button>
     )
     //----------------------------------------------------------------------//
     
@@ -25,7 +25,7 @@ export default ({allUsers,handleToggle,handleDelete}) =>{
             <td>{alluser.lastName}</td>
             <td>{alluser.email}</td>
             <td>{statusUser===1?buttonAdmin:buttonSimpleUser}</td>
-            <td><button onClick={() =>handleDelete(alluser.id)}>delete</button> </td>
+            <td><Button variant="dark"  onClick={() =>handleDelete(alluser.id)}>delete</Button> </td>
             </tr>
         )
     })

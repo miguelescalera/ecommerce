@@ -29,23 +29,32 @@ class SuperAdminContainer extends React.Component{
 
         this.handleToggle= this.handleToggle.bind(this)
         this.handleDelete= this.handleDelete.bind(this)
+        
     }
-       
+    
+
     componentDidMount(){
         this.props.getAllUsers()
     }
     
-    handleToggle(statusUser,idUser){
-        toggleStatus(statusUser,idUser)
-         this.props.getAllUsers()
+     handleToggle(statusUser,idUser){
+       toggleStatus(statusUser,idUser)
+       
+        this.props.getAllUsers()
     }
         
+        
+            
+        
+         
+     
 
     handleDelete(userId){
-        console.log("usuario borrado!")
+        deleteUser(userId)
         this.props.getAllUsers()
-        
     }
+        
+        
        
     
     render(){

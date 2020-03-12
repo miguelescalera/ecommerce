@@ -42,19 +42,27 @@ router.get("/getUsers", function(req, res) {
   else{
     User.findAll()
     .then(function(users){
-      console.log("todos los usuarios: ",users)
+     
         res.json(users)
     })
   }
 });
 //GET USERS
-router.get("/addAdmin", async function(req, res) {
-  if (req.user.status < 3) return res.status(401).send("Solo para superadmin");
-  const user = await User.findByPk(req.body.id);
-  user.status = req.body.status;
-  await user.save();
-  res.send(user);
+router.post("/addAdmin", async function(req, res) {
+  console.log("req.user:",req.user)
+  if (req.user.status !==3) return res.status(401).send("Solo para superadmin");
+  console.log("BODY:",req.body)
+  User.findByPk(req.body.id)
+  .then(function(user){
+    user.update({status:req.body.status})
+  }).then(function(){
+    
+    res.send("usuario modificado");
+  })
 });
+
+ 
+ 
 
 
 
@@ -123,54 +131,92 @@ router.post("/products/add", async function(req, res, next) {
   res.send(product);
 });
 
-router.delete("/products/:id/delete", async function (req, res, next) {
+router.post("/products/:id/delete",  function (req, res, next) {
   const id = req.params.id;
-  const product = await Product.findByPk(id);
-  const images = await Image.findAll({ where: { ProductId: id } });
-  images.forEach(element => element.destroy());
-  const reviews = await Review.findAll({ where: { ProductId: id } });
-  reviews.forEach(element => element.destroy());
-  await product.destroy();
-  res.sendStatus(200);
-});
-
-router.put("/products/:id/modify", async function (req, res, next) {
+  Product.findByPk(id)
+  .then(function(product){
+    product.destroy()
+  })
+  .then(function(){
+    Review.findAll({ where: { ProductId: id } })
+  })
+  .then(function(reviews){
+    reviews.forEach(element => element.destroy())
+  })
+  .then(function(){
+    Image.findAll({ where: { ProductId: id } })
+  })
+  .then(function(images){
+    images.forEach(element => element.destroy())
+  })
+  .then(function(){
+    res.sendStatus(200)
+  })
+  
+ 
+  
+})
+  
+  
+  
+router.put("/products/:id/modify",function (req, res, next) {
   const id = req.params.id;
   let row = {};
-  let product = {};
+  let products = {};
   if (req.body.product) {
-    [row, [product]] = await Product.update(req.body.product, {
+    Product.update(req.body.product, {
       returning: true,
       where: { id }
-    });
-  } else {
-    product = await Product.findByPk(id);
-  }
-
-  if (req.body.brand) {
-    const [brand] = await Brand.findOrCreate({
-      where: {
-        name: req.body.brand.name,
-        origin: req.body.brand.origin
+    }).then(function(product){
+    const [row, [products]]=product
+    })
+  } 
+  
+  else {
+     Product.findByPk(id)
+     .then(function(product){
+      if (req.body.product.brand){
+        Brand.findOrCreate({
+          where: {
+            name: req.body.product.brand.name,
+            origin: req.body.product.brand.origin
+          }
+        }).then(function(brand){
+          const [newBrand] =brand
+          product.setBrand(newBrand);
+        })
       }
-    });
-    product.setBrand(brand);
+     });
   }
-  if (req.body.images.deleted) {
-    const { deleted } = req.body.images;
-    deleted.forEach(async imgid => {
-      await Image.destroy({ where: { id: imgid } });
-    });
+  if (req.body.product.images.deleted){
+    const { deleted } = req.body.product.images
+    deleted.forEach( img => {
+       Image.destroy({ where: { id: img.id } });
+    })
   }
-  if (req.body.images.created) {
-    const { created } = req.body.images;
-    created.forEach(async url => {
-      Images.create({ url });
-      await product.addImage(image);
-    });
+  if (req.body.product.images.created) {
+    const { created } = req.body.product.images;
+    created.forEach( url => {
+      Image.create({ url })
+      .then(function(images){
+        product.addImage(images);
+      }).then(function(){
+        product.save();
+      });
+    })
+    res.send("product modify!");
   }
-  await product.save();
-  res.send(product);
-});
 
-module.exports = router;
+})
+module.exports = router
+
+
+
+
+
+    
+     
+
+   
+  
+

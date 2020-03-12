@@ -1,9 +1,10 @@
-import { RECEIVE_PRODUCT } from "../constants";
-import {FOUND_PRODUCTS} from "../constants"
+import { RECEIVE_PRODUCT,PRODUCT_TO_UPDATE ,FOUND_PRODUCTS} from "../constants";
+
 
 const initialState = {
   list: [],
-  selectedProduct: {}
+  selectedProduct: {},
+  productToUpdate:{}
 };
 
 export default (state = initialState, action) => {
@@ -13,6 +14,10 @@ export default (state = initialState, action) => {
     case RECEIVE_PRODUCT:
        return Object.assign({}, state, {
          selectedProduct: action.product
+       })
+       case PRODUCT_TO_UPDATE:
+       return Object.assign({}, state, {
+        productToUpdate: action.toUpdate
        })
     default: 
        return state;
