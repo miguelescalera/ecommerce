@@ -104,7 +104,6 @@ router.put("/products/:id/modify", async function(req, res, next) {
       returning: true,
       where: { id }
     });
-    console.log(product);
   } else {
     product = await Product.findByPk(id);
   }

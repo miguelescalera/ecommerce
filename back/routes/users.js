@@ -26,7 +26,6 @@ router.post("/login",passport.authenticate('local'),function(req,res){
 router.post('/logout', function(req, res){
    
 if (req.isAuthenticated()) {
-    // console.log("Logouteo")
       req.logout();
       req.session.destroy();
 }
