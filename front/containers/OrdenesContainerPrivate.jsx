@@ -1,19 +1,26 @@
 import React from "react";
-import Ordenes from "../components/Ordenes";
+import OrdenesPrivate from "../components/OrdenesPrivate";
 import Accordion from "react-bootstrap/Accordion";
 
 export default class OrdenesContainer extends React.Component {
+  constructor(props){
+    super(props)
+  }
   render() {
+    const orders= this.props.orders
+
+    
+
+
     return (
       <div>
-        <Accordion>
-          <Ordenes />
-          {/* {ordenes.map(orden => {
+       
+          {orders.map(ordenes => {
                         return (
-                            <Ordenes orden={orden}/>
+                            <OrdenesPrivate ordenes={ordenes}/>
                         )
-                    })} */}
-        </Accordion>
+                    })}
+        
       </div>
     );
   }

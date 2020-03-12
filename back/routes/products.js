@@ -6,6 +6,7 @@ const reviews = require("./reviews")
 const Op = Sequelize.Op;
 
 router.get("/", function(req, res, next) {
+  console.log("entro")
   if(req.query.name){
     const name_query = req.query.name.split("20%").join(" ")
     Product.findAll({

@@ -141,18 +141,27 @@ const Navbars = function({
         </Col>
         <Col md="auto">{emailUser ? userLogout : userLogin}</Col>
         <Col md="auto">{emailUser ? userMyOrders : userRegister}</Col>
+        <Col md="auto"><Link to='/private/orders' style={fontNavBar}> SuperAdmin </Link></Col>
       </Row>
 
       {/* SEGUNDA ROW DE NAVBAR CON BUSCAR POR BODEGA/CATEGORIAS/ORDENARPOR */}
 
       <Row className="justify-content-md-center" style={downRowNav}>
+        
+
+        <Col md="auto">
+          <Link to='/products' style={fontNavBar}>
+            Todos los productos
+          </Link>
+        </Col>
+
         <Col md="auto">
           <Dropdown>
             <Dropdown.Toggle
               as={DropdownStyle}
               id="dropdown-basic"
               style={fontNavBar}
-            >
+              >
               Buscar por bodega
             </Dropdown.Toggle>
 
@@ -162,25 +171,27 @@ const Navbars = function({
               <Dropdown.Item href="#/action-3">Escalera Mendoza</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
-        </Col>
+              </Col>
+       
+              <Col md="auto">
+        <Dropdown>
+            <Dropdown.Toggle
+              as={DropdownStyle}
+              id="dropdown-basic"
+              style={fontNavBar}
+              >
+              Buscar por categoria
+            </Dropdown.Toggle>
 
-        <Col md="auto">
-          <Nav.Link href="#tintos" style={fontNavBar}>
-            Tintos
-          </Nav.Link>
-        </Col>
+            <Dropdown.Menu>
+              <Dropdown.Item href="#/action-1">Tintos</Dropdown.Item>
+              <Dropdown.Item href="#/action-2">Blancos</Dropdown.Item>
+              <Dropdown.Item href="#/action-3">Rosados</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+              </Col>
+        
 
-        <Col md="auto">
-          <Nav.Link href="#Blancos" style={fontNavBar}>
-            Blancos
-          </Nav.Link>
-        </Col>
-
-        <Col md="auto">
-          <Nav.Link href="#Rosados" style={fontNavBar}>
-            Rosados
-          </Nav.Link>
-        </Col>
 
         <Col md="auto">
           <Dropdown style={fontNavBar}>

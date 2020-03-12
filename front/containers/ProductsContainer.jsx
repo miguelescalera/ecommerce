@@ -116,6 +116,7 @@ class ProductsContainer extends React.Component {
       }    
     }   
   render() {
+    console.log("RENDER:", this.props.emailUser)
     return (
       <div>
         <h3 className="d-flex justify-content-center" style={{ marginBlockStart:"1rem"}}>Resultado de la busqueda</h3>

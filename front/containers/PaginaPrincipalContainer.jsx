@@ -25,13 +25,14 @@ class PaginaPrincipalContainer extends React.Component {
     handleSubmit(event) {
         event.preventDefault()
         this.props.getProducts(this.state.input)
-        this.props.redirect.history.push('/products')// esta linea de cod. redirecciona al usuario cuando haga submit al formulario
+        this.props.history.push('/products')// esta linea de cod. redirecciona al usuario cuando haga submit al formulario
     }
     redirect() {
-        this.props.redirect.history.push('/products')
+        this.props.history.push('/products')
     }
 
     render() {
+
         return (
                 <PaginaPrincipal
                     history={history}
@@ -43,8 +44,16 @@ class PaginaPrincipalContainer extends React.Component {
     }
 }
 
+const mapStateToProps = function(state) {
+    return {
+      foundProducts: state.foundProducts,
+      email: state.user.loginUser.email
+    };
+  };
+
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
+      setProductLocalStorage: () => dispatch(LocalStorageAction([])),
       setInput: input => dispatch(setInput(input)),
       getProducts: (input)=> dispatch(fetchSearchProducts(input)),
   
@@ -54,6 +63,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   
   
   export default withRouter(
-    connect(null, mapDispatchToProps)(PaginaPrincipalContainer)
+    connect(mapStateToProps, mapDispatchToProps)(PaginaPrincipalContainer)
   );
 
