@@ -8,11 +8,7 @@ export default class OrdenesContainer extends React.Component {
       <div>
         <Accordion>
           <Ordenes />
-          {/* {ordenes.map(orden => {
-                        return (
-                            <Ordenes orden={orden}/>
-                        )
-                    })} */}
+          
         </Accordion>
       </div>
     );
