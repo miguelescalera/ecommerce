@@ -1,4 +1,6 @@
 const express = require("express");
+const nodemailer = require("nodemailer");
+
 const router = express.Router();
 const {
   db,
@@ -13,21 +15,23 @@ const {
 const Promise = require("bluebird");
 
 router.get("/", async function(req, res, next) {
-  if(!req.user) return res.send([])
+  if (!req.user) return res.send([]);
   const order = await Order.findOne({
     where: { userId: req.user.id, status: "cart" }
   });
-  if(!order) return res.send([])
+  if (!order) return res.send([]);
   const orderProducts = await Order_Product.findAll({
     where: {
       OrderId: order.id
     }
   });
 
-  let products = await Promise.all(orderProducts.map(orderProduct => Product.findByPk(orderProduct.ProductId)))
+  let products = await Promise.all(
+    orderProducts.map(orderProduct => Product.findByPk(orderProduct.ProductId))
+  );
 
   products = products.map(product => {
-    return{
+    return {
       id: product.id,
       name: product.name,
       price: product.price,
@@ -35,20 +39,18 @@ router.get("/", async function(req, res, next) {
       stock: product.stock,
       rating: product.rating,
       imgUrl: product.imgUrl,
-      quantity : orderProducts[products.indexOf(product)].quantity,
-      totalPrice : orderProducts[products.indexOf(product)].totalPrice
-    
-  }})
-  products = products.sort((a, b) => (a.name > b.name) ? 1 : -1)
+      quantity: orderProducts[products.indexOf(product)].quantity,
+      totalPrice: orderProducts[products.indexOf(product)].totalPrice
+    };
+  });
+  products = products.sort((a, b) => (a.name > b.name ? 1 : -1));
   res.send({
     list: products,
     order: order
-  })
-  
+  });
 });
 
 router.post("/products/:id/modifycart", async function(req, res, next) {
-
   const n = req.body.n;
   const product = await Product.findByPk(req.params.id);
   const [order] = await Order.findOrCreate({
@@ -65,8 +67,8 @@ router.post("/products/:id/modifycart", async function(req, res, next) {
 
   await orderProduct.save();
 
-  order.subTotal = Number(order.subTotal) + Number(product.price * n)
-  await order.save()
+  order.subTotal = Number(order.subTotal) + Number(product.price * n);
+  await order.save();
 
   res.send(orderProduct);
 });
@@ -96,29 +98,54 @@ router.post("/products/:id/deletefromcart", async function(req, res, next) {
       userId: req.user.id,
       status: "cart"
     }
-  })
+  });
   const orderProduct = await Order_Product.findOne({
-        where: {
-          OrderId: order.id,
-          ProductId: req.params.id
-        }
-      })
-  order.subTotal = Number(order.subTotal) - Number(orderProduct.totalPrice)
-  await order.save()
-  await orderProduct.destroy()
+    where: {
+      OrderId: order.id,
+      ProductId: req.params.id
+    }
+  });
+  order.subTotal = Number(order.subTotal) - Number(orderProduct.totalPrice);
+  await order.save();
+  await orderProduct.destroy();
 
-  res.send(orderProduct)
+  res.send(orderProduct);
 });
 
 router.put("/checkout", async function(req, res, next) {
   const order = await Order.findOne({
-    where:{
+    where: {
       userId: req.user.id,
       status: "cart"
-    } })
-  order.update(req.body)
-  await order.save()
-  res.send(order)
-})
+    }
+  });
+  order.update(req.body);
+  await order.save();
+  res.send(order);
+  console.log(User);
+
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "winenotp5@gmail.com",
+      pass: "plataforma5"
+    }
+  });
+  const mailOptions = {
+    from: "winenotp5@gmail.com",
+    to: req.user.email,
+    subject: "Estado de compra Winenot",
+    text: `Hola ${req.user.firstName} tu compra ha sido confirmada!
+     Muchas gracias WineNot `
+  };
+
+  transporter.sendMail(mailOptions, function(error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("enviado");
+    }
+  });
+});
 
 module.exports = router;
