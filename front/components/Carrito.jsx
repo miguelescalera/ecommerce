@@ -33,7 +33,7 @@ let hardcodeada = [
 
 let total = 0
 
-export default ({ products, order }) => {
+export default ({ products, order, logged }) => {
 
     const resumenCompraStyles = {
         width: '20rem',
@@ -72,7 +72,7 @@ export default ({ products, order }) => {
                                 <span>Total</span>
                             </Col>
                             <Col style={{ alignSelf: 'flex-end', display: 'block', textAlign: 'right' }}>
-                                <span>${ order? order.subTotal :0}</span>
+                                <span>${order? order.subTotal: 0}</span>
                             </Col>
                         </Row>
                     </ListGroup.Item>
@@ -80,7 +80,9 @@ export default ({ products, order }) => {
                     <ListGroup.Item>
                         <Container style={{ style: 'flex', justifyContent: 'space-between' }}>
                             <Button variant="outline-dark"><Link to='/products'> Seguir comprando </Link></Button>
-                            <Button style={{ marginLeft: "20px" }} variant="dark">  Checkout </Button>{' '} {/*hay que agregar un link a checkout*/}
+                            {logged?
+                                (<Button style={{ marginLeft: "20px" }} variant="dark" > <Link to='/cart/checkout'>Checkout</Link></Button>):
+                                (<Button style={{ marginLeft: "20px" }} variant="dark" > <Link to='/users/register'>Checkout</Link></Button>)}
                         </Container>
                     </ListGroup.Item>
                 </ListGroup>

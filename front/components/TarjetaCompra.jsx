@@ -67,13 +67,9 @@ const TarjetaCompra = function ({ productos, handleClick, handleDelete }) {
     borderRadius: "0px",
 
   }
-  
-
-
-  console.log('productosss', productos)
   return (
     <Container style={containerFlex}>
-      {productos ? (
+      {productos? (
         productos.map(function (producto) {
           return (
             <Card id='tarjetaProd' key={producto.id} className="bg-dark text-white" style={cardStyle}>

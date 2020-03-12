@@ -14,6 +14,18 @@ Order.init(
     adress: {
       type: S.TEXT
     },
+    city:{
+      type: S.TEXT
+    },
+    prov:{
+      type: S.TEXT
+    },
+    phone:{
+      type: S.INTEGER
+    },
+    deliveryInstructions:{
+      type: S.TEXT
+    },
     userId: {
       type: S.INTEGER,
       references: {

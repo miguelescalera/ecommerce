@@ -24,6 +24,7 @@ router.get("/:id", async function(req, res, next){
 })
 
 router.post("/:id/addreview", async function(req,res,next){
+    console.log(req.body)
     const review = await Review.create(req.body)
     const user = await User.findByPk(req.user.id)
     const product = await Product.findByPk(req.params.id)

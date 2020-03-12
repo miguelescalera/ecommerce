@@ -7,7 +7,7 @@ import ProductsContainer from "../containers/ProductsContainer";
 import ProductContainer from "../containers/ProductContainer";
 import RegisterContainer from "../containers/RegisterContainer";
 import LoginContainer from "../containers/LoginContainer";
-// import CheckoutContainer from '../containers/CheckoutContainer'
+import CheckoutContainer from '../containers/CheckoutContainer'
 import UserContainer from "../containers/UserContainer";
 import CarritoContainer from "../containers/CarritoContainer";
 import superAdminContainer from "../containers/superAdminContainer"
@@ -40,30 +40,22 @@ componentDidMount(){
   this.props.getLoginUser()
 }
   render(){
-    console.log("USER", this.props.loginUser)
     return (
       <div id="main">
         <NavbarContainer />
         <Switch>
-          <Route path="/home" exact component={PaginaPrincipalContainer} />
+          {/* <Route path="/home" exact component={PaginaPrincipalContainer} /> */}
           <Route path="/products" exact component={ProductsContainer} />
-          <Route path="/products/:id" component={ProductContainer} />
+          <Route path="/products/:id" exact component={ProductContainer} />
           <Route path="/users/register" exact component={RegisterContainer} />
           <Route path="/users/login" exact component={LoginContainer} />
           <Route path="/cart" exact component={CarritoContainer} />
-  
+          <Route path="/cart/checkout" exact component={CheckoutContainer} /> 
           <Route path="/private" exact component={superAdminContainer} />
           <Route path="/private/orders" exact component={UserPrivateContainer} />
-
-          {/* <Route path="/checkout" exact component={CheckoutContainer} />
-          <Route path="/user/:id" exact component={UserContainer} />  */}
-  {/* 
-          <Route path="/users/myorders" exact component={UserContainer} />   */}
-          <Route path="/users/myorders/addReview/:id" component={AddReview} />  
-  
-          {/* <Route path="/checkout" exact component={CheckoutContainer} /> */}
-  
-          <Redirect from="/" to="/home" />
+          <Route path="/users/myorders" exact component={UserContainer} />  
+          <Route path="/users/myorders/addReview/:id" component={AddReviewContainer} />  
+          <Redirect from="/" to="/products" />
         </Switch>
         <FooterContainer/>
       </div>

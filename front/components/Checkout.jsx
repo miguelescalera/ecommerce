@@ -1,53 +1,36 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button'
-import Col from 'react-bootstrap/Col'
-​
-export default () => {
+import Col from "react-bootstrap/Col"
+
+export default ({handleClick, handleChange}) => {
   return (
     <div>
       <Form>
-        <Form.Row>
-          <Form.Group as={Col} controlId="formGridFirst Name">
-            <Form.Label>First Name</Form.Label>
-            <Form.Control type="text" placeholder="First Name" />
-          </Form.Group>
-​
-          <Form.Group as={Col} controlId="formGridLast Name">
-            <Form.Label>Last Name</Form.Label>
-            <Form.Control type="text" placeholder="Last Name" />
-          </Form.Group>
-        </Form.Row>
-​
         <Form.Group controlId="formGridAddress1">
-          <Form.Label>Address</Form.Label>
-          <Form.Control placeholder="1234 Main St" />
+          <Form.Label>Dirección</Form.Label>
+          <Form.Control placeholder="1234 Av. Siempreviva" name="adress" onChange={handleChange}/>
         </Form.Group>
-​
         <Form.Row>
-          <Form.Group as={Col} controlId="formGridCity">
-            <Form.Label>City</Form.Label>
-            <Form.Control />
+          <Form.Group as={Col} controlId="formGridCity" >
+            <Form.Label>Ciudad</Form.Label>
+            <Form.Control name="city" onChange={handleChange}/>
           </Form.Group>
-​
-          <Form.Group as={Col} controlId="formGridState">
-            <Form.Label>State</Form.Label>
-            <Form.Control />
+          <Form.Group as={Col} controlId="formGridState"  >
+            <Form.Label>Provincia</Form.Label>
+            <Form.Control name="prov" onChange={handleChange}/>
           </Form.Group>
-​
-          <Form.Group as={Col} controlId="formGridNumber">
-            <Form.Label>Phone Number</Form.Label>
-            <Form.Control />
+          <Form.Group as={Col} controlId="formGridNumber"  >
+            <Form.Label>Número de Contacto</Form.Label>
+            <Form.Control name="phone" onChange={handleChange} />
           </Form.Group>
         </Form.Row>
-​
-        <Form.Group controlId="exampleForm.ControlTextarea1">
-          <Form.Label>Delivery Instructions</Form.Label>
-          <Form.Control as="textarea" rows="3" />
+        <Form.Group controlId="exampleForm.ControlTextarea1" >
+          <Form.Label>Instrucciones</Form.Label>
+          <Form.Control as="textarea" rows="3" name="deliveryInstructions" onChange={handleChange}/>
         </Form.Group>
-​
-        <Button variant="primary" type="submit">
-          Checkout
+        <Button variant="primary" type="submit" onClick={handleClick} >
+          Submit
         </Button>
       </Form>
     </div>

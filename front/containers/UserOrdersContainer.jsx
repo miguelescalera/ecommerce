@@ -1,7 +1,7 @@
 import React from 'react'
 // import User from '../components/User'
 import UserOrders from '../components/UserOrders'
-// import {getUserOrders} from "../actions/orders"
+import {getUserOrders} from "../actions/userOrders"
 import {connect} from "react-redux"
 
 class UserOrdersContainer extends React.Component {
@@ -26,9 +26,9 @@ const mapStateToProps = state => {
     return {orders: state.user.orders}
 };
 
-const mapDispatchToProps = dispatch => {  
+const mapDispatchToProps = function(dispatch){  
   return {
-    getUserOrders: ()=> dispatch(getUserOrders())
+    getUserOrders: () => dispatch(getUserOrders())
   }
 };
 

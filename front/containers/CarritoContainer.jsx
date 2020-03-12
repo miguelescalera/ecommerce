@@ -37,12 +37,13 @@ class CarritoContainer extends React.Component {
         super(props)
         this.handleClick = this.handleClick.bind(this)
         this.handleDelete = this.handleDelete.bind(this)
+        this.toCheckout = this.toCheckout.bind(this)
     }
+
 
 componentDidMount(){
         this.props.getCart()
         let productsOffline = JSON.parse(localStorage.getItem("products")) 
-        console.log('holaaaaaaaaa',productsOffline)
         let AllProducts= this.props.allProducts
         
         if(productsOffline){
@@ -64,13 +65,7 @@ componentDidMount(){
  }
             
 
-
-
-
-
     componentDidUpdate(prevProps, prevState) {
-        console.log(prevProps.modifiedProduct)
-        console.log(this.props.modifiedProduct)
         if (prevProps.modifiedProduct.quantity !== this.props.modifiedProduct.quantity || prevProps.modifiedProduct.id !== this.props.modifiedProduct.id) {
             this.props.getCart()
         }
@@ -79,16 +74,18 @@ componentDidMount(){
         }
     }
 
-    handleClick(productId, n) {
-        this.props.modifyCartProduct(productId, n)
-    }
 
     handleDelete(productId) {
         this.props.deleteCartProduct(productId)
     }
-componentWillUnmount(){
-    Finalproducts=[]
-}
+
+    toCheckout(){
+        this.props.history.push("/cart/checkout")
+    }
+
+    componentWillUnmount(){
+        Finalproducts=[]
+    }
 
 handleClick(productId, n){
     if(this.props.logged){
@@ -107,9 +104,7 @@ handleClick(productId, n){
     render() {
         const order = this.props.order
         // const products = this.props.logged? this.props.products: Finalproducts
-        const products = this.props.products
-
-        console.log('renderrrr', this.props.products)
+        const products = this.props.products 
         return (
             <div>
                 <Container>
@@ -120,7 +115,7 @@ handleClick(productId, n){
                             <TarjetaCompra productos={products} handleClick={this.handleClick} handleDelete={this.handleDelete} />
                         </Col>
                         <Col sm={4}>
-                            <Carrito products={products} order={order} />
+                            <Carrito products={products} order={order} checkout={this.toCheckout} logged={this.props.logged} />
                         </Col>
                     </Row>
                 </Container>

@@ -17,11 +17,13 @@ router.get("/", async function(req, res, next) {
   const order = await Order.findOne({
     where: { userId: req.user.id, status: "cart" }
   });
+  if(!order) return res.send([])
   const orderProducts = await Order_Product.findAll({
     where: {
       OrderId: order.id
     }
   });
+
   let products = await Promise.all(orderProducts.map(orderProduct => Product.findByPk(orderProduct.ProductId)))
 
   products = products.map(product => {
@@ -46,6 +48,7 @@ router.get("/", async function(req, res, next) {
 });
 
 router.post("/products/:id/modifycart", async function(req, res, next) {
+
   const n = req.body.n;
   const product = await Product.findByPk(req.params.id);
   const [order] = await Order.findOrCreate({
@@ -106,5 +109,16 @@ router.post("/products/:id/deletefromcart", async function(req, res, next) {
 
   res.send(orderProduct)
 });
+
+router.put("/checkout", async function(req, res, next) {
+  const order = await Order.findOne({
+    where:{
+      userId: req.user.id,
+      status: "cart"
+    } })
+  order.update(req.body)
+  await order.save()
+  res.send(order)
+})
 
 module.exports = router;

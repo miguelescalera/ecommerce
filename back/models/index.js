@@ -57,7 +57,6 @@ Order.belongsToMany(Product, {
 });
 
 Order_Product.increase = async (orderId, productId, n) => {
-  console.log("entro");
   const orderProduct = await Order_Product.findOne({
     where: { OrderId: orderId, ProductId: productId }
   });

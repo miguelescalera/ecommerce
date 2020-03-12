@@ -6,7 +6,7 @@ import Alert from "react-bootstrap/Alert"
 
 //revisar
 
-export default ({ handlerChange, handlerSubmit, product }) => {
+export default ({ handleChange, handleSubmit }) => {
 
   const formStyle = {
     width: "25%",
@@ -21,23 +21,24 @@ export default ({ handlerChange, handlerSubmit, product }) => {
   return (
     <div  style={divFormStyle}>
       <Card style={formStyle}>
-      <h3 className="d-flex justify-content-center" style={{    marginBlockEnd: "1rem" }}>Iniciá sesión</h3>
-        <Form  >
+      <h3 className="d-flex justify-content-center" style={{ marginBlockEnd: "1rem" }}>Iniciá sesión</h3>
+        <Form >
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Rating</Form.Label>
-            <Form.Control type="email" placeholder="Enter email" name="email" onChange={handlerChange} />
-            <Form.Text className="text-muted">
-              Iniciá sesión con tu email
-          </Form.Text>
+            <Form.Control onChange={handleChange} as="select" name="rating">
+                <option>Elige una opcion</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </Form.Control>
           </Form.Group>
           <Form.Group controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control type="text" placeholder="Comenta" name="password" onChange={handlerChange} />
+            <Form.Label>Comentario</Form.Label>
+            <Form.Control onChange={handleChange} as="textarea" type="text" placeholder="Comenta que te pareció nuestro producto." name="description" onChange={handleChange} />
           </Form.Group>
-          <Alert className={alert? "": "d-none"} variant="warning">
-              Usuario o contraseña incorrectos.
-          </Alert>
-          <Button variant="dark" type="submit" style={{marginBlockStart:'1rem'}} onClick={handlerSubmit}>
+          <Button variant="dark" style={{marginBlockStart:'1rem'}} onClick={handleSubmit} >
             Enviar
         </Button>
         </Form>
