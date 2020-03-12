@@ -8,9 +8,9 @@ import ProductContainer from "../containers/ProductContainer";
 import RegisterContainer from "../containers/RegisterContainer";
 import LoginContainer from "../containers/LoginContainer";
 // import CheckoutContainer from '../containers/CheckoutContainer'
-import UserContainer from "../containers/UserContainer";
+import addAdminContainer from "../containers/addAdminContainer"
 import CarritoContainer from "../containers/CarritoContainer";
-import superAdminContainer from "../containers/superAdminContainer"
+import PrivateContainer from "../containers/privateContainer"
 import AddReview from "../components/AddReview"
 import {getLoginUser} from "../actions/LoginActions"
 import {connect} from "react-redux"
@@ -48,8 +48,8 @@ componentDidMount(){
           <Route path="/users/register" exact component={RegisterContainer} />
           <Route path="/users/login" exact component={LoginContainer} />
           <Route path="/cart" exact component={CarritoContainer} />
-  
-          <Route path="/private" exact component={superAdminContainer} />
+          <Route path="/private/addAdmin" exact component={addAdminContainer} />
+          <Route path="/private" exact component={PrivateContainer} />
           {/* <Route path="/checkout" exact component={CheckoutContainer} />
           <Route path="/user/:id" exact component={UserContainer} />  */}
   {/* 

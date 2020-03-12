@@ -1,7 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import {getAllUsers,toggleStatus} from "../actions/AllUsersActions"
+import {getAllUsers,toggleStatus,deleteUser} from "../actions/AllUsersActions"
 import AllUsersComponent from "../components/AllUsers"
+
 
 
 const mapStateToProps = function(state){
@@ -14,9 +15,10 @@ const mapStateToProps = function(state){
 }
 const mapDispatchToProps = function(dispatch){
    return{
-       getAllUsers: () => dispatch(getAllUsers()),
+       getAllUsers: () => dispatch(getAllUsers())
     }
 } 
+       
 
 
       
@@ -26,6 +28,7 @@ class SuperAdminContainer extends React.Component{
         super();
 
         this.handleToggle= this.handleToggle.bind(this)
+        this.handleDelete= this.handleDelete.bind(this)
     }
        
     componentDidMount(){
@@ -33,15 +36,22 @@ class SuperAdminContainer extends React.Component{
     }
     
     handleToggle(statusUser,idUser){
-        console.log("statusUser: ",statusUser,"idUser :",idUser)
         toggleStatus(statusUser,idUser)
          this.props.getAllUsers()
     }
+        
+
+    handleDelete(userId){
+        console.log("usuario borrado!")
+        this.props.getAllUsers()
+        
+    }
+       
     
     render(){
         return(
             <div>
-                 <AllUsersComponent allUsers={this.props.allUsers} handleToggle={this.handleToggle} />
+                 <AllUsersComponent allUsers={this.props.allUsers} handleToggle={this.handleToggle} handleDelete={this.handleDelete} />
             </div>
         )
     }

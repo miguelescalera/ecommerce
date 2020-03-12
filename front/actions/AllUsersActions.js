@@ -17,3 +17,7 @@ const SearchUsers = foundUsers => ({
         dispatch(SearchUsers(result));
       });
   };
+
+  export const deleteUser = function(idUser){
+    return axios.delete(`/api/private/delete/${idUser}`)
+  }

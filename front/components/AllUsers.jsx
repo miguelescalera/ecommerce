@@ -2,7 +2,7 @@ import React from "react";
 
 import Table from 'react-bootstrap/Table'
 
-export default ({allUsers,handleToggle}) =>{
+export default ({allUsers,handleToggle,handleDelete}) =>{
 
     
     
@@ -25,6 +25,7 @@ export default ({allUsers,handleToggle}) =>{
             <td>{alluser.lastName}</td>
             <td>{alluser.email}</td>
             <td>{statusUser===1?buttonAdmin:buttonSimpleUser}</td>
+            <td><button onClick={() =>handleDelete(alluser.id)}>delete</button> </td>
             </tr>
         )
     })
@@ -37,6 +38,7 @@ export default ({allUsers,handleToggle}) =>{
                         <th>Last Name</th>
                         <th>email</th>
                         <th>add administrator</th>
+                        <th>delete user</th>
                         </tr>
                     </thead>
                     <tbody>

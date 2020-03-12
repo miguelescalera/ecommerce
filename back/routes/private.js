@@ -10,10 +10,42 @@ const {
   Image,
   Review
 } = require("../models");
-const passport = require("passport");
+
+
+
+router.delete("/delete/:id",function(req,res){
+  if (req.user.status === 3){
+    console.log("params: ", req.params)
+    User.findByPk(req.params.id)
+    .then(function(user){
+      console.log(user)
+        user.destroy()
+    })
+    .then(function(){
+      res.send("deleted user")
+    })
+  }
+})
+  
+
+
 
 //USER ADMIN ROUTES
-router.post("/addAdmin", async function(req, res) {
+router.get("/getUsers", function(req, res) {
+ 
+  if (req.user.status < 3){
+    return res.status(401).send("Solo para superadmin");
+  } 
+  else{
+    User.findAll()
+    .then(function(users){
+      console.log("todos los usuarios: ",users)
+        res.json(users)
+    })
+  }
+});
+//GET USERS
+router.get("/addAdmin", async function(req, res) {
   if (req.user.status < 3) return res.status(401).send("Solo para superadmin");
   const user = await User.findByPk(req.body.id);
   user.status = req.body.status;
