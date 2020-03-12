@@ -69,7 +69,7 @@ router.post("/addAdmin", async function(req, res) {
 
 //ORDERS ADMIN ROUTES
 
-router.get("/orders", function (req, res) {
+router.get("/orders", function(req, res) {
   Order.findAll({
     include: [
       {
@@ -94,18 +94,49 @@ router.get("/orders", function (req, res) {
   }).then(orders => res.send(orders));
 });
 
-router.put("/orders/:id/update", async function (req, res) {
+router.put("/orders/:id/update", async function(req, res) {
   const { status } = req.body;
-  const order = await Order.findByPk(req.params.id);
+  const order = await Order.findOne({
+    include: [
+      {
+        model: User,
+        as: "User",
+        require: false,
+        attributes: ["email", "firstName", "lastName"]
+      }
+    ]
+  });
   order.status = status;
   await order.save();
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "winenotp5@gmail.com",
+      pass: "plataforma5"
+    }
+  });
+  console.log(order);
+  const mailOptions = {
+    from: "winenotp5@gmail.com",
+    to: order.User.email,
+    subject: "Estado de compra Winenot",
+    text: `Hola ${order.User.firstName} su orden Numero ${order.id} ha cambiado al status ${order.status} Muchas gracias! 
+    WineNot `
+  };
+
+  transporter.sendMail(mailOptions, function(error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("enviado");
+    }
+  });
   res.send(order);
 });
 
 //PRODUCT ADMIN ROUTES
 
 router.post("/products/add", async function(req, res, next) {
-  console.log(req.body);
   const product = await Product.create(req.body);
   const [brand] = await Brand.findOrCreate({
     where: {
