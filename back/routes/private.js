@@ -58,14 +58,9 @@ router.put("/orders/:id/update", async function (req, res) {
 
 //PRODUCT ADMIN ROUTES
 
-<<<<<<< HEAD
-router.post("/products/add", async function (req, res, next) {
-  const product = await Product.create(req.body.product);
-=======
 router.post("/products/add", async function(req, res, next) {
   console.log(req.body);
   const product = await Product.create(req.body);
->>>>>>> 41fd912906d3143facc778db3e91b50bfe77db55
   const [brand] = await Brand.findOrCreate({
     where: {
       name: req.body.brand.name,
