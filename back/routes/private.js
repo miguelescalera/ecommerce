@@ -13,7 +13,7 @@ const {
 const passport = require("passport");
 
 //USER ADMIN ROUTES
-router.post("/addAdmin", async function(req, res) {
+router.post("/addAdmin", async function (req, res) {
   if (req.user.status < 3) return res.status(401).send("Solo para superadmin");
   const user = await User.findByPk(req.body.id);
   user.status = req.body.status;
@@ -23,7 +23,7 @@ router.post("/addAdmin", async function(req, res) {
 
 //ORDERS ADMIN ROUTES
 
-router.get("/orders", function(req, res) {
+router.get("/orders", function (req, res) {
   Order.findAll({
     include: [
       {
@@ -43,11 +43,12 @@ router.get("/orders", function(req, res) {
           attributes: ["quantity", "totalPrice"]
         }
       }
-    ]
+    ],
+    // where: { status: { [Op.not]: "cart" } } LO SAQUE PARA AGREGAR ESTILOS
   }).then(orders => res.send(orders));
 });
 
-router.put("/orders/:id/update", async function(req, res) {
+router.put("/orders/:id/update", async function (req, res) {
   const { status } = req.body;
   const order = await Order.findByPk(req.params.id);
   order.status = status;
@@ -58,7 +59,7 @@ router.put("/orders/:id/update", async function(req, res) {
 
 //PRODUCT ADMIN ROUTES
 
-router.post("/products/add", async function(req, res, next) {
+router.post("/products/add", async function (req, res, next) {
   const product = await Product.create(req.body.product);
   const [brand] = await Brand.findOrCreate({
     where: {
@@ -84,7 +85,7 @@ router.post("/products/add", async function(req, res, next) {
   res.send(product);
 });
 
-router.delete("/products/:id/delete", async function(req, res, next) {
+router.delete("/products/:id/delete", async function (req, res, next) {
   const id = req.params.id;
   const product = await Product.findByPk(id);
   const images = await Image.findAll({ where: { ProductId: id } });
@@ -95,7 +96,7 @@ router.delete("/products/:id/delete", async function(req, res, next) {
   res.sendStatus(200);
 });
 
-router.put("/products/:id/modify", async function(req, res, next) {
+router.put("/products/:id/modify", async function (req, res, next) {
   const id = req.params.id;
   let row = {};
   let product = {};

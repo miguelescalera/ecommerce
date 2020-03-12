@@ -3,9 +3,18 @@ import Card from 'react-bootstrap/Card'
 
 
 const User = function ({user}) {
+    
+    const itemPriContStyles = {
+        paddingBlockStart:'3rem',
+        paddingTopStart:'1rem',
+      width:'400px',
+      textAlign:'center',
+      boxShadow :'8px 8px 15px -10px rgba(0,0,0,0.39)',
+
+    }
     return (
-        <div>
-            <Card style={{ width: '18rem' }}>
+        <div style={itemPriContStyles}>
+            <Card >
                 <Card.Body>
                     <Card.Title>Hola, {user.firstName+" "+user.lastName}</Card.Title>
                     <Card.Text>Email: {user.email}</Card.Text>
