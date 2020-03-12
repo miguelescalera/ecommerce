@@ -10,7 +10,7 @@ import { Player } from 'video-react';
 export default ({
   handleSubmit,
   handleChange,
-  redirect
+  history
 }) => {
 
 
@@ -65,7 +65,7 @@ export default ({
     gridArea: '1 / 1'
   }
 
-
+ 
   return (
     <div style={bodyStyles}>
 

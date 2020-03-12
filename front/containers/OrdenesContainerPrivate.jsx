@@ -8,18 +8,19 @@ export default class OrdenesContainer extends React.Component {
   }
   render() {
     const orders= this.props.orders
-    console.log("aca estyyyyyy",orders)
-    console.log(this.props);
+
     
+
+
     return (
       <div>
-        <Accordion>
+       
           {orders.map(ordenes => {
                         return (
                             <OrdenesPrivate ordenes={ordenes}/>
                         )
                     })}
-        </Accordion>
+        
       </div>
     );
   }
