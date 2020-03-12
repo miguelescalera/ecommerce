@@ -3,7 +3,7 @@ import Promise from "bluebird"
 import axios from "axios";
 
 
-const setCart= (cart, order) => ({
+const setCart= (cart) => ({
     type: GET_CART,
     cart
   });
@@ -40,3 +40,13 @@ export const deleteCartProduct = (productId) => dispatch => {
     return product
   })
 }
+//HACER LO DE ORDERS
+export const checkoutCart = (data) => dispatch =>{
+  return axios
+  .put(`/api/cart/checkout`, data)
+  .then(order => {
+    dispatch(setCart([]))
+    return order
+})
+}
+  

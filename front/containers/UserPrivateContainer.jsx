@@ -29,7 +29,6 @@ componentDidMount(){
 
 
   render() {
-      console.log("aaaaaa",this.props)
     return (
       <div>
         <UserPrivate />
