@@ -4,6 +4,20 @@ const { Category } = require("./models/index.js");
 const { Brand } = require("./models/index");
 const { Image } = require("./models/index");
 
+function adduser({ email, password, firstName, lastName, status }) {
+  User.create({
+    email,
+    password,
+    firstName,
+    lastName,
+    status
+  })
+    .then(newUser => {
+      console.log("done", newUser);
+    })
+    .catch(console.log);
+}
+
 const addWines = async function(input) {
   const categorias = ["Tinto", "Blanco", "Espumante", "Rose"];
   Promise.all(
@@ -168,7 +182,7 @@ const wine = [
       description:
         "De profundo e intenso color violeta, su aroma remite a concentradas notas de frutos negros, chocolate amargo y licor. También se perciben complejos aromas minerales y florales, junto a notas especiadas y de hierbas frescas. En boca es un vino de gran concentración, con pronunciados sabores a frutos negros y un fuerte lado mineral. Se trata de un vino notoriamente complejo, que esperamos alcanzará su máximo esplendor dentro de los próximos cinco a seis años.",
       imgUrl:
-        "https://tonelprivado.vteximg.com.br/arquivos/ids/179105-445-445/115564.jpg?v=636759816788400000",
+        "https://tonelprivado.vteximg.com.br/arquivos/ids/163649-445-445/Nicolas-Catena-2009-.-Blend-.-750-ml.112026.jpg?v=635724942466330000",
       rating: 4.5
     },
     brand: {
@@ -509,4 +523,8 @@ const users = [
   })
 ];
 wine.map(e => addWines(e));
+<<<<<<< HEAD
 users.map(e => addUsers(e));
+=======
+users.map(e => adduser(e));
+>>>>>>> 2e99acca4dc0526a3688598f5a2e816c7a5dca33

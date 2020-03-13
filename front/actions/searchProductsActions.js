@@ -1,4 +1,4 @@
-import { FOUND_PRODUCTS } from "../constants";
+import { FOUND_PRODUCTS,PRODUCT_TO_UPDATE } from "../constants";
 import axios from "axios";
 
 const SearchProducts = foundProducts => ({
@@ -6,6 +6,10 @@ const SearchProducts = foundProducts => ({
   foundProducts
 });
 
+export const productToUpdate = toUpdate=> ({
+  type: PRODUCT_TO_UPDATE,
+  toUpdate
+});
 export const getAllProducts = () => dispatch => {
   return axios
     .get(`/api/products`)

@@ -136,15 +136,28 @@ const Navbars = function({
         </Col>
         <Col md="auto">
           <Link to="/cart">
-            <Nav style={fontNavBar}>
+            <Nav>
               {" "}
               <FontAwesomeIcon icon={faShoppingCart} /> Cart{" "}
             </Nav>
           </Link>
+          
         </Col>
         <Col md="auto">{emailUser ? userLogout : userLogin}</Col>
         <Col md="auto">{emailUser ? userMyOrders : userRegister}</Col>
-        <Col md="auto"><Link to='/private/orders' style={fontNavBar}> SuperAdmin </Link></Col>
+
+        <Col md="auto">
+          <Link to="/private">
+            <Nav >
+              {" "}
+              <FontAwesomeIcon icon={faShoppingCart} /> super Admin{" "}
+            </Nav>
+          </Link>
+        </Col>
+
+
+        
+
       </Row>
 
       {/* SEGUNDA ROW DE NAVBAR CON BUSCAR POR BODEGA/CATEGORIAS/ORDENARPOR */}
@@ -153,8 +166,8 @@ const Navbars = function({
         
 
         <Col md="auto">
-          <Nav style={fontNavBar}>
-            <div onClick={handleProducts}>Todos los productos</div> 
+          <Nav style={fontNavBar}  onClick={handleProducts}>
+            <Link style={fontNavBar}> Todos los productos </Link> 
           </Nav>
         </Col>
 
@@ -197,7 +210,7 @@ const Navbars = function({
         
 
 
-        <Col md="auto">
+        {/* <Col md="auto">
           <Dropdown style={fontNavBar}>
             <Dropdown.Toggle as={DropdownStyle} id="dropdown-basic">
               Ordenar por
@@ -212,7 +225,7 @@ const Navbars = function({
               <Dropdown.Item href="#/action-3">Rating</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
-        </Col>
+        </Col> */}
       </Row>
     </div>
   );

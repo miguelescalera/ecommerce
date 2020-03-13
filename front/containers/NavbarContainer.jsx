@@ -54,6 +54,15 @@ class NavbarContainer extends React.Component {
     this.props.getAllProducts()
     this.props.history.push('/products')
   }
+  handleFilter(value){
+    this.props.getProducts(value)
+    this.props.setInput(this.state.input)
+    this.props.history.push('/products')
+  }
+  handleProducts(){
+    this.props.getAllProducts()
+    this.props.history.push('/products')
+  }
 
 
   render() {

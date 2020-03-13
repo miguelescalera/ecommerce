@@ -1,8 +1,10 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const{ User, Order, Product, Order_Product }= require("../models")
-const passport = require("passport")
-const Sequelize = require('sequelize');
+const { User, Order, Product, Order_Product } = require("../models");
+const passport = require("passport");
+const Sequelize = require("sequelize");
+const nodemailer = require("nodemailer");
+
 const Op = Sequelize.Op;
 
 // router.get('/perfil'), function(req,res){
@@ -11,18 +13,6 @@ const Op = Sequelize.Op;
 //     }
 //     else{res.send("nadie autenticado")}
 // }
-
-router.post("/register",async function(req,res,next){
-        User.findOne({where: {email: req.body.email}}) 
-        .then(user=> {
-            if(user) res.send("Email existente")
-            else {
-                User.create(req.body)
-                .then(user=>res.send(user))
-                .catch(next)
-            }
-        })
-})
 router.post('/login', function(req, res, next) {
     passport.authenticate('local', function(err, user, info) {
       if (err) {
@@ -42,16 +32,38 @@ router.post('/login', function(req, res, next) {
     })(req, res, next);
   });
   
+router.post("/register", function(req, res, next) {
+  User.create(req.body)
+    .then(user => res.send(user))
+    .catch(next);
+  console.log(req.body);
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "winenotp5@gmail.com",
+      pass: "plataforma5"
+    }
+  });
+  const mailOptions = {
+    from: "winenotp5@gmail.com",
+    to: req.body.email,
+    subject: "Estado de compra Winenot",
+    text: `Hola ${req.body.firstName} Bienvenido! ya estas registrado en nuestra web
+     Muchas gracias WineNot `
+  };
 
-router.post('/logout', function(req, res){
-   
-if (req.isAuthenticated()) {
-      req.logout();
-      req.session.destroy();
-}
-res.send("Logout")
+  transporter.sendMail(mailOptions, function(error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log(`Enviado a ${req.body.email}`);
+    }
+  });
 });
 
+router.post("/login", passport.authenticate("local"), function(req, res) {
+  res.send(req.user);
+});
 
 router.get("/myorders", async function(req, res){
     // Get all orders
@@ -90,6 +102,14 @@ router.get("/me", function(req, res, next){
     if(req.user) res.send(req.user)
     else res.send("No hay nadie logueado")
 })
+router.post("/logout", function(req, res) {
+  if (req.isAuthenticated()) {
+    req.logout();
+    req.session.destroy();
+  }
+  res.send("Logout");
+});
 
 
-module.exports = router
+
+module.exports = router;

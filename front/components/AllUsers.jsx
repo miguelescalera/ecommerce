@@ -1,54 +1,63 @@
 import React from "react";
-
+import Button from "react-bootstrap/Button"
 import Table from 'react-bootstrap/Table'
 
-export default ({allUsers,handleToggle}) =>{
+export default ({allUsers,handleToggle,handleDelete}) =>{
 
-    
+    allUsers= allUsers.sort()
     
     const Users= allUsers.map((alluser) =>{
         /*TOGGLE BUTTONS*/
+     
     const buttonAdmin = (
-    <button onClick={() =>handleToggle(2,alluser.id)} >add administrator</button>
+    <Button variant="dark"  onClick={() =>handleToggle(2,alluser.id)} >add administrator</Button>
     )
     
     const buttonSimpleUser = (
-    <button onClick={() =>handleToggle(1,alluser.id)} >make a simple user</button>
+    <Button variant="dark"  onClick={() =>handleToggle(1,alluser.id)} >make a simple user</Button>
     )
     //----------------------------------------------------------------------//
     
     let statusUser = alluser.status
     return (
-        <div>
-            <Table striped bordered hover>
-                <thead>
-                    <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>email</th>
-                    <th>add administrator</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                    <td>{alluser.firstName} </td>
-                    <td>{alluser.lastName}</td>
-                    <td>{alluser.email}</td>
-                    <td>{statusUser===1?buttonAdmin:buttonSimpleUser}</td>
-                    </tr>
-                </tbody>
-            </Table>
-        </div>
+            <tr>
+            <td>{alluser.firstName} </td>
+            <td>{alluser.lastName}</td>
+            <td>{alluser.email}</td>
+            <td>{statusUser===1?buttonAdmin:buttonSimpleUser}</td>
+            <td><Button variant="dark"  onClick={() =>handleDelete(alluser.id)}>delete</Button> </td>
+            </tr>
         )
     })
+            return(
+                    <div style={{backgroundColor:"white"}} >
+                <Table striped bordered hover>
+                    <thead>
+                        <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>email</th>
+                        <th>add administrator</th>
+                        <th>delete user</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {Users} 
+                    </tbody>
+                </Table>
+                </div>
+            )
+            }
+       
+       
+        
 
 
 
                         
-        return(
-                <div>{Users} </div>
-    )
-    }
+                     
+
+                
                         
                         
                 

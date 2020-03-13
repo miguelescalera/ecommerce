@@ -50,7 +50,7 @@ export default (props) => {
         boxShadow: '8px 8px 15px -10px rgba(0,0,0,0.39)',
     }
     return (
-        <div>
+        <div >
 
             <Card style={resumenCompraStyles}>
                 <Card.Header>Resumen de Compra</Card.Header>
@@ -90,8 +90,8 @@ export default (props) => {
                         <Container style={{ style: 'flex', justifyContent: 'space-between' }}>
                             <Button variant="outline-dark"><Link to='/products'> Seguir comprando </Link></Button>
                             {logged?
-                                (<Button style={{ marginLeft: "20px" }} variant="dark" > <Link to='/cart/checkout'>Checkout</Link></Button>):
-                                (<Button style={{ marginLeft: "20px" }} variant="dark" > <Link to='/users/login'>Checkout</Link></Button>)}
+                                (<Button style={{ marginLeft: "20px" }} variant="outline-dark" > <Link to='/cart/checkout'>Checkout</Link></Button>):
+                                (<Button style={{ marginLeft: "20px" }} variant="outline-dark" > <Link to='/users/login'>Inicia sesión</Link></Button>)}
                         </Container>
                     </ListGroup.Item>
                 </ListGroup>
