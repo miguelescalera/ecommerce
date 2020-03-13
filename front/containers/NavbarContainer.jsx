@@ -35,12 +35,24 @@ class NavbarContainer extends React.Component {
     event.preventDefault()
     this.props.setInput(this.state.input)
     this.props.getProducts(this.state.input) 
+
     this.props.history.push('/products')// esta linea de cod. redirecciona al usuario cuando haga submit al formulario
   }
 
   handleLogout(){
     this.props.logoutUser()
     this.props.resetCart()
+    localStorage.setItem("products",JSON.stringify([]))
+    this.props.history.push("/products")
+  }
+  handleFilter(value){
+    this.props.getProducts(value)
+    this.props.setInput(value)
+    this.props.history.push('/products')
+  }
+  handleProducts(){
+    this.props.getAllProducts()
+    this.props.history.push('/products')
   }
   handleFilter(value){
     this.props.getProducts(value)

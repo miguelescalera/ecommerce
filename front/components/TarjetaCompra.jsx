@@ -8,8 +8,6 @@ import Alert from "react-bootstrap/Alert"
 import Card from 'react-bootstrap/Card'
 
 
-
-
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import { faTrashAlt, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
 
@@ -27,12 +25,8 @@ const TarjetaCompra = function ({ productos, handleClick, handleDelete }) {
     display: 'flex',
     flexDirection: 'row-reverse',
     flexWrap: 'wrap',
-    
-    
-
 
   }
-
 
   const cantidad = {
     textAlign: "center",
@@ -81,11 +75,11 @@ const TarjetaCompra = function ({ productos, handleClick, handleDelete }) {
                 <Container style={{paddingLeft:'0px', display:'flex', justifyContent:'space-between', paddingBlockStart:'45%'}}>
 
                   <div style={{ width: "80%", paddingLeft:'0px' }} >
-                    <button onClick={() => handleClick(producto.id, -1)} style={sumayResta}><FontAwesomeIcon icon={faMinus}/></button>
+                    <button disabled={(producto.quantity===0)? true: false} onClick={() => handleClick(producto.id, -1, producto.name, producto.price, producto.stock, producto.imgUrl )} style={sumayResta}><FontAwesomeIcon icon={faMinus}/></button>
                     <h6 style={cantidad} >{producto.quantity}</h6>
-                    <button onClick={() => handleClick(producto.id, 1)} style={sumayResta}><FontAwesomeIcon icon={faPlus}/></button>
+                    <button disabled={(producto.quantity===producto.stock)? true: false}onClick={() => handleClick(producto.id, 1, producto.name, producto.price, producto.stock, producto.imgUrl)} style={sumayResta}><FontAwesomeIcon icon={faPlus}/></button>
                   </div>
-                  <button style={eliminarProd} onClick={() => handleDelete(producto.id)}><FontAwesomeIcon icon={faTrashAlt}/></button>
+                  <button style={eliminarProd} onClick={() => handleDelete(producto.id, producto.name, producto.price, producto.stock, producto.imgUrl)}><FontAwesomeIcon icon={faTrashAlt}/></button>
                 </Container>
 
               </Card.ImgOverlay>

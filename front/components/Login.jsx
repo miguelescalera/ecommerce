@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from "react-router-dom"
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Card from 'react-bootstrap/Card'
@@ -7,7 +8,7 @@ import Img from 'react-bootstrap/Image'
 import Container from 'react-bootstrap/Container'
 
 
-export default ({ handlerChange, handlerSubmit,alert }) => {
+export default ({ handlerChange, handlerSubmit, alertNull, alertPass }) => {
 
 
   const formStyle = {
@@ -44,12 +45,16 @@ export default ({ handlerChange, handlerSubmit,alert }) => {
             <Form.Label>Password</Form.Label>
             <Form.Control type="password" placeholder="Password" name="password" onChange={handlerChange} />
           </Form.Group>
-          <Alert className={alert? "": "d-none"} variant="warning">
-              Usuario o contraseña incorrectos.
-          </Alert>
+          {alertNull?( <Alert variant="warning">Por favor completá los campos.</Alert>): null}
+          {alertPass?(<Alert variant="warning">Usuario o contraseña incorrectos.</Alert>):null}
           <Button variant="dark" type="submit" style={{marginBlockStart:'1rem'}} onClick={handlerSubmit}>
             Iniciar Sesión
         </Button>
+        <Link to="/users/register">
+              <Form.Text className="text-muted">
+                  Aún no tienes cuenta? Registrate.
+              </Form.Text>
+            </Link>
         </Form>
         <Container style={{display:'flex', justifyContent:'flex-end', alignItems:'flex-end'}} >
 

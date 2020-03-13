@@ -9,27 +9,31 @@ import {
 import {modifyCartProduct, getCart} from "../actions/cart"
 import {loginUser} from "../actions/LoginActions";
 import LocalStorageAction from "../actions/LocalStorageActions"
+import {setLocalStorage} from "../actions/localStorage"
+
 const mapStateToProps = function(state) {
   return {
     foundProducts: state.product.list,
     input: state.input.value,
     loginUser: state.user.loginUser,
-    getCart: state.cart.products,
+    cart: state.cart.products,
     emailUser: state.user.loginUser.email,
     idUser:state.user.loginUser.id,
-    productWithoutUser:state.productWithoutUser.products
+    localstorage: state.localstorage.data
   };
 };
 
 
 const mapDispatchToProps = function(dispatch) {
+  
   return {
     fetchSearchProducts: input => dispatch(fetchSearchProducts(input)),
     getAllProducts: () => dispatch(getAllProducts()),
     loginUser: user => dispatch(loginUser(user)),
     setCartProducts: (productId, quantity) => dispatch(modifyCartProduct(productId, quantity)),
     setProductLocalStorage: (productId,quantity) => dispatch(LocalStorageAction(productId,quantity)),
-    getCart: () => dispatch(getCart())
+    getCart: () => dispatch(getCart()),
+    setLocalStorage: (data) => dispatch(setLocalStorage(data))
   };
 };
 let arrayOfPO = []
@@ -39,47 +43,9 @@ class ProductsContainer extends React.Component {
     this.handleClick= this.handleClick.bind(this)
   }
   componentDidMount() {
-    // this.props.getCart()
-    if(!this.props.productWithoutUser){
-      arrayOfPO=[]
-    }
-    else{
-      arrayOfPO=this.props.productWithoutUser
-    }
     if (this.props.input) this.props.fetchSearchProducts(this.props.input);
     else this.props.getAllProducts();
     if(this.props.loginUser) this.props.getCart()
-      
-
-    
-
-    //localstorage para mantenerse logeado
-    const emailUser = localStorage.getItem("email");
-    const passwordUser = localStorage.getItem("password");
-    const data = {
-      email: emailUser,
-      password: passwordUser
-    };
-    //////SE LOGUEA E USUARIO AUTOMATICAMENTE////////
-    if (emailUser && passwordUser) {
-      function fetchProductsUser(){
-        let products = JSON.parse(localStorage.getItem("products")) 
-          if(products){
-            for(let i=0;i<products.length;i++){ 
-              let productId=products[i].idProduct
-              let producQuantity= products[i].quantity
-              this.props.setCartProducts(productId,producQuantity)
-            }
-            localStorage.removeItem("products")
-          }
-             
-        }
-        fetchProductsUser = fetchProductsUser.bind(this)
-        this.props.loginUser(data)
-        .then(()=> fetchProductsUser()())
-        .then(()=> this.props.getCart())
-      }
-       
         
   }
   componentDidUpdate(prevProps) {
@@ -96,22 +62,32 @@ class ProductsContainer extends React.Component {
     this.props.setCartProducts(productId, n)
     this.props.getCart()
   }
-  handleClick(productId, n){
+  handleClick(id, n, name, price, stock, imgUrl){
     if(!this.props.emailUser){
-      let ProductOutline= {idProduct:0,quantity:1} // creo el arreglo que voy a usar para guardar la data en el localStorage
-      let cond=arrayOfPO.some((obj) =>{return obj.idProduct===productId})//creo el condicional
-        if(cond){
-          arrayOfPO.filter(function(obj){ if(obj.idProduct===productId){ obj.quantity+=1}})//sumo la cantidad
-        }
-        else{
-          let newProduct={...ProductOutline}
-          newProduct.idProduct=productId
-          arrayOfPO.push(newProduct)// pusheo un nuevo producto
-        }
-        localStorage.setItem("products",JSON.stringify(arrayOfPO)) 
+      let product = {
+        id,
+        name,
+        price,
+        stock,
+        imgUrl,
+        quantity: n,
+        totalPrice: Number(n * price)
+      }
+      let products = this.props.localstorage
+      if(products.some((obj) =>{return obj.id===product.id})){
+        products.filter(function(obj){ 
+          if(obj.id===product.id){ 
+            obj.quantity+=n
+            obj.totalPrice += Number(n * obj.price)
+          }})
+      }else{
+        products.push(product)
+      }
+      this.props.setLocalStorage(products)
+      localStorage.setItem("products",JSON.stringify(products))
       }
     else{
-        this.props.setCartProducts(productId, n)
+        this.props.setCartProducts(id, n)
         this.props.getCart()
       }    
     }   
@@ -120,7 +96,7 @@ class ProductsContainer extends React.Component {
     return (
       <div>
         <h3 className="d-flex justify-content-center" style={{ marginBlockStart:"1rem"}}>Resultado de la busqueda</h3>
-        <Products products={this.props.foundProducts} handleClick={this.handleClick}/>
+        <Products products={this.props.foundProducts} handleClick={this.handleClick} cart={this.props.cart}/>
       </div>
     );
   }
