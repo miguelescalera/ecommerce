@@ -48,8 +48,8 @@ class CarritoContainer extends React.Component {
 
 
 componentDidMount(){
-        if(this.props.logged) this.props.getCart()
-        else this.props.setLocalStorage(JSON.parse(localStorage.getItem("products")))
+        this.props.getCart()
+        this.props.setLocalStorage(JSON.parse(localStorage.getItem("products")))
  }
 
 

@@ -73,14 +73,8 @@ border: '1px solid rgba(0,0,0,0)'
               <Form.Label>Password</Form.Label>
               <Form.Control type="password" placeholder="Password" onChange={handleChange} name='password' />
             </Form.Group>
-            {alertNull? 
-            (<Alert variant="warning">
-              Por favor completar todos los campos.
-            </Alert>): (userExists?
-            (<Alert variant="warning">
-            Ese usuario ya existe.
-            </Alert>) : null)
-            }
+            {alertNull?( <Alert variant="warning">Por favor completá todos los campos.</Alert>): null}
+            {userExists?(<Alert variant="warning">Ese usuario ya existe.</Alert>):null}
             <Button variant="dark" type="submit">
               <FontAwesomeIcon icon={faGlassCheers} />
             </Button>

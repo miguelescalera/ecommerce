@@ -21,7 +21,7 @@ class ChooseCartContainer extends React.Component{
     handleMerge(){
         console.log("hola")
         this.props.mergeCart(this.props.localstorage)
-        this.history.push("/products")
+        this.props.history.push("/products")
     }
     handleDiscard(e){
         e.preventDefault()

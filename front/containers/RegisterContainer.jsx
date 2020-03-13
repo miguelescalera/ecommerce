@@ -42,10 +42,14 @@ class RegisterContainer extends React.Component {
         e.preventDefault();
         if(this.state.firstName.length === 0 ||this.state.lastName.length === 0 || this.state.password.length === 0 || this.state.email.length === 0 ){
             this.setState({alertNull:true})
+            this.setState({userExists:false})
         }else{
             this.props.newUser(this.state)
             .then(result=> {
-                if(result==="Email existente") this.setState({userExists:true})
+                if(result==="Email existente") {
+                    this.setState({userExists:true})
+                    this.setState({alertNull:false})
+                }
                 else {
                     localStorage.setItem('email', this.state.email)
                     localStorage.setItem('password', this.state.password)

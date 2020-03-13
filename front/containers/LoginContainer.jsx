@@ -45,19 +45,21 @@ class LoginContainer extends React.Component {
   handlerSubmit(e) {
     e.preventDefault();
     if(this.state.password.length === 0 ||this.state.email.length === 0){
-      this.setState({alertNull:true})}
-    else{
+      this.setState({alertNull:true})
+      this.setState({alertPass:false})
+    }else{
       this.props.loginUser(this.state)
         .then(result => {
           if(result.success===false) {
             this.setState({alertPass:true})
+            this.setState({alertNull:false})
           } else {
             this.props.getCart()
             .then(cart => {
               console.log(cart)
-              if(cart.list.length && this.props.localstorage.length) this.props.history.push("/selectcart")
+              if((cart || cart.list.length) && (this.props.localstorage.length)) this.props.history.push("/selectcart")
               else {
-                this.props.mergeCart(this.props.localstorage)
+                if(this.props.localstorage) this.props.mergeCart(this.props.localstorage)
                 this.props.history.push("/products")
               }
             })

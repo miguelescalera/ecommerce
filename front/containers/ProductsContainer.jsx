@@ -25,6 +25,7 @@ const mapStateToProps = function(state) {
 
 
 const mapDispatchToProps = function(dispatch) {
+  
   return {
     fetchSearchProducts: input => dispatch(fetchSearchProducts(input)),
     getAllProducts: () => dispatch(getAllProducts()),
@@ -42,45 +43,9 @@ class ProductsContainer extends React.Component {
     this.handleClick= this.handleClick.bind(this)
   }
   componentDidMount() {
-    if(!this.props.productWithoutUser){
-      arrayOfPO=[]
-    }
-    else{
-      arrayOfPO=this.props.productWithoutUser
-    }
-    console.log("INPUT",this.props.input)
     if (this.props.input) this.props.fetchSearchProducts(this.props.input);
     else this.props.getAllProducts();
     if(this.props.loginUser) this.props.getCart()
-      
-
-    //localstorage para mantenerse logeado
-    const emailUser = localStorage.getItem("email");
-    const passwordUser = localStorage.getItem("password");
-    const data = {
-      email: emailUser,
-      password: passwordUser
-    };
-    //////SE LOGUEA E USUARIO AUTOMATICAMENTE////////
-    if (emailUser && passwordUser) {
-      function fetchProductsUser(){
-        let products = JSON.parse(localStorage.getItem("products")) 
-          if(products){
-            for(let i=0;i<products.length;i++){ 
-              let productId=products[i].idProduct
-              let producQuantity= products[i].quantity
-              this.props.setCartProducts(productId,producQuantity)
-            }
-            localStorage.removeItem("products")
-          }
-             
-        }
-        fetchProductsUser = fetchProductsUser.bind(this)
-        this.props.loginUser(data)
-        .then(()=> fetchProductsUser()())
-        .then(()=> this.props.getCart())
-      }
-       
         
   }
   componentDidUpdate(prevProps) {

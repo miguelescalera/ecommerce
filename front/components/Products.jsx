@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import TarjetaProducto from "./TarjetaProducto";
 import Container from "react-bootstrap/Container"
 
 export default ({ products, handleClick, cart }) => {
+
   const resultTarj = {
     display: 'flex',
     flexWrap: 'wrap',

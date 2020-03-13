@@ -45,16 +45,8 @@ export default ({ handlerChange, handlerSubmit, alertNull, alertPass }) => {
             <Form.Label>Password</Form.Label>
             <Form.Control type="password" placeholder="Password" name="password" onChange={handlerChange} />
           </Form.Group>
-          {alertNull? 
-          (<Alert variant="warning">
-              Por favor completá los campos.
-          </Alert>):
-          alertPass?
-          (<Alert variant="warning">
-              Usuario o contraseña incorrectos.
-          </Alert>):
-          null
-          }
+          {alertNull?( <Alert variant="warning">Por favor completá los campos.</Alert>): null}
+          {alertPass?(<Alert variant="warning">Usuario o contraseña incorrectos.</Alert>):null}
           <Button variant="dark" type="submit" style={{marginBlockStart:'1rem'}} onClick={handlerSubmit}>
             Iniciar Sesión
         </Button>

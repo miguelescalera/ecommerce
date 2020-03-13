@@ -33,6 +33,10 @@ const addWines = async function(input) {
   );
 };
 
+const addUsers = function(input){
+  User.create(input)
+}
+
 const wine = [
   (wine15 = {
     product: {
@@ -134,7 +138,7 @@ const wine = [
       rating: 4.5
     },
     brand: {
-      name: "Matías Riccitelli Wines",
+      name: "Matias Riccitelli",
       origin: "Mendoza"
     },
     categories: [{ name: "Tinto" }]
@@ -353,7 +357,7 @@ const wine = [
       rating: 4
     },
     brand: {
-      name: "José L. Mounier",
+      name: "Jose Mounier",
       origin: "Mendoza"
     },
     categories: [{ name: "Rose" }]
@@ -505,4 +509,4 @@ const users = [
   })
 ];
 wine.map(e => addWines(e));
-// users.map(e => adduser(e));
+users.map(e => addUsers(e));
