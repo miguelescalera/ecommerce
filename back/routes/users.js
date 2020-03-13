@@ -12,15 +12,35 @@ const Op = Sequelize.Op;
 //     else{res.send("nadie autenticado")}
 // }
 
-router.post("/register",function(req,res,next){
-        User.create(req.body)
-        .then(user=>res.send(user))
-        .catch(next)
+router.post("/register",async function(req,res,next){
+        User.findOne({where: {email: req.body.email}}) 
+        .then(user=> {
+            if(user) res.send("Email existente")
+            else {
+                User.create(req.body)
+                .then(user=>res.send(user))
+                .catch(next)
+            }
+        })
 })
-
-router.post("/login",passport.authenticate('local'),function(req,res){
-    res.send(req.user)
-})
+router.post('/login', function(req, res, next) {
+    passport.authenticate('local', function(err, user, info) {
+      if (err) {
+        return next(err); // will generate a 500 error
+      }
+      // Generate a JSON response reflecting authentication status
+      if (! user) {
+        return res.send({ success : false, message : 'authentication failed' });
+      }
+      
+      req.login(user, loginErr => {
+        if (loginErr) {
+          return next(loginErr);
+        }
+        return res.send(req.user);
+      });      
+    })(req, res, next);
+  });
   
 
 router.post('/logout', function(req, res){
@@ -33,12 +53,20 @@ res.send("Logout")
 });
 
 
-
 router.get("/myorders", async function(req, res){
     // Get all orders
     const allOrders = await Order.findAll({
 // Make sure to include the products
-        include: [{
+        include: [
+            {
+                model: User,
+                as: "User",
+                required: true,
+                where: {
+                    id: req.user.id
+                }
+            },
+            {
             model: Product,
             as: 'products',
             required: false,
@@ -51,7 +79,9 @@ router.get("/myorders", async function(req, res){
             attributes: ['quantity', "totalPrice"],
             }
         }],
-        where: {status:{ [Op.not]: 'cart'}}
+        where: {
+            status:{ [Op.not]: 'cart'}
+        }
     })
 res.send(allOrders) 
 })

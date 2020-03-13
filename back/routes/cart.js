@@ -121,4 +121,23 @@ router.put("/checkout", async function(req, res, next) {
   res.send(order)
 })
 
+router.delete("/delete", async function(req, res, next) {
+  const order = await Order.findOne({
+    where:{
+      userId: req.user.id,
+      status: "cart"
+    } })
+  const products = await order.getProducts();
+  
+  order.removeProducts(products);
+  
+  const deletedOrder = await Order.destroy({
+    where: {
+      userId: req.user.id,
+      status: "cart"
+    },
+  });
+  res.send(deletedOrder.id)
+})
+
 module.exports = router;

@@ -64,7 +64,9 @@ const TarjetaProducto = function ({ product, handleClick }) {
             </Col>
             <Col md={3} style={{height:"3rem"}}>
               <span style={comprar}>
-              <Button variant="dark" onClick={() => handleClick(product.id, 1)} >{<FontAwesomeIcon fontSize="md" icon={faCartPlus} />}</Button>
+              <Button variant="dark" onClick={() => 
+                handleClick(product.id, 1, product.name, product.price, product.stock, product.imgUrl)} >
+                  {<FontAwesomeIcon fontSize="md" icon={faCartPlus} />}</Button>
               </span>
             </Col>
           </Row>

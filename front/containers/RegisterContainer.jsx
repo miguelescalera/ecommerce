@@ -24,7 +24,9 @@ class RegisterContainer extends React.Component {
             firstName: "",
             lastName: "",
             email: "",
-            password: ""
+            password: "",
+            alertNull: false,
+            userExists: false
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -33,24 +35,26 @@ class RegisterContainer extends React.Component {
         let value = e.target.value
         let key = e.target.name
         this.setState({ [key]: value })
-
     }
 
     handleSubmit(e) {
 
         e.preventDefault();
-
-        this.props.newUser(this.state)
-
-        localStorage.setItem('email', this.state.email)
-        localStorage.setItem('password', this.state.password)
-
-        this.props.history.push("/users/login")
+        if(this.state.firstName.length === 0 ||this.state.lastName.length === 0 || this.state.password.length === 0 || this.state.email.length === 0 ){
+            this.setState({alertNull:true})
+        }else{
+            this.props.newUser(this.state)
+            .then(result=> {
+                if(result==="Email existente") this.setState({userExists:true})
+                else {
+                    localStorage.setItem('email', this.state.email)
+                    localStorage.setItem('password', this.state.password)
+            
+                    this.props.history.push("/users/login")
+                }
+            })
+        }
     }
-
-
-
-
 
 
     render() {
@@ -58,7 +62,7 @@ class RegisterContainer extends React.Component {
             <div>
                 <h3 className="d-flex justify-content-center" style={{ marginBlockEnd: "1.5rem", marginBlockStart: "1.5rem" }}>Registro</h3>
 
-                <Register handleChange={this.handleChange} handleSubmit={this.handleSubmit} input={this.state} />
+                <Register handleChange={this.handleChange} handleSubmit={this.handleSubmit} input={this.state} alertNull={this.state.alertNull} userExists={this.state.userExists} />
             </div>
         )
     }

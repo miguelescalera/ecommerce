@@ -15,7 +15,8 @@ import AddReviewContainer from "../containers/AddReviewContainer"
 import {getLoginUser} from "../actions/LoginActions"
 import {connect} from "react-redux"
 import SuperadminOrdersContainer from "../containers/SuperadminOrdersContainer";
-
+import {setLocalStorage} from "../actions/localStorage"
+import ChooseCartContainer from "../containers/ChooseCartContainer"
 
 const mapStateToProps= (state)=>{
   return{
@@ -25,7 +26,8 @@ const mapStateToProps= (state)=>{
 
 const mapDispatchToProps = (dispatch)=> {
   return{
-    getLoginUser: ()=> dispatch(getLoginUser())
+    getLoginUser: ()=> dispatch(getLoginUser()),
+    setLocalStorage: (storage)=> dispatch(setLocalStorage(storage))
   }
 }
 
@@ -36,6 +38,9 @@ class Main extends React.Component {
 
 componentDidMount(){
   this.props.getLoginUser()
+  let productsOffline = JSON.parse(localStorage.getItem("products")) 
+  if(!productsOffline) localStorage.setItem("products",JSON.stringify([]))
+  this.props.setLocalStorage(JSON.parse(localStorage.getItem("products")) )
 }
   render(){
     return (
@@ -44,6 +49,7 @@ componentDidMount(){
         <Switch>
           {/* <Route path="/home" exact component={PaginaPrincipalContainer} /> */}
           <Route path="/products" exact component={ProductsContainer} />
+          <Route path="/selectcart" exact component={ChooseCartContainer} />
           <Route path="/products/:id" exact component={ProductContainer} />
           <Route path="/users/register" exact component={RegisterContainer} />
           <Route path="/users/login" exact component={LoginContainer} />
