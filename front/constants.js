@@ -22,9 +22,6 @@ export const LOCALSTORAGE = "LOCALSTORAGE";
 export const ADD_PRODUCT = "ADD_PRODUCT";
 
 
-export const GET_CATEGORIES = "GET_CATEGORIES";
-export const GET_BRANDS = "GET_BRANDS";
-
 export const GET_LOCALSTORAGE = "GET_LOCALSTORAGE"
 export const GET_USER_ORDERS = "GET_USER_ORDERS";
 export const GET_CATEGORIES = "GET_CATEGORIES";

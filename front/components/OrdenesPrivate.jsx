@@ -39,12 +39,15 @@ const orderPrivate = function ({ order, handleChange, handleClick }) {
         <Card.Header style={{width:'100%'}}>
           {/* <Accordion.Toggle as={Button} variant="link" eventKey="0"> */}
 
-          <Table hover
+          <Table 
+          >
+            
+            <thead
+            hover
             onClick={() => setOpen(!open)}
             aria-controls={order.id}
             aria-expanded={open}
-          >
-            <thead>
+            >
                 <tr>
                   <th>Orden</th>
                   <th>Usuario</th>

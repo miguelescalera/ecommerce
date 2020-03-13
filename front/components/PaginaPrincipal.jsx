@@ -75,7 +75,7 @@ export default ({
 
         <h1 style={{ color: '#ffffff', paddingBottom: '1.5rem', display:'block' }}>
 
-          ¿Que vino queres probar hoy?
+          ¿Qué vino querés probar hoy?
         </h1>
         <Form type="submit" style={formStyles} onSubmit={handleSubmit}>
           {" "}
