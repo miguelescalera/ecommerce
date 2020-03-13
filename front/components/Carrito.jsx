@@ -43,7 +43,7 @@ export default ({ products, order, logged }) => {
     }
 
     return (
-        <div>
+        <div >
 
             <Card style={resumenCompraStyles}>
                 <Card.Header>Resumen de Compra</Card.Header>
@@ -81,8 +81,8 @@ export default ({ products, order, logged }) => {
                         <Container style={{ style: 'flex', justifyContent: 'space-between' }}>
                             <Button variant="outline-dark"><Link to='/products'> Seguir comprando </Link></Button>
                             {logged?
-                                (<Button style={{ marginLeft: "20px" }} variant="dark" > <Link to='/cart/checkout'>Checkout</Link></Button>):
-                                (<Button style={{ marginLeft: "20px" }} variant="dark" > <Link to='/users/register'>Checkout</Link></Button>)}
+                                (<Button style={{ marginLeft: "20px" }} variant="outline-dark" > <Link to='/cart/checkout'>Checkout</Link></Button>):
+                                (<Button style={{ marginLeft: "20px" }} variant="outline-dark" > <Link to='/users/login'>Inicia sesión</Link></Button>)}
                         </Container>
                     </ListGroup.Item>
                 </ListGroup>

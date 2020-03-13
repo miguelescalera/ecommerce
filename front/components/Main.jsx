@@ -15,6 +15,7 @@ import AddReviewContainer from "../containers/AddReviewContainer"
 import {getLoginUser} from "../actions/LoginActions"
 import {connect} from "react-redux"
 import SuperadminOrdersContainer from "../containers/SuperadminOrdersContainer";
+import GraciasContainer from "../containers/GraciasContainer";
 
 
 const mapStateToProps= (state)=>{
@@ -42,13 +43,14 @@ componentDidMount(){
       <div id="main">
         <NavbarContainer />
         <Switch>
-          {/* <Route path="/home" exact component={PaginaPrincipalContainer} /> */}
+          <Route path="/home" exact component={PaginaPrincipalContainer} />
           <Route path="/products" exact component={ProductsContainer} />
           <Route path="/products/:id" exact component={ProductContainer} />
           <Route path="/users/register" exact component={RegisterContainer} />
           <Route path="/users/login" exact component={LoginContainer} />
           <Route path="/cart" exact component={CarritoContainer} />
           <Route path="/cart/checkout" exact component={CheckoutContainer} /> 
+          <Route path="/cart/checkout/gracias" exact component={GraciasContainer} /> 
           <Route path="/private" exact component={superAdminContainer} />
           <Route path="/private/orders" exact component={SuperadminOrdersContainer} />
           <Route path="/users/myorders" exact component={UserContainer} />  

@@ -2,10 +2,26 @@ import React from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button'
 import Col from "react-bootstrap/Col"
+import { Container } from 'react-bootstrap';
+import Link from 'react-router-dom'
+
 
 export default ({handleClick, handleChange}) => {
+
+
+  const checkoutFormStyle = {
+    display:'flex',
+    flexDirection:'column',
+    alignItems:'center'
+  }
+
   return (
     <div>
+
+
+<Container style={checkoutFormStyle}>
+
+
       <Form>
         <Form.Group controlId="formGridAddress1">
           <Form.Label>Dirección</Form.Label>
@@ -29,10 +45,12 @@ export default ({handleClick, handleChange}) => {
           <Form.Label>Instrucciones</Form.Label>
           <Form.Control as="textarea" rows="3" name="deliveryInstructions" onChange={handleChange}/>
         </Form.Group>
-        <Button variant="primary" type="submit" onClick={handleClick} >
-          Submit
-        </Button>
+
       </Form>
+
+      <Button variant="outline-dark" type="submit" onClick={handleClick} >Confirmar pedido</Button>
+
+      </Container>
     </div>
   );
 };

@@ -6,7 +6,11 @@ import Alert from "react-bootstrap/Alert"
 
 //revisar
 
-export default ({ handleChange, handleSubmit }) => {
+
+
+
+
+export default ({ handleChange, handleSubmit}) => {
 
   const formStyle = {
     width: "25%",
@@ -21,7 +25,7 @@ export default ({ handleChange, handleSubmit }) => {
   return (
     <div  style={divFormStyle}>
       <Card style={formStyle}>
-      <h3 className="d-flex justify-content-center" style={{ marginBlockEnd: "1rem" }}>Iniciá sesión</h3>
+      <h3 className="d-flex justify-content-center" style={{ marginBlockEnd: "1rem" }}>Danos tu opinión</h3>
         <Form >
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Rating</Form.Label>
