@@ -12,6 +12,8 @@ const {
   Image,
   Review
 } = require("../models");
+const passport = require("passport");
+const Op = require("sequelize").Op
 
 
 

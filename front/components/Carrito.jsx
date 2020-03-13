@@ -33,15 +33,22 @@ let hardcodeada = [
 
 let total = 0
 
-export default ({ products, order, logged }) => {
+export default (props) => {
+    const products = props.products
+    const logged = props.logged
+    let order = props.order
 
+    // if(!logged){
+    //     let sum = 0
+    //     if(products) sum = products.reduce((x, y) => x.totalPrice + y.totalPrice)
+    //     order = {subTotal: sum}
+    // }
     const resumenCompraStyles = {
         width: '20rem',
         margin: '10px',
         borderRadius: "0px",
         boxShadow: '8px 8px 15px -10px rgba(0,0,0,0.39)',
     }
-
     return (
         <div >
 
@@ -62,17 +69,19 @@ export default ({ products, order, logged }) => {
                                         </Col>
                                     </Row>
                                 </ListGroup.Item>
-
                             )
                         })
                     ) : null}
                     <ListGroup.Item style={{ style: 'flex', justifyContent: 'space-between' }}>
                         <Row style={{ style: 'flex', justifyContent: 'space-between' }}>
                             <Col style={{ alignSelf: 'flex-start', display: 'block' }}>
-                                <span>Total</span>
+                                {logged?<span>Total</span> : null}
                             </Col>
                             <Col style={{ alignSelf: 'flex-end', display: 'block', textAlign: 'right' }}>
-                                <span>${order? order.subTotal: 0}</span>
+                                <span>${order? 
+                                order.subTotal: 0
+                                
+                                }</span>
                             </Col>
                         </Row>
                     </ListGroup.Item>

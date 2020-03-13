@@ -15,7 +15,7 @@ export default combineReducers({
   user: userReducer,
   input: searchReducer,
   cart: cartReducer,
-  productWithoutUser: LocalStorageReducer,
+  localstorage: LocalStorageReducer,
   orders: ordersReducer,
   allUsers: allUsersReducer,
   nav: navbarFilters

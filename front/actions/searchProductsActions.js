@@ -13,9 +13,9 @@ export const productToUpdate = toUpdate=> ({
 export const getAllProducts = () => dispatch => {
   return axios
     .get(`/api/products`)
-    .then(res => res.data)
     .then(result => {
-      dispatch(SearchProducts(result));
+      dispatch(SearchProducts(result.data))
+      return result.data
     });
 };
 

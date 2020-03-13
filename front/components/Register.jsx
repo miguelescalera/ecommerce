@@ -1,8 +1,10 @@
 import React from "react";
+import {Link} from "react-router-dom"
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Container from 'react-bootstrap/Container'
 import Card from 'react-bootstrap/Card'
+import Alert from "react-bootstrap/Alert"
 
 import Col from 'react-bootstrap/Col'
 import Img from 'react-bootstrap/Image'
@@ -12,12 +14,9 @@ import { faGlassCheers } from '@fortawesome/free-solid-svg-icons';
 import Row from "react-bootstrap/Row";
 
 
-export default ({ handleChange, handleSubmit, input }) => {
+export default ({ handleChange, handleSubmit, input, alertNull, userExists }) => {
 
 
-
-
-  
   const formStyle = {
     width: "300px",
     padding: "1rem",
@@ -74,9 +73,16 @@ border: '1px solid rgba(0,0,0,0)'
               <Form.Label>Password</Form.Label>
               <Form.Control type="password" placeholder="Password" onChange={handleChange} name='password' />
             </Form.Group>
+            {alertNull?( <Alert variant="warning">Por favor completá todos los campos.</Alert>): null}
+            {userExists?(<Alert variant="warning">Ese usuario ya existe.</Alert>):null}
             <Button variant="dark" type="submit">
               <FontAwesomeIcon icon={faGlassCheers} />
             </Button>
+            <Link to="/users/login">
+              <Form.Text className="text-muted">
+                  Ya tienes una cuenta? Ir al login.
+              </Form.Text>
+            </Link>
           </Form>
         </div>
       </span>

@@ -1,13 +1,15 @@
-import {LOCALSTORAGE} from '../constants'
+import {GET_LOCALSTORAGE} from '../constants'
+
 const initialState = {
-    products: []
+  data: []
 }
 
 export default (state = initialState, action) => {
     switch (action.type) {
-      case LOCALSTORAGE: 
-        return Object.assign({}, state, { products: action.selectedProduct });
-      default: 
+      case GET_LOCALSTORAGE: 
+        return Object.assign({}, state, 
+          { data: action.data});
+      default:
          return state;
     }
   }

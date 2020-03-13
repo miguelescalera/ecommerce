@@ -18,10 +18,16 @@ export const setCartProduct  = (product) => ({
   product
 })
 
-export const getCart = (user) => dispatch => {
-    axios.get("/api/cart").then(res => res.data)
-  .then(products => dispatch(setCart(products, false)))
+export const getCart = () => dispatch => {
+  return axios.get("/api/cart")
+  .then(products => {
+    dispatch(setCart(products.data, false))
+    if(products.data) return products.data
+    else return {}
+  })
 }
+
+
 
 export const modifyCartProduct = (productId, quantity) => dispatch => {
 return axios
@@ -36,7 +42,7 @@ export const deleteCartProduct = (productId) => dispatch => {
   return axios
   .post(`/api/cart/products/${productId}/deletefromcart`)
   .then(product => {
-    dispatch(setCartProduct({}))
+    dispatch(setCartProduct({deleted: productId}))
     return product
   })
 }
@@ -49,4 +55,9 @@ export const checkoutCart = (data) => dispatch =>{
     return order
 })
 }
-  
+
+export const replaceCart = (localSt) => dispatch => {
+  localSt.map(product => {
+    axios.post(`/api/cart/products/${product.productId}/modifycart`, {n: product.quantity})
+  })
+}
