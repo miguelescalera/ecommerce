@@ -3,8 +3,14 @@
 const React = require("react");
 
 export default ({ handleChange, handleSubmit }) => {
+  const styleMain={
+    backgroundColor:"#C0C0C0",
+    marginTop: "7%",
+    width: "40%",
+    marginLeft: "25%"
+   }
   return (
-    <div class="jumbotron">
+    <div style={styleMain} class="jumbotron">
       <h3 class="display-4">Add Product</h3>
       <hr class="my-4" />
       <form onSubmit={handleSubmit}>

@@ -144,7 +144,19 @@ const Navbars = function({
         </Col>
         <Col md="auto">{emailUser ? userLogout : userLogin}</Col>
         <Col md="auto">{emailUser ? userMyOrders : userRegister}</Col>
-        <Col md="auto"><Link to='/private/orders' style={fontNavBar}> SuperAdmin </Link></Col>
+
+        <Col md="auto">
+          <Link to="/private">
+            <Nav style={fontNavBar}>
+              {" "}
+              <FontAwesomeIcon icon={faShoppingCart} /> super Admin{" "}
+            </Nav>
+          </Link>
+        </Col>
+
+
+        
+
       </Row>
 
       {/* SEGUNDA ROW DE NAVBAR CON BUSCAR POR BODEGA/CATEGORIAS/ORDENARPOR */}

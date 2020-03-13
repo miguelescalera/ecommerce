@@ -6,8 +6,10 @@ const express = require("express");
 const router = express.Router();
 
 const checkAdmin= function(req,res,next){
+    console.log("user:",req.user.status)
     if(!req.user) return res.send("Please login")
     if(req.user.status <2 ) return res.status(401).send("No sos admin vieja")
+   
     next()
 }
 
