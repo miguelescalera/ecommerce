@@ -141,6 +141,7 @@ const Navbars = function({
               <FontAwesomeIcon icon={faShoppingCart} /> Cart{" "}
             </Nav>
           </Link>
+          
         </Col>
         <Col md="auto">{emailUser ? userLogout : userLogin}</Col>
         <Col md="auto">{emailUser ? userMyOrders : userRegister}</Col>

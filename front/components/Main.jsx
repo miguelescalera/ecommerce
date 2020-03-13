@@ -15,7 +15,8 @@ import addProductAdminContainer from "../containers/addProductAdminContainer"
 import AddReview from "../components/AddReview"
 
 import CheckoutContainer from '../containers/CheckoutContainer'
-//import UserContainer from "../containers/UserContainer";
+// import UserContainer from "../containers/UserContainer";
+import UserOrderContainer from "../containers/UserOrdersContainer"
 import CarritoContainer from "../containers/CarritoContainer";
 import updateProductContainer from "../containers/updateProductContainer"
 import AddReviewContainer from "../containers/AddReviewContainer"
@@ -68,8 +69,8 @@ componentDidMount(){
           <Route path="/private" exact component={MainPrivate} />
           {/* <Route path="/checkout" exact component={CheckoutContainer} />
           <Route path="/user/:id" exact component={UserContainer} />  */}
-  {/* <Route path="/users/myorders" exact component={UserContainer} /> 
-          <Route path="/users/myorders" exact component={UserContainer} />   */}
+          {/* <Route path="/users/myorders" exact component={UserContainer} />  */}
+          <Route path="/users/myorders" exact component={UserOrderContainer} />  
           <Route path="/users/myorders/addReview/:id" component={AddReview} />  
   
           {/* <Route path="/checkout" exact component={CheckoutContainer} /> */}
