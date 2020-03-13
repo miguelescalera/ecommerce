@@ -33,6 +33,7 @@ class NavbarContainer extends React.Component {
   }
   handleSubmit(event){
     event.preventDefault()
+    this.props.setInput(this.state.input)
     this.props.getProducts(this.state.input) 
     this.props.history.push('/products')// esta linea de cod. redirecciona al usuario cuando haga submit al formulario
   }
@@ -43,6 +44,7 @@ class NavbarContainer extends React.Component {
   }
   handleFilter(value){
     this.props.getProducts(value)
+    this.props.setInput(this.state.input)
     this.props.history.push('/products')
   }
   handleProducts(){

@@ -41,6 +41,7 @@
     "webpack-cli": "^3.3.11"
   },
   "devDependencies": {
-    "css-loader": "^3.4.2"
+    "css-loader": "^3.4.2",
+    "image-webpack-loader": "^6.0.0"
   }
 }
