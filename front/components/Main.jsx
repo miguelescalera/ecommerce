@@ -80,7 +80,7 @@ componentDidMount(){
           
           <Route path="/users/myorders/addReview/:id" component={AddReviewContainer} />  
 
-          <Redirect from="/" to="/products" />
+          <Redirect from="/" to="/home" />
         </Switch>
         <FooterContainer/>
       </div>
