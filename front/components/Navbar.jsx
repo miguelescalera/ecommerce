@@ -63,6 +63,14 @@ const Navbars = function({
     </Link>
   );
   /////////////////////////////////////////////////
+  let userSuperAdmin = (
+    <Link to="/private">
+            <Nav.Link href="#usuario" style={fontNavBar}>
+              <FontAwesomeIcon icon={faShoppingCart} /> super Admin{" "}
+            </Nav.Link>       
+          </Link>
+  );
+ //////////////////////////////////////////////////
 
   const DropdownStyle = React.forwardRef(({ children, onClick }, ref) => (
     <a
@@ -102,7 +110,7 @@ const Navbars = function({
   };
 
   const fontNavBar = {
-    color: "#808080"
+    color: "#808080",
   };
 
   return (
@@ -145,15 +153,8 @@ const Navbars = function({
         </Col>
         <Col md="auto">{emailUser ? userLogout : userLogin}</Col>
         <Col md="auto">{emailUser ? userMyOrders : userRegister}</Col>
-
-        <Col md="auto">
-          <Link to="/private">
-            <Nav >
-              {" "}
-              <FontAwesomeIcon icon={faShoppingCart} /> super Admin{" "}
-            </Nav>
-          </Link>
-        </Col>
+        <Col md="auto">{emailUser ? userSuperAdmin : null}</Col> 
+      
 
 
         
